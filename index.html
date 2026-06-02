@@ -159,6 +159,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 <button onclick="sh('tr')">🚄 交通</button>
 <button onclick="sh('tk')">🎫 门票</button>
 <button onclick="sh('fo')">🍜 美食</button>
+<button onclick="sh('ho')">🏨 住宿</button>
 <button onclick="sh('eg')">🎁 彩蛋</button>
 <button onclick="sh('ti')">📌 贴士</button>
 </div>
@@ -244,13 +245,34 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 </div>
 
 <div class="bg" id="budgetCards">
-<div class="bc"><div class="i">✈️</div><div class="la">飞机</div><div class="am" id="bc-flight">¥1,960</div><div class="su">✅ 已买</div></div>
-<div class="bc"><div class="i">🚄</div><div class="la">高铁/火车</div><div class="am" id="bc-train">¥290</div><div class="su">✅ 已买</div></div>
-<div class="bc"><div class="i">🚌</div><div class="la">市内/景区交通</div><div class="am" id="bc-local">¥350</div><div class="su">部分待付</div></div>
-<div class="bc"><div class="i">🎫</div><div class="la">门票</div><div class="am" id="bc-ticket">¥837</div><div class="su">部分已买</div></div>
-<div class="bc"><div class="i">🏨</div><div class="la">住宿</div><div class="am" id="bc-hotel">¥684</div><div class="su">✅ 已订</div></div>
-<div class="bc"><div class="i">🍜</div><div class="la">餐饮</div><div class="am" id="bc-food">¥700</div><div class="su">待付</div></div>
-<div class="bc"><div class="i">📦</div><div class="la">其他(泡脚+书店)</div><div class="am" id="bc-other">¥240</div><div class="su">待付</div></div>
+<div class="bc"><div class="i">✈️</div><div class="la">飞机</div><div class="am" id="bc-flight">¥1,960</div><div class="su">✅ 已买</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--g);width:100%"></div></div></div>
+<div class="bc"><div class="i">🚄</div><div class="la">高铁/火车</div><div class="am" id="bc-train">¥290</div><div class="su">✅ 已买</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--g);width:100%"></div></div></div>
+<div class="bc"><div class="i">🚌</div><div class="la">市内/景区交通</div><div class="am" id="bc-local">¥350</div><div class="su">部分待付</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--a);width:40%"></div></div></div>
+<div class="bc"><div class="i">🎫</div><div class="la">门票</div><div class="am" id="bc-ticket">¥837</div><div class="su">部分已买</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--a);width:33%"></div></div></div>
+<div class="bc"><div class="i">🏨</div><div class="la">住宿</div><div class="am" id="bc-hotel">¥684</div><div class="su">✅ 已订</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--g);width:100%"></div></div></div>
+<div class="bc"><div class="i">🍜</div><div class="la">餐饮</div><div class="am" id="bc-food">¥700</div><div class="su">待付</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--g200);width:0%"></div></div></div>
+<div class="bc"><div class="i">📦</div><div class="la">其他(泡脚+书店)</div><div class="am" id="bc-other">¥240</div><div class="su">待付</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--g200);width:0%"></div></div></div>
+</div>
+
+<div style="background:#fff;border-radius:var(--r);padding:12px;margin-top:12px;box-shadow:var(--sh)">
+<div style="font-size:12px;font-weight:600;margin-bottom:8px">📊 准备进度</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;font-size:11px">
+<span style="padding:3px 8px;border-radius:4px;background:var(--gl);color:var(--g)">✅ 飞机 100%</span>
+<span style="padding:3px 8px;border-radius:4px;background:var(--gl);color:var(--g)">✅ 高铁 100%</span>
+<span style="padding:3px 8px;border-radius:4px;background:var(--gl);color:var(--g)">✅ 住宿 100%</span>
+<span style="padding:3px 8px;border-radius:4px;background:var(--al);color:#B08020">🔶 门票 33%</span>
+<span style="padding:3px 8px;border-radius:4px;background:var(--al);color:#B08020">🔶 市内交通 40%</span>
+<span style="padding:3px 8px;border-radius:4px;background:var(--g100);color:var(--g500)">⬜ 餐饮 0%</span>
+<span style="padding:3px 8px;border-radius:4px;background:var(--g100);color:var(--g500)">⬜ 其他 0%</span>
+</div>
+<div style="margin-top:10px;height:8px;border-radius:4px;background:var(--g100)">
+<div style="height:100%;border-radius:4px;background:linear-gradient(90deg,var(--g) 0%,var(--g) 55%,var(--a) 55%,var(--a) 70%,var(--g200) 70%);width:100%"></div>
+</div>
+<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--g500);margin-top:4px">
+<span>已完成 55%</span>
+<span>进行中 15%</span>
+<span>未开始 30%</span>
+</div>
 </div>
 
 <div class="st" style="margin-top:16px">实际支出（来自记账）</div>
@@ -340,6 +362,71 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 <tr><td>D5</td><td>伴手礼</td><td>文殊院宫廷糕点</td><td>各种糕点</td><td>¥30</td><td>🎁带回家</td></tr>
 </tbody></table>
 </div>
+
+
+<!-- ========== 住宿 ========== -->
+<div id="ho" class="s">
+<div class="st">🏨 住宿详情</div>
+
+<div style="background:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--sh);border-left:4px solid var(--g)">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
+<div>
+<div style="font-size:16px;font-weight:700;color:var(--g)">🏔️ 青禾和院</div>
+<div style="font-size:12px;color:var(--g500);margin-top:2px">九寨沟 · D1-D3 · 2晚</div>
+</div>
+<div style="text-align:right">
+<div style="font-size:18px;font-weight:700;color:var(--p)">¥750</div>
+<div style="font-size:11px;color:var(--g500)">¥375/晚/人</div>
+</div>
+</div>
+<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--g100)">
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<span style="font-size:11px;padding:2px 8px;border-radius:4px;background:var(--gl);color:var(--g)">✅ 已订</span>
+<span style="font-size:11px;padding:2px 8px;border-radius:4px;background:var(--al);color:#B08020">私汤轻奢</span>
+<span style="font-size:11px;padding:2px 8px;border-radius:4px;background:var(--bl);color:var(--b)">携程4.8分</span>
+<span style="font-size:11px;padding:2px 8px;border-radius:4px;background:var(--g100);color:var(--g700)">2025年新开</span>
+</div>
+</div>
+<div style="margin-top:10px;font-size:12px;color:var(--g700);line-height:1.6">
+<div>🎁 含早餐 + 免费接送站</div>
+<div>🎁 房间私汤泡脚解乏</div>
+<div>📍 九寨沟景区附近</div>
+<div>💡 让前台联系包车去黄龙最靠谱</div>
+</div>
+</div>
+
+<div style="background:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--sh);border-left:4px solid var(--b)">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
+<div>
+<div style="font-size:16px;font-weight:700;color:var(--b)">🏙️ 汉庭宽窄巷子中心店</div>
+<div style="font-size:12px;color:var(--g500);margin-top:2px">成都 · D3-D6 · 3晚</div>
+</div>
+<div style="text-align:right">
+<div style="font-size:18px;font-weight:700;color:var(--p)">¥750</div>
+<div style="font-size:11px;color:var(--g500)">¥250/晚/人</div>
+</div>
+</div>
+<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--g100)">
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<span style="font-size:11px;padding:2px 8px;border-radius:4px;background:var(--gl);color:var(--g)">✅ 已订</span>
+<span style="font-size:11px;padding:2px 8px;border-radius:4px;background:var(--g100);color:var(--g700)">不含早</span>
+</div>
+</div>
+<div style="margin-top:10px;font-size:12px;color:var(--g700);line-height:1.6">
+<div>📍 西月城街16号</div>
+<div>🚶 步行可达宽窄巷子/人民公园/奎星楼街</div>
+<div>🍜 周边早餐丰富：梁记肥肠粉/谭豆花</div>
+<div>🚇 地铁4号线宽窄巷子站</div>
+</div>
+</div>
+
+<div style="background:var(--al);border-radius:var(--r);padding:12px;font-size:12px;color:var(--g700);line-height:1.6">
+<div style="font-weight:600;margin-bottom:4px">💰 住宿总花费</div>
+<div>2人共 ¥3,000（人均 ¥1,500）</div>
+<div style="margin-top:4px;font-size:11px;color:var(--g500)">青禾和院 ¥1,500(2晚×2人) + 汉庭 ¥1,500(3晚×2人)</div>
+</div>
+</div>
+
 
 <!-- ========== 彩蛋 ========== -->
 <div id="eg" class="s">
