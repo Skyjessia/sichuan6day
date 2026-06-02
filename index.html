@@ -298,6 +298,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 <option value="1">👤 1人</option>
 <option value="2" selected>👥 2人</option>
 </select>
+<select id="expDay" style="padding:7px 6px;border:1.5px solid var(--g200);border-radius:8px;font-size:12px;background:#fff">
+<option value="auto">📅 自动</option>
+<option value="D1">D1 6/13</option>
+<option value="D2">D2 6/14</option>
+<option value="D3">D3 6/15</option>
+<option value="D4">D4 6/16</option>
+<option value="D5">D5 6/17</option>
+<option value="D6">D6 6/18</option>
+</select>
 <input class="desc" id="expDesc" placeholder="描述（如：蜀九香火锅）">
 <button class="add-btn" onclick="addExpense()">+ 记一笔</button>
 </div>
@@ -520,17 +529,19 @@ function addExpense(){
   const cat=document.getElementById('expCat').value;
   const amt=parseFloat(document.getElementById('expAmt').value);
   const ppl=parseInt(document.getElementById('expPpl').value);
+  const daySel=document.getElementById('expDay').value;
   const desc=document.getElementById('expDesc').value.trim();
   if(!amt||amt<=0){toast('请输入金额');return}
   if(!desc){toast('请输入描述');return}
   const now=new Date();
-  const day=getDay(now);
+  const day=daySel==='auto'?getDay(now):daySel;
   expenses.push({id:Date.now(),cat,amt,desc,day,time:now.toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}),ppl});
   document.getElementById('expAmt').value='';
   document.getElementById('expDesc').value='';
+  document.getElementById('expDay').value='auto';
   renderExpenses();
   saveData();
-  toast('✅ 已记录 ¥'+amt+(ppl===2?' (2人)':''));
+  toast('✅ 已记录 ¥'+amt+' → '+day+(ppl===2?' (2人)':''));
 }
 
 function getDay(date){
