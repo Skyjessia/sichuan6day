@@ -170,7 +170,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 
 <!-- ========== 行程 ========== -->
 <div id="it" class="s on">
-<div class="edit-hint">💡 点击任意文字即可编辑 · 修改后自动保存</div>
+<div class="edit-hint">💡 点击任意文字即可编辑 · 修改后自动保存 · 点击日期栏展开/折叠</div>
+<div style="display:flex;gap:6px;margin-bottom:10px">
+<button onclick="document.querySelectorAll('.dc').forEach(d=>d.classList.add('open'))" style="padding:5px 12px;border:1.5px solid var(--g200);border-radius:8px;background:#fff;font-size:11px;cursor:pointer">📂 全部展开</button>
+<button onclick="document.querySelectorAll('.dc').forEach(d=>d.classList.remove('open'))" style="padding:5px 12px;border:1.5px solid var(--g200);border-radius:8px;background:#fff;font-size:11px;cursor:pointer">📁 全部折叠</button>
+</div>
 
 <!-- D1 -->
 <div class="dc open"><div class="dh" onclick="tg(this)"><div class="db d1"><span class="n">D1</span><span class="l">6/13</span></div><div class="di"><h3 contenteditable="true" data-field="d1-title">上海✈️成都→高铁🚄进九寨沟</h3><div class="ds" contenteditable="true" data-field="d1-sub">MU9181 → C5796 → 直通车</div></div><div class="dht">🏨 青禾和院</div><div class="darr">▼</div></div><div class="tl">
@@ -241,7 +245,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 <!-- ========== 预算 ========== -->
 <div id="bu" class="s">
 <div class="st">预算 vs 实际</div>
-<div class="bt"><div class="bl">预估总花费 / 人</div><div class="ba" id="budgetTotal">¥4,800+</div><div style="font-size:11px;opacity:.7;margin-top:3px">2人约 ¥9,600+</div></div>
+<div class="bt"><div class="bl">预估总花费</div><div class="ba" id="budgetTotal">¥5,596.51</div><div style="font-size:11px;opacity:.7;margin-top:3px">2人总价 · 含已付</div></div>
 
 <div class="prog-wrap">
 <div class="prog-label"><span>预算使用率</span><span id="progPct">0%</span></div>
@@ -249,11 +253,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 </div>
 
 <div class="bg" id="budgetCards">
-<div class="bc"><div class="i">✈️</div><div class="la">飞机</div><div class="am" id="bc-flight">¥1,960</div><div class="su">✅ 已买</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--g);width:100%"></div></div></div>
-<div class="bc"><div class="i">🚄</div><div class="la">高铁/火车</div><div class="am" id="bc-train">¥290</div><div class="su">部分已买</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--a);width:80%"></div></div></div>
+<div class="bc"><div class="i">✈️</div><div class="la">飞机</div><div class="am" id="bc-flight">¥1,560</div><div class="su">✅ 已买</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--g);width:100%"></div></div></div>
+<div class="bc"><div class="i">🚄</div><div class="la">高铁/火车</div><div class="am" id="bc-train">¥282</div><div class="su">部分已买</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--a);width:80%"></div></div></div>
 <div class="bc"><div class="i">🚌</div><div class="la">市内/景区交通</div><div class="am" id="bc-local">¥350</div><div class="su">待付</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--g200);width:0%"></div></div></div>
 <div class="bc"><div class="i">🎫</div><div class="la">门票</div><div class="am" id="bc-ticket">¥837</div><div class="su">部分已买</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--a);width:33%"></div></div></div>
-<div class="bc"><div class="i">🏨</div><div class="la">住宿</div><div class="am" id="bc-hotel">¥1,368</div><div class="su">✅ 已订</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--g);width:100%"></div></div></div>
+<div class="bc"><div class="i">🏨</div><div class="la">住宿</div><div class="am" id="bc-hotel">¥1,367.51</div><div class="su">✅ 已订</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--g);width:100%"></div></div></div>
 <div class="bc"><div class="i">🍜</div><div class="la">餐饮</div><div class="am" id="bc-food">¥700</div><div class="su">待付</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--g200);width:0%"></div></div></div>
 <div class="bc"><div class="i">🎭</div><div class="la">娱乐(泡脚/川剧/夜游)</div><div class="am" id="bc-entertain">¥300</div><div class="su">待付</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--g200);width:0%"></div></div></div>
 <div class="bc"><div class="i">🛒</div><div class="la">购物/伴手礼</div><div class="am" id="bc-shop">¥200</div><div class="su">待付</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--g200);width:0%"></div></div></div>
@@ -518,7 +522,7 @@ function setBottom(btn){
 function tg(el){el.closest('.dc').classList.toggle('open')}
 
 // ===== Expense data =====
-const BUDGET = {flight:1960,train:290,local:350,ticket:837,hotel:1368,food:700,entertain:300,shop:200,other:100};
+const BUDGET = {flight:1560,train:282,local:350,ticket:837,hotel:1367.51,food:700,entertain:300,shop:200,other:100};
 const BUDGET_TOTAL = Object.values(BUDGET).reduce((a,b)=>a+b,0);
 const CAT_MAP = {'✈️':'flight','🚄':'train','🚌':'local','🎫':'ticket','🏨':'hotel','🍜':'food','🎭':'entertain','🛒':'shop','📦':'other'};
 const CAT_NAMES = {flight:'✈️ 飞机',train:'🚄 高铁',local:'🚌 市内交通',ticket:'🎫 门票',hotel:'🏨 住宿',food:'🍜 餐饮',entertain:'🎭 娱乐',shop:'🛒 购物',other:'📦 其他'};
