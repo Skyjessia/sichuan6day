@@ -149,6 +149,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 
 <div class="al alg">✏️ 所有文字可直接点击编辑，费用可修改，数据自动保存到浏览器</div>
 <div class="al alw">⚠️ 金沙遗址博物馆闭馆至2027.4.30！别白跑</div>
+<div id="todoBanner" style="background:#FFF0F0;border:1.5px solid #E05040;border-radius:var(--r);padding:12px;margin-bottom:10px">
+<div style="font-size:13px;font-weight:700;color:#C03020;margin-bottom:8px">🔴 待办提醒 · 还没定的赶紧定！</div>
+<div id="todoList" style="font-size:12px;line-height:1.8;color:var(--g900)"></div>
+</div>
 <div class="al ali">💡 都江堰上海身份证¥15（原价¥80）！记得带身份证</div>
 
 <!-- Nav tabs -->
@@ -549,6 +553,7 @@ function addExpense(){
   document.getElementById('expDay').value='auto';
   renderExpenses();
   saveData();
+  renderTodo();
   toast('✅ 已记录 ¥'+amt+' → '+day+(ppl===2?' (2人)':''));
 }
 
@@ -563,13 +568,13 @@ function getDay(date){
 
 function delExpense(id){
   expenses=expenses.filter(e=>e.id!==id);
-  renderExpenses();saveData();toast('已删除');
+  renderExpenses();saveData();renderTodo();toast('已删除');
 }
 
 function clearExpenses(){
   if(expenses.length===0)return;
   if(!confirm('确认清空所有记账记录？'))return;
-  expenses=[];renderExpenses();saveData();toast('已清空');
+  expenses=[];renderExpenses();saveData();renderTodo();toast('已清空');
 }
 
 function renderExpenses(){
@@ -714,9 +719,60 @@ document.addEventListener('input',function(e){
 document.getElementById('expAmt').addEventListener('keydown',e=>{if(e.key==='Enter')addExpense()});
 document.getElementById('expDesc').addEventListener('keydown',e=>{if(e.key==='Enter')addExpense()});
 
+// ===== Todo & Status Sync =====
+const TODO_ITEMS = [
+  {name:'三星堆门票',cat:'🎫',keyword:'三星堆',deadline:'6/11 20:00开抢！5分钟售罄',urgent:true,day:'D4'},
+  {name:'黄龙门票+索道',cat:'🎫',keyword:'黄龙',deadline:'出发前在阿坝旅游网买',urgent:false,day:'D3'},
+  {name:'青城山门票',cat:'🎫',keyword:'青城山',deadline:'当天线上/现场买',urgent:false,day:'D5'},
+  {name:'都江堰门票',cat:'🎫',keyword:'都江堰',deadline:'现场买 带上海身份证！',urgent:false,day:'D5'},
+  {name:'熊猫基地门票',cat:'🎫',keyword:'熊猫',deadline:'提前1天线上买',urgent:false,day:'D6'},
+  {name:'梨园会馆川剧',cat:'🎭',keyword:'川剧|梨园',deadline:'提前1-3天预约',urgent:false,day:'D5'},
+  {name:'成都博物馆',cat:'🎫',keyword:'成都博物馆',deadline:'6/10约6/17 🌧️备选',urgent:false,day:'D5'},
+  {name:'广汉北→三星堆高铁',cat:'🚄',keyword:'广汉北',deadline:'当天买即可',urgent:false,day:'D4'},
+  {name:'犀浦→青城山高铁',cat:'🚄',keyword:'犀浦|青城山',deadline:'当天买即可',urgent:false,day:'D5'},
+  {name:'金色印象泡脚',cat:'🎭',keyword:'金色印象|泡脚',deadline:'提前1天预约',urgent:false,day:'D6'},
+];
+
+function isExpenseMatched(keyword){
+  return expenses.some(e=>{
+    const re=new RegExp(keyword,'i');
+    return re.test(e.desc)||re.test(e.cat);
+  });
+}
+
+function renderTodo(){
+  const todoEl=document.getElementById('todoList');
+  const banner=document.getElementById('todoBanner');
+  const pending=TODO_ITEMS.filter(item=>!isExpenseMatched(item.keyword));
+  
+  if(pending.length===0){
+    banner.style.display='none';
+    return;
+  }
+  banner.style.display='block';
+  
+  const urgentItems=pending.filter(i=>i.urgent);
+  const normalItems=pending.filter(i=>!i.urgent);
+  
+  let html='';
+  if(urgentItems.length>0){
+    html+='<div style="margin-bottom:6px">'+urgentItems.map(i=>
+      `<div style="padding:4px 0;border-bottom:1px dashed #E0A0A0">🔴 <b>${i.name}</b> · ${i.deadline} · ${i.day}</div>`
+    ).join('')+'</div>';
+  }
+  if(normalItems.length>0){
+    html+=normalItems.map(i=>
+      `<div style="padding:2px 0">🟡 ${i.cat} ${i.name} · ${i.deadline} · ${i.day}</div>`
+    ).join('');
+  }
+  html+=`<div style="margin-top:6px;font-size:11px;color:var(--g500)">💡 记账后自动标记已购，待办会减少</div>`;
+  todoEl.innerHTML=html;
+}
+
 // ===== Init =====
 loadEdits();
 renderExpenses();
+renderTodo();
 </script>
 </body>
 </html>
