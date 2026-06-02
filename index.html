@@ -277,6 +277,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 
 <div class="data-bar">
 <button class="save-btn" onclick="saveData()">💾 保存</button>
+<button onclick="copyLink()">🔗 复制链接</button>
 <button onclick="exportData()">📤 导出</button>
 <button onclick="document.getElementById('importFile').click()">📥 导入</button>
 <button onclick="clearExpenses()" style="color:var(--danger)">🗑️ 清空</button>
@@ -515,6 +516,24 @@ function loadEdits(){
   els.forEach((el,i)=>{
     if(edits['edit_'+i])el.innerHTML=edits['edit_'+i];
   });
+}
+
+function copyLink(){
+  const url='https://skyjessia.github.io/sichuan6day/';
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(()=>toast('🔗 链接已复制！')).catch(()=>{
+      fallbackCopy(url);
+    });
+  }else{
+    fallbackCopy(url);
+  }
+}
+function fallbackCopy(text){
+  const ta=document.createElement('textarea');
+  ta.value=text;ta.style.position='fixed';ta.style.left='-9999px';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');toast('🔗 链接已复制！')}catch(e){toast('复制失败，请手动复制：'+text)}
+  document.body.removeChild(ta);
 }
 
 function exportData(){
