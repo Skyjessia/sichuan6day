@@ -148,12 +148,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 </div>
 
 <div class="al alg">✏️ 所有文字可直接点击编辑，费用可修改，数据自动保存到浏览器</div>
-<div class="al alw">⚠️ 金沙遗址博物馆闭馆至2027.4.30！别白跑</div>
 <div id="todoBanner" style="background:#FFF0F0;border:1.5px solid #E05040;border-radius:var(--r);padding:12px;margin-bottom:10px">
 <div style="font-size:13px;font-weight:700;color:#C03020;margin-bottom:8px">🔴 待办提醒 · 还没定的赶紧定！</div>
 <div id="todoList" style="font-size:12px;line-height:1.8;color:var(--g900)"></div>
 </div>
-<div class="al ali">💡 都江堰上海身份证¥15（原价¥80）！记得带身份证</div>
 
 <!-- Nav tabs -->
 <div class="nav" id="topNav">
@@ -164,6 +162,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 <button onclick="sh('tk')">🎫 门票</button>
 <button onclick="sh('fo')">🍜 美食</button>
 <button onclick="sh('ho')">🏨 住宿</button>
+<button onclick="sh('sp')">💳 分账</button>
 <button onclick="sh('eg')">🎁 彩蛋</button>
 <button onclick="sh('ti')">📌 贴士</button>
 </div>
@@ -456,6 +455,38 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 </div>
 
 
+<!-- ========== 分账收款 ========== -->
+<div id="sp" class="s">
+<div class="st">💳 分账收款 · 谁付了谁欠谁</div>
+<div class="al ali">💡 记账时选👥2人的项目，系统自动算出对方该给你多少</div>
+
+<div id="splitSummary" style="background:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--sh)">
+<div style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--p)">📊 收款总览</div>
+<div id="splitOverview"></div>
+</div>
+
+<div style="background:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--sh)">
+<div style="font-size:13px;font-weight:600;margin-bottom:10px">📋 逐笔明细</div>
+<div style="display:flex;font-size:11px;color:var(--g500);padding:6px 0;border-bottom:1px solid var(--g100);font-weight:600">
+<div style="width:30%">项目</div>
+<div style="width:20%;text-align:right">总价</div>
+<div style="width:20%;text-align:right">你付</div>
+<div style="width:20%;text-align:right">对方该给</div>
+<div style="width:10%;text-align:center">状态</div>
+</div>
+<div id="splitList"></div>
+</div>
+
+<div style="background:var(--al);border-radius:var(--r);padding:12px;font-size:12px;color:var(--g700);line-height:1.6">
+<div style="font-weight:600;margin-bottom:4px">💡 使用说明</div>
+<div>1. 记账时选👥2人 → 系统自动算出对方该给你一半</div>
+<div>2. 选👤1人 → 这笔是你自己的，不参与分账</div>
+<div>3. 对方转账后 → 点"✅已收"标记</div>
+<div>4. 住宿按房间算（1间=2人共享），门票按人头算</div>
+</div>
+</div>
+
+
 <!-- ========== 彩蛋 ========== -->
 <div id="eg" class="s">
 <div class="st">🎁 彩蛋清单</div>
@@ -558,6 +589,7 @@ function addExpense(){
   renderExpenses();
   saveData();
   renderTodo();
+  renderSplit();
   toast('✅ 已记录 ¥'+amt+' → '+day+(ppl===2?' (2人)':''));
 }
 
@@ -572,13 +604,13 @@ function getDay(date){
 
 function delExpense(id){
   expenses=expenses.filter(e=>e.id!==id);
-  renderExpenses();saveData();renderTodo();toast('已删除');
+  renderExpenses();saveData();renderTodo();renderSplit();toast('已删除');
 }
 
 function clearExpenses(){
   if(expenses.length===0)return;
   if(!confirm('确认清空所有记账记录？'))return;
-  expenses=[];renderExpenses();saveData();renderTodo();toast('已清空');
+  expenses=[];renderExpenses();saveData();renderTodo();renderSplit();toast('已清空');
 }
 
 function renderExpenses(){
@@ -773,10 +805,61 @@ function renderTodo(){
   todoEl.innerHTML=html;
 }
 
+// ===== Split Bill =====
+let paidBack = JSON.parse(localStorage.getItem('sc_paidback')||'{}');
+
+function togglePaid(id){
+  paidBack[id]=!paidBack[id];
+  localStorage.setItem('sc_paidback',JSON.stringify(paidBack));
+  renderSplit();
+}
+
+function renderSplit(){
+  const shared=expenses.filter(e=>e.ppl===2);
+  const overview=document.getElementById('splitOverview');
+  const list=document.getElementById('splitList');
+  
+  let totalShared=0, totalOwed=0, totalReceived=0;
+  shared.forEach(e=>{
+    const owed=e.amt/2;
+    totalShared+=e.amt;
+    totalOwed+=owed;
+    if(paidBack[e.id])totalReceived+=owed;
+  });
+  const totalPending=totalOwed-totalReceived;
+  
+  overview.innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;text-align:center">
+      <div><div style="font-size:20px;font-weight:700;color:var(--g900)">¥${totalOwed.toFixed(2)}</div><div style="font-size:11px;color:var(--g500)">对方该给你</div></div>
+      <div><div style="font-size:20px;font-weight:700;color:var(--g)">¥${totalReceived.toFixed(2)}</div><div style="font-size:11px;color:var(--g500)">已收到</div></div>
+      <div><div style="font-size:20px;font-weight:700;color:${totalPending>0?'var(--p)':'var(--g)'}">¥${totalPending.toFixed(2)}</div><div style="font-size:11px;color:var(--g500)">待收</div></div>
+    </div>
+    <div style="margin-top:12px;height:6px;border-radius:3px;background:var(--g100)">
+      <div style="height:100%;border-radius:3px;background:var(--g);width:${totalOwed>0?Math.round(totalReceived/totalOwed*100):0}%"></div>
+    </div>
+    <div style="text-align:center;font-size:11px;color:var(--g500);margin-top:4px">收款进度 ${totalOwed>0?Math.round(totalReceived/totalOwed*100):0}%</div>
+  `;
+  
+  list.innerHTML=shared.map(e=>{
+    const owed=e.amt/2;
+    const isPaid=paidBack[e.id];
+    return `<div style="display:flex;align-items:center;padding:8px 0;border-bottom:1px solid var(--g100);font-size:12px;${isPaid?'opacity:.5':''}">
+      <div style="width:30%">${e.cat} ${e.desc.length>8?e.desc.slice(0,8)+'…':e.desc}</div>
+      <div style="width:20%;text-align:right">¥${e.amt}</div>
+      <div style="width:20%;text-align:right">¥${e.amt}</div>
+      <div style="width:20%;text-align:right;font-weight:600;color:${isPaid?'var(--g)':'var(--p)'}">¥${owed.toFixed(2)}</div>
+      <div style="width:10%;text-align:center">
+        <span onclick="togglePaid(${e.id})" style="cursor:pointer;font-size:14px">${isPaid?'✅':'⬜'}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
 // ===== Init =====
 loadEdits();
 renderExpenses();
 renderTodo();
+renderSplit();
 </script>
 </body>
 </html>
