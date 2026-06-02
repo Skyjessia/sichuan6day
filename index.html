@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>四川6日 · 实时编辑版</title>
+<title>四川6日 · 实时编辑版 v2</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--p:#C4553A;--pl:#F8E8E4;--a:#E8A838;--al:#FFF8EC;--b:#4A90D9;--bl:#EBF3FC;--g:#2D8B5F;--gl:#E8F5EE;--g50:#FAFAF8;--g100:#F5F5F0;--g200:#E8E8E0;--g500:#8C8C80;--g700:#525250;--g900:#2C2C28;--sh:0 2px 12px rgba(0,0,0,.06);--r:12px;--danger:#E05040}
@@ -560,8 +560,10 @@ const CAT_NAMES = {flight:'✈️ 飞机',train:'🚄 高铁',local:'🚌 市内
 
 let expenses = JSON.parse(localStorage.getItem('sc_expenses')||'[]');
 
-// Pre-fill expenses if empty (first visit)
-if(expenses.length===0){
+// Pre-fill expenses if empty (first visit or after clear)
+const DATA_VERSION = 2;
+if(expenses.length===0 || localStorage.getItem('sc_version')!=DATA_VERSION){
+  localStorage.setItem('sc_version', DATA_VERSION);
   expenses=[
     {id:1,cat:'✈️',amt:3920,desc:'MU9181 往返机票 上海↔成都',day:'D1',time:'已买',ppl:2},
     {id:2,cat:'🚄',amt:564,desc:'C5796+C5788 成都东↔松潘 往返高铁',day:'D1',time:'已买',ppl:2},
