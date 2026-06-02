@@ -246,7 +246,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 
 <div class="bg" id="budgetCards">
 <div class="bc"><div class="i">✈️</div><div class="la">飞机</div><div class="am" id="bc-flight">¥1,960</div><div class="su">✅ 已买</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--g);width:100%"></div></div></div>
-<div class="bc"><div class="i">🚄</div><div class="la">高铁/火车</div><div class="am" id="bc-train">¥290</div><div class="su">✅ 已买</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--g);width:100%"></div></div></div>
+<div class="bc"><div class="i">🚄</div><div class="la">高铁/火车</div><div class="am" id="bc-train">¥290</div><div class="su">部分已买</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--a);width:80%"></div></div></div>
 <div class="bc"><div class="i">🚌</div><div class="la">市内/景区交通</div><div class="am" id="bc-local">¥350</div><div class="su">部分待付</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--a);width:40%"></div></div></div>
 <div class="bc"><div class="i">🎫</div><div class="la">门票</div><div class="am" id="bc-ticket">¥837</div><div class="su">部分已买</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--a);width:33%"></div></div></div>
 <div class="bc"><div class="i">🏨</div><div class="la">住宿</div><div class="am" id="bc-hotel">¥684</div><div class="su">✅ 已订</div><div style="margin-top:6px;height:4px;border-radius:2px;background:var(--g100)"><div style="height:100%;border-radius:2px;background:var(--g);width:100%"></div></div></div>
@@ -258,7 +258,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 <div style="font-size:12px;font-weight:600;margin-bottom:8px">📊 准备进度</div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;font-size:11px">
 <span style="padding:3px 8px;border-radius:4px;background:var(--gl);color:var(--g)">✅ 飞机 100%</span>
-<span style="padding:3px 8px;border-radius:4px;background:var(--gl);color:var(--g)">✅ 高铁 100%</span>
+<span style="padding:3px 8px;border-radius:4px;background:var(--al);color:#B08020">🔶 高铁 80%</span>
 <span style="padding:3px 8px;border-radius:4px;background:var(--gl);color:var(--g)">✅ 住宿 100%</span>
 <span style="padding:3px 8px;border-radius:4px;background:var(--al);color:#B08020">🔶 门票 33%</span>
 <span style="padding:3px 8px;border-radius:4px;background:var(--al);color:#B08020">🔶 市内交通 40%</span>
@@ -266,12 +266,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 <span style="padding:3px 8px;border-radius:4px;background:var(--g100);color:var(--g500)">⬜ 其他 0%</span>
 </div>
 <div style="margin-top:10px;height:8px;border-radius:4px;background:var(--g100)">
-<div style="height:100%;border-radius:4px;background:linear-gradient(90deg,var(--g) 0%,var(--g) 55%,var(--a) 55%,var(--a) 70%,var(--g200) 70%);width:100%"></div>
+<div style="height:100%;border-radius:4px;background:linear-gradient(90deg,var(--g) 0%,var(--g) 50%,var(--a) 50%,var(--a) 68%,var(--g200) 68%);width:100%"></div>
 </div>
 <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--g500);margin-top:4px">
-<span>已完成 55%</span>
-<span>进行中 15%</span>
-<span>未开始 30%</span>
+<span>已完成 50%</span>
+<span>进行中 18%</span>
+<span>未开始 32%</span>
 </div>
 </div>
 
@@ -294,6 +294,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 <option value="📦">📦 其他</option>
 </select>
 <input class="amt" id="expAmt" type="number" placeholder="金额" inputmode="decimal">
+<select id="expPpl" style="padding:7px 6px;border:1.5px solid var(--g200);border-radius:8px;font-size:12px;background:#fff">
+<option value="1">👤 1人</option>
+<option value="2" selected>👥 2人</option>
+</select>
 <input class="desc" id="expDesc" placeholder="描述（如：蜀九香火锅）">
 <button class="add-btn" onclick="addExpense()">+ 记一笔</button>
 </div>
@@ -501,20 +505,32 @@ const CAT_NAMES = {flight:'✈️ 交通',train:'🚄 高铁',local:'🚌 市内
 
 let expenses = JSON.parse(localStorage.getItem('sc_expenses')||'[]');
 
+// Pre-fill expenses if empty (first visit)
+if(expenses.length===0){
+  expenses=[
+    {id:1,cat:'✈️',amt:1560,desc:'MU9181 上海→成都 往返机票',day:'D1',time:'已买',ppl:2},
+    {id:2,cat:'🚄',amt:282,desc:'C5796+C5788 成都东↔松潘 往返高铁',day:'D1',time:'已买',ppl:2},
+    {id:3,cat:'🏨',amt:676,desc:'青禾和院 2晚(6/13-6/15)',day:'D1',time:'已订',ppl:2},
+    {id:4,cat:'🏨',amt:691.51,desc:'汉庭宽窄巷子中心店 3晚(6/15-6/18)',day:'D3',time:'已订',ppl:2},
+  ];
+  localStorage.setItem('sc_expenses',JSON.stringify(expenses));
+}
+
 function addExpense(){
   const cat=document.getElementById('expCat').value;
   const amt=parseFloat(document.getElementById('expAmt').value);
+  const ppl=parseInt(document.getElementById('expPpl').value);
   const desc=document.getElementById('expDesc').value.trim();
   if(!amt||amt<=0){toast('请输入金额');return}
   if(!desc){toast('请输入描述');return}
   const now=new Date();
   const day=getDay(now);
-  expenses.push({id:Date.now(),cat,amt,desc,day,time:now.toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})});
+  expenses.push({id:Date.now(),cat,amt,desc,day,time:now.toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}),ppl});
   document.getElementById('expAmt').value='';
   document.getElementById('expDesc').value='';
   renderExpenses();
   saveData();
-  toast('✅ 已记录 ¥'+amt);
+  toast('✅ 已记录 ¥'+amt+(ppl===2?' (2人)':''));
 }
 
 function getDay(date){
@@ -540,10 +556,18 @@ function clearExpenses(){
 function renderExpenses(){
   const list=document.getElementById('expenseList');
   if(expenses.length===0){list.innerHTML='<div style="text-align:center;padding:20px;color:var(--g500);font-size:13px">还没有记录，花一笔记一笔 ✏️</div>';renderBudget();return}
-  list.innerHTML=expenses.slice().reverse().map(e=>`
+  const totalAll=expenses.reduce((s,e)=>s+e.amt,0);
+  const totalPpl1=expenses.filter(e=>e.ppl===1).reduce((s,e)=>s+e.amt,0);
+  const totalPpl2=expenses.filter(e=>e.ppl!==1).reduce((s,e)=>s+e.amt,0);
+  const perPerson=totalPpl1+totalPpl2/2;
+  list.innerHTML=`<div style="background:var(--bl);border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px">
+    <span>总计 ¥${totalAll.toFixed(2)}</span>
+    <span style="color:var(--b)">人均 ¥${perPerson.toFixed(2)}</span>
+    <span style="color:var(--g500)">👥¥${totalPpl2.toFixed(2)} + 👤¥${totalPpl1.toFixed(2)}</span>
+  </div>`+expenses.slice().reverse().map(e=>`
     <div class="exp-item">
       <div class="exp-cat">${e.cat}</div>
-      <div class="exp-info"><div class="exp-desc">${e.desc}</div><div class="exp-meta">${e.day} · ${e.time}</div></div>
+      <div class="exp-info"><div class="exp-desc">${e.desc} ${e.ppl===1?'<span style="font-size:10px;color:var(--g500)">👤1人</span>':'<span style="font-size:10px;color:var(--b)">👥2人</span>'}</div><div class="exp-meta">${e.day} · ${e.time}</div></div>
       <div class="exp-amt">¥${e.amt}</div>
       <div class="exp-del" onclick="delExpense(${e.id})">✕</div>
     </div>
