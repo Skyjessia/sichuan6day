@@ -196,6 +196,22 @@ body.share-mode .al{display:none}
 .a2hs-banner .a2hs-later{background:var(--g100);color:var(--g500)}
 
 #aboutFab:hover{transform:scale(1.1)}
+
+/* Collapsible day groups */
+.day-group{margin-bottom:8px}
+.day-header{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--g100);border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;color:var(--g700);user-select:none;transition:background .15s}
+.day-header:hover{background:var(--g200)}
+.day-header .day-arrow{transition:transform .2s;font-size:10px;color:var(--g500)}
+.day-header.collapsed .day-arrow{transform:rotate(-90deg)}
+.day-items{padding:2px 0;overflow:hidden;transition:max-height .3s ease}
+.day-items.collapsed{max-height:0!important;overflow:hidden}
+.day-total{font-size:11px;color:var(--g500);margin-left:auto}
+
+/* Day filter tabs */
+.day-tabs{display:flex;gap:4px;margin-bottom:10px;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch}
+.day-tab{padding:4px 12px;border-radius:16px;font-size:11px;font-weight:600;cursor:pointer;border:1.5px solid var(--g200);background:#fff;color:var(--g500);white-space:nowrap;transition:all .15s;user-select:none}
+.day-tab:hover{border-color:var(--b);color:var(--b)}
+.day-tab.on{background:var(--p);color:#fff;border-color:var(--p)}
 @media print{.nav,.bottom-bar,.data-bar,.quick-add,.edit-hint{display:none}.s{display:block!important}.dc .tl{display:block!important}.darr{display:none}}
 </style>
 <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoi5YyX5YqoNuaXqumZkOWPuCIsInNob3J0X25hbWUiOiLljJfliqgiLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI0ZCRkFGOCIsInRoZW1lX2NvbG9yIjoiI0Q0NTgzQSJ9"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="四川6日">
@@ -373,7 +389,7 @@ body.share-mode .al{display:none}
 <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
 </div>
 
-<div class="expense-list" id="expenseList"></div>
+<div class="day-tabs" id="expDayTabs"></div><div class="expense-list" id="expenseList"></div>
 
 <div class="st" style="margin-top:12px">按天汇总</div>
 <div id="dailySummary"></div>
@@ -555,13 +571,13 @@ body.share-mode .al{display:none}
 <div style="background:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--sh)">
 <div style="font-size:13px;font-weight:600;margin-bottom:10px">📋 逐笔明细</div>
 <div style="display:flex;font-size:11px;color:var(--g500);padding:6px 0;border-bottom:1px solid var(--g100);font-weight:600">
-<div style="width:30%">项目</div>
+<div style="width:10%">日期</div>
+<div style="width:25%">项目</div>
 <div style="width:20%;text-align:right">总价</div>
-<div style="width:20%;text-align:right">你付</div>
 <div style="width:20%;text-align:right">对方该给</div>
 <div style="width:10%;text-align:center">状态</div>
 </div>
-<div id="splitList"></div>
+<div class="day-tabs" id="spDayTabs"></div><div id="splitList"></div>
 </div>
 
 <div style="background:var(--al);border-radius:var(--r);padding:12px;font-size:12px;color:var(--g700);line-height:1.6">
@@ -734,7 +750,7 @@ function getDay(date){
 
 function delExpense(id){
   expenses=expenses.filter(e=>e.id!==id);
-  renderExpenses();saveData();renderTodo();renderSplit();toast('已删除');
+  renderDayTabs();renderExpenses();saveData();renderTodo();renderSplit();toast('已删除');
 }
 
 function clearExpenses(){
@@ -750,20 +766,63 @@ function renderExpenses(){
   const totalPpl1=expenses.filter(e=>e.ppl===1).reduce((s,e)=>s+e.amt,0);
   const totalPpl2=expenses.filter(e=>e.ppl!==1).reduce((s,e)=>s+e.amt,0);
   const perPerson=totalPpl1+totalPpl2/2;
-  list.innerHTML=`<div style="background:var(--bl);border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px">
+  
+  // Apply day filter
+  const filtered=expDayFilter==='all'?expenses:expenses.filter(e=>e.day===expDayFilter);
+  
+  // Group by day
+  const days=['D1','D2','D3','D4','D5','D6'];
+  const grouped={};
+  days.forEach(d=>grouped[d]=[]);
+  filtered.slice().reverse().forEach(e=>{
+    if(grouped[e.day])grouped[e.day].push(e);
+  });
+  
+  let html=`<div style="background:var(--bl);border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px">
     <span>总计 ¥${fmt(totalAll)}</span>
     <span style="color:var(--b)">人均 ¥${fmt(perPerson)}</span>
     <span style="color:var(--g500)">👥¥${fmt(totalPpl2)} + 👤¥${fmt(totalPpl1)}</span>
-  </div>`+expenses.slice().reverse().map(e=>`
-    <div class="exp-item" data-id="${e.id}">
+  </div>
+  <div style="display:flex;gap:6px;margin-bottom:8px">
+    <button onclick="document.querySelectorAll('.day-items').forEach(d=>{d.classList.remove('collapsed');d.style.maxHeight=d.scrollHeight+'px'});document.querySelectorAll('.day-header').forEach(h=>h.classList.remove('collapsed'))" style="padding:4px 10px;border:1.5px solid var(--g200);border-radius:8px;background:#fff;font-size:11px;cursor:pointer">📂 全部展开</button>
+    <button onclick="document.querySelectorAll('.day-items').forEach(d=>{d.classList.add('collapsed');d.style.maxHeight='0'});document.querySelectorAll('.day-header').forEach(h=>h.classList.add('collapsed'))" style="padding:4px 10px;border:1.5px solid var(--g200);border-radius:8px;background:#fff;font-size:11px;cursor:pointer">📁 全部折叠</button>
+  </div>`;
+  
+  days.forEach(d=>{
+    const items=grouped[d];
+    if(items.length===0)return;
+    const dayTotal=items.reduce((s,e)=>s+e.amt,0);
+    html+=`<div class="day-group"><div class="day-header" onclick="toggleDayGroup(this)"><span class="day-arrow">▼</span><span>${d}</span><span class="day-total">¥${fmt(dayTotal)}</span></div><div class="day-items">`;
+    items.forEach(e=>{
+      html+=`<div class="exp-item" data-id="${e.id}">
       <div class="exp-cat" onclick="editExpense(${e.id},'cat')" style="cursor:pointer" title="点击修改分类">${e.cat}</div>
-      <div class="exp-info"><div class="exp-desc" onclick="editExpense(${e.id},'desc')" style="cursor:pointer" title="点击修改描述">${e.desc} ${e.ppl===1?'<span style="font-size:10px;color:var(--g500)">👤1人</span>':'<span style="font-size:10px;color:var(--b)">👥2人</span>'}</div><div class="exp-meta">${e.day} · ${e.time}</div></div>
+      <div class="exp-info"><div class="exp-desc" onclick="editExpense(${e.id},'desc')" style="cursor:pointer" title="点击修改描述">${e.desc} ${e.ppl===1?'<span style="font-size:10px;color:var(--g500)">👤1人</span>':'<span style="font-size:10px;color:var(--b)">👥2人</span>'}</div><div class="exp-meta">${e.time}</div></div>
       <div class="exp-amt" onclick="editExpense(${e.id},'amt')" style="cursor:pointer" title="点击修改金额">¥${fmt(e.amt)}</div>
       <div class="exp-del" onclick="delExpense(${e.id})">✕</div>
-    </div>
-  `).join('');
+    </div>`;
+    });
+    html+=`</div></div>`;
+  });
+  
+  list.innerHTML=html;
+  // Set initial max-height for animation
+  document.querySelectorAll('.day-items').forEach(d=>{d.style.maxHeight=d.scrollHeight+'px'});
   renderBudget();
   renderDailySummary();
+}
+
+function toggleDayGroup(header){
+  const items=header.nextElementSibling;
+  const isCollapsed=items.classList.contains('collapsed');
+  if(isCollapsed){
+    items.classList.remove('collapsed');
+    items.style.maxHeight=items.scrollHeight+'px';
+    header.classList.remove('collapsed');
+  }else{
+    items.style.maxHeight=items.scrollHeight+'px';
+    requestAnimationFrame(()=>{items.classList.add('collapsed');items.style.maxHeight='0'});
+    header.classList.add('collapsed');
+  }
 }
 
 function editExpense(id,field){
@@ -787,7 +846,7 @@ function editExpense(id,field){
     if(v===null)return;
     e.cat=v;
   }
-  renderExpenses();saveData();renderTodo();renderSplit();
+  renderDayTabs();renderExpenses();saveData();renderTodo();renderSplit();
   toast('✅ 已更新');
 }
 
@@ -1085,6 +1144,54 @@ setTimeout(()=>{
   }
 },3000);
 
+
+// ===== Day filter tabs =====
+let expDayFilter='all';
+let spDayFilter='all';
+
+function setExpDayFilter(day){
+  expDayFilter=day;
+  renderExpenses();
+  // Update tab styles
+  document.querySelectorAll('#expDayTabs .day-tab').forEach(t=>{
+    t.classList.toggle('on',t.dataset.day===day);
+  });
+}
+
+function setSpDayFilter(day){
+  spDayFilter=day;
+  renderSplit();
+  document.querySelectorAll('#spDayTabs .day-tab').forEach(t=>{
+    t.classList.toggle('on',t.dataset.day===day);
+  });
+}
+
+function renderDayTabs(){
+  const days=['all','D1','D2','D3','D4','D5','D6'];
+  const dayLabels={all:'全部',D1:'D1 6/13',D2:'D2 6/14',D3:'D3 6/15',D4:'D4 6/16',D5:'D5 6/17',D6:'D6 6/18'};
+  
+  // Expense tabs
+  const expTabs=document.getElementById('expDayTabs');
+  if(expTabs){
+    expTabs.innerHTML=days.map(d=>{
+      const count=d==='all'?expenses.length:expenses.filter(e=>e.day===d).length;
+      if(d!=='all'&&count===0)return'';
+      return`<div class="day-tab${expDayFilter===d?' on':''}" data-day="${d}" onclick="setExpDayFilter('${d}')">${dayLabels[d]}${count>0?' ('+count+')':''}</div>`;
+    }).join('');
+  }
+  
+  // Split tabs
+  const spTabs=document.getElementById('spDayTabs');
+  const shared=expenses.filter(e=>e.ppl===2);
+  if(spTabs){
+    spTabs.innerHTML=days.map(d=>{
+      const count=d==='all'?shared.length:shared.filter(e=>e.day===d).length;
+      if(d!=='all'&&count===0)return'';
+      return`<div class="day-tab${spDayFilter===d?' on':''}" data-day="${d}" onclick="setSpDayFilter('${d}')">${dayLabels[d]}${count>0?' ('+count+')':''}</div>`;
+    }).join('');
+  }
+}
+
 // ===== Init =====
 // Auto share mode from URL
 if(new URLSearchParams(location.search).get('share')==='1'){
@@ -1094,7 +1201,7 @@ if(new URLSearchParams(location.search).get('share')==='1'){
 }
 
 loadEdits();
-renderExpenses();
+renderDayTabs();renderExpenses();
 syncTodoFromItinerary();
 renderSplit();
 
