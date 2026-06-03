@@ -641,6 +641,9 @@ body.share-mode .al{display:none}
 </div>
 
 <script>
+// Format money: 2 decimals + thousands separator
+function fmt(n){return n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}
+
 // ===== Tab switching =====
 function sh(id){
   document.querySelectorAll('.s').forEach(s=>s.classList.remove('on'));
@@ -748,14 +751,14 @@ function renderExpenses(){
   const totalPpl2=expenses.filter(e=>e.ppl!==1).reduce((s,e)=>s+e.amt,0);
   const perPerson=totalPpl1+totalPpl2/2;
   list.innerHTML=`<div style="background:var(--bl);border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px">
-    <span>总计 ¥${totalAll.toFixed(2)}</span>
-    <span style="color:var(--b)">人均 ¥${perPerson.toFixed(2)}</span>
-    <span style="color:var(--g500)">👥¥${totalPpl2.toFixed(2)} + 👤¥${totalPpl1.toFixed(2)}</span>
+    <span>总计 ¥${fmt(totalAll)}</span>
+    <span style="color:var(--b)">人均 ¥${fmt(perPerson)}</span>
+    <span style="color:var(--g500)">👥¥${fmt(totalPpl2)} + 👤¥${fmt(totalPpl1)}</span>
   </div>`+expenses.slice().reverse().map(e=>`
     <div class="exp-item" data-id="${e.id}">
       <div class="exp-cat" onclick="editExpense(${e.id},'cat')" style="cursor:pointer" title="点击修改分类">${e.cat}</div>
       <div class="exp-info"><div class="exp-desc" onclick="editExpense(${e.id},'desc')" style="cursor:pointer" title="点击修改描述">${e.desc} ${e.ppl===1?'<span style="font-size:10px;color:var(--g500)">👤1人</span>':'<span style="font-size:10px;color:var(--b)">👥2人</span>'}</div><div class="exp-meta">${e.day} · ${e.time}</div></div>
-      <div class="exp-amt" onclick="editExpense(${e.id},'amt')" style="cursor:pointer" title="点击修改金额">¥${e.amt.toFixed(2)}</div>
+      <div class="exp-amt" onclick="editExpense(${e.id},'amt')" style="cursor:pointer" title="点击修改金额">¥${fmt(e.amt)}</div>
       <div class="exp-del" onclick="delExpense(${e.id})">✕</div>
     </div>
   `).join('');
@@ -804,12 +807,12 @@ function renderBudget(){
     const a=actual[k],b=BUDGET[k]||0;
     const diff=b-a;
     const pctCat=b>0?Math.round(a/b*100):0;
-    const diffStr=diff>=0?`剩余¥${diff.toFixed(2)}`:`超¥${Math.abs(diff).toFixed(2)}`;
+    const diffStr=diff>=0?`剩余¥${fmt(diff)}`:`超¥${fmt(Math.abs(diff))}`;
     const diffCls=diff>=0?'pos':'neg';
     const fillColor=diff>=0?(pctCat<70?'var(--g)':pctCat<90?'var(--a)':'var(--danger)'):'var(--danger)';
     const ico=CAT_NAMES[k].split(' ')[0];
     const name=CAT_NAMES[k].split(' ').slice(1).join(' ');
-    return`<div class="bu-row"><div class="bu-top"><div class="bu-ico">${ico}</div><div class="bu-name">${name}</div><div class="bu-actual">¥${a.toFixed(2)}</div><div class="bu-diff ${diffCls}">${diffStr}</div></div><div class="bu-bar"><div class="bu-fill" style="width:${Math.min(pctCat,100)}%;background:${fillColor}"></div></div><div class="bu-labels"><span>实际 ¥${a.toFixed(2)}</span><span>预算 ¥${b.toFixed(2)}</span></div></div>`;
+    return`<div class="bu-row"><div class="bu-top"><div class="bu-ico">${ico}</div><div class="bu-name">${name}</div><div class="bu-actual">¥${fmt(a)}</div><div class="bu-diff ${diffCls}">${diffStr}</div></div><div class="bu-bar"><div class="bu-fill" style="width:${Math.min(pctCat,100)}%;background:${fillColor}"></div></div><div class="bu-labels"><span>实际 ¥${fmt(a)}</span><span>预算 ¥${fmt(b)}</span></div></div>`;
   }).join('');
 }
 
@@ -820,7 +823,7 @@ function renderDailySummary(){
     const dayExps=expenses.filter(e=>e.day===d);
     const total=dayExps.reduce((s,e)=>s+e.amt,0);
     const items=dayExps.map(e=>`${e.cat}${e.desc} ¥${e.amt}`).join('、')||'暂无记录';
-    return`<div class="exp-item" style="flex-wrap:wrap"><div class="exp-info" style="width:100%"><div class="exp-desc" style="font-weight:700">${d} · 共 ¥${total.toFixed(2)}</div><div class="exp-meta">${items}</div></div></div>`;
+    return`<div class="exp-item" style="flex-wrap:wrap"><div class="exp-info" style="width:100%"><div class="exp-desc" style="font-weight:700">${d} · 共 ¥${fmt(total)}</div><div class="exp-meta">${items}</div></div></div>`;
   }).join('');
 }
 
@@ -1032,9 +1035,9 @@ function renderSplit(){
   
   overview.innerHTML=`
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;text-align:center">
-      <div><div style="font-size:20px;font-weight:700;color:var(--g900)">¥${totalOwed.toFixed(2)}</div><div style="font-size:11px;color:var(--g500)">对方该给你</div></div>
-      <div><div style="font-size:20px;font-weight:700;color:var(--g)">¥${totalReceived.toFixed(2)}</div><div style="font-size:11px;color:var(--g500)">已收到</div></div>
-      <div><div style="font-size:20px;font-weight:700;color:${totalPending>0?'var(--p)':'var(--g)'}">¥${totalPending.toFixed(2)}</div><div style="font-size:11px;color:var(--g500)">待收</div></div>
+      <div><div style="font-size:20px;font-weight:700;color:var(--g900)">¥${fmt(totalOwed)}</div><div style="font-size:11px;color:var(--g500)">对方该给你</div></div>
+      <div><div style="font-size:20px;font-weight:700;color:var(--g)">¥${fmt(totalReceived)}</div><div style="font-size:11px;color:var(--g500)">已收到</div></div>
+      <div><div style="font-size:20px;font-weight:700;color:${totalPending>0?'var(--p)':'var(--g)'}">¥${fmt(totalPending)}</div><div style="font-size:11px;color:var(--g500)">待收</div></div>
     </div>
     <div style="margin-top:12px;height:6px;border-radius:3px;background:var(--g100)">
       <div style="height:100%;border-radius:3px;background:var(--g);width:${totalOwed>0?Math.round(totalReceived/totalOwed*100):0}%"></div>
@@ -1049,7 +1052,7 @@ function renderSplit(){
       <div style="width:30%">${e.cat} ${e.desc.length>8?e.desc.slice(0,8)+'…':e.desc}</div>
       <div style="width:20%;text-align:right">¥${e.amt}</div>
       <div style="width:20%;text-align:right">¥${e.amt}</div>
-      <div style="width:20%;text-align:right;font-weight:600;color:${isPaid?'var(--g)':'var(--p)'}">¥${owed.toFixed(2)}</div>
+      <div style="width:20%;text-align:right;font-weight:600;color:${isPaid?'var(--g)':'var(--p)'}">¥${fmt(owed)}</div>
       <div style="width:10%;text-align:center">
         <span onclick="togglePaid(${e.id})" style="cursor:pointer;font-size:14px">${isPaid?'✅':'⬜'}</span>
       </div>
