@@ -198,6 +198,7 @@ body.share-mode .al{display:none}
 .a2hs-banner .a2hs-ok{background:var(--p);color:#fff}
 .a2hs-banner .a2hs-later{background:var(--g100);color:var(--g500)}
 
+#aboutFab:hover{transform:scale(1.1)}
 @media print{.nav,.bottom-bar,.data-bar,.quick-add,.edit-hint{display:none}.s{display:block!important}.dc .tl{display:block!important}.darr{display:none}}
 </style>
 <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoi5YyX5YqoNuaXqumZkOWPuCIsInNob3J0X25hbWUiOiLljJfliqgiLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI0ZCRkFGOCIsInRoZW1lX2NvbG9yIjoiI0Q0NTgzQSJ9"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="四川6日">
@@ -215,9 +216,33 @@ body.share-mode .al{display:none}
 </div>
 
 <div class="al alg">✏️ 所有文字可直接点击编辑，费用可修改，数据自动保存到浏览器</div>
+
+
 <div id="todoBanner" style="background:#FFF0F0;border:1.5px solid #E05040;border-radius:var(--r);padding:12px;margin-bottom:10px">
 <div style="font-size:13px;font-weight:700;color:#C03020;margin-bottom:8px">🔴 待办提醒 · 按日期查看</div>
 <div id="todoList" style="font-size:12px;line-height:1.8;color:var(--g900)"></div>
+</div>
+
+
+<div id="aboutCard" style="background:linear-gradient(135deg,#FFF8F5,#F5F0FF,#F0F5FF);border-radius:18px;padding:24px 20px;margin-bottom:14px;box-shadow:0 2px 20px rgba(0,0,0,.06);position:relative;overflow:hidden">
+<div style="position:absolute;top:-20px;right:-10px;font-size:60px;opacity:.08">🏔️</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<div style="font-size:15px;font-weight:700;color:var(--g900);letter-spacing:.5px">📖 小序 · 介绍</div>
+<button onclick="closeAbout()" style="width:24px;height:24px;border-radius:50%;border:none;background:rgba(0,0,0,.06);color:var(--g500);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1">✕</button>
+</div>
+<div style="font-size:17px;font-weight:700;color:var(--g900);margin-bottom:3px;letter-spacing:.5px">这是一个旅行轻应用</div>
+<div style="font-size:13px;color:var(--g500);margin-bottom:16px;font-style:italic">不复杂，但有点温柔。</div>
+<div style="display:grid;gap:8px;margin-bottom:18px">
+<div style="display:flex;gap:10px;align-items:flex-start;padding:9px 12px;background:rgba(255,255,255,.7);border-radius:12px;backdrop-filter:blur(4px)"><div style="font-size:17px;flex-shrink:0">✏️</div><div><div style="font-size:12px;font-weight:600;color:var(--g900)">想改就改</div><div style="font-size:11px;color:var(--g500)">点一下文字，直接编辑，不用下载</div></div></div>
+<div style="display:flex;gap:10px;align-items:flex-start;padding:9px 12px;background:rgba(255,255,255,.7);border-radius:12px;backdrop-filter:blur(4px)"><div style="font-size:17px;flex-shrink:0">💰</div><div><div style="font-size:12px;font-weight:600;color:var(--g900)">自动记账</div><div style="font-size:11px;color:var(--g500)">花了多少，还剩多少，它替你记着</div></div></div>
+<div style="display:flex;gap:10px;align-items:flex-start;padding:9px 12px;background:rgba(255,255,255,.7);border-radius:12px;backdrop-filter:blur(4px)"><div style="font-size:17px;flex-shrink:0">📡</div><div><div style="font-size:12px;font-weight:600;color:var(--g900)">没网也能用</div><div style="font-size:11px;color:var(--g500)">山里、地铁、飞机上，行程不慌</div></div></div>
+<div style="display:flex;gap:10px;align-items:flex-start;padding:9px 12px;background:rgba(255,255,255,.7);border-radius:12px;backdrop-filter:blur(4px)"><div style="font-size:17px;flex-shrink:0">🔗</div><div><div style="font-size:12px;font-weight:600;color:var(--g900)">一发共享</div><div style="font-size:11px;color:var(--g500)">链接给朋友，同个版本，不用反复传</div></div></div>
+<div style="display:flex;gap:10px;align-items:flex-start;padding:9px 12px;background:rgba(255,255,255,.7);border-radius:12px;backdrop-filter:blur(4px)"><div style="font-size:17px;flex-shrink:0">📱</div><div><div style="font-size:12px;font-weight:600;color:var(--g900)">秒变App</div><div style="font-size:11px;color:var(--g500)">添加到主屏幕，一点就进，像老朋友</div></div></div>
+</div>
+<div style="border-top:1px solid rgba(0,0,0,.06);padding-top:12px">
+<div style="font-size:12px;font-weight:600;color:var(--g700);margin-bottom:4px">初心</div>
+<div style="font-size:12px;color:var(--g500);line-height:1.8">人负责体验，AI帮我们实现。<br>一份小小的人机协作尝试——<br>很小，但很认真。<br><span style="color:var(--p);font-weight:500">这是第一步。</span></div>
+</div>
 </div>
 
 <!-- Nav tabs -->
@@ -579,6 +604,7 @@ body.share-mode .al{display:none}
 <button class="a2hs-later" onclick="dismissA2HS()">稍后</button>
 </div>
 
+<button id="aboutFab" onclick="document.getElementById('aboutCard').scrollIntoView({behavior:'smooth'})" style="position:fixed;bottom:72px;right:12px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--pl),var(--accent-l));border:2px solid rgba(0,0,0,.06);box-shadow:0 2px 12px rgba(0,0,0,.12);font-size:18px;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:transform .2s" title="小序 · 介绍">📖</button>
 <div class="bottom-bar">
 <button class="on" onclick="sh('it');setBottom(this)"><span class="bi">📋</span>行程</button>
 <button onclick="sh('bu');setBottom(this)"><span class="bi">💰</span>预算</button>
@@ -1004,6 +1030,8 @@ setTimeout(()=>{
   }
 },3000);
 
+function closeAbout(){const c=document.getElementById('aboutCard');c.style.maxHeight=c.scrollHeight+'px';c.style.transition='max-height .3s ease,opacity .3s ease,padding .3s ease,margin .3s ease';requestAnimationFrame(()=>{c.style.maxHeight='0';c.style.opacity='0';c.style.paddingTop='0';c.style.paddingBottom='0';c.style.marginBottom='0';c.style.overflow='hidden'});setTimeout(()=>c.style.display='none',350)}
+function showAbout(){const c=document.getElementById('aboutCard');c.style.display='block';c.style.maxHeight=c.scrollHeight+'px';c.style.opacity='1';c.style.padding='24px 20px';c.style.marginBottom='14px';c.style.overflow='visible';setTimeout(()=>c.style.maxHeight='none',350)}
 // ===== Init =====
 // Auto share mode from URL
 if(new URLSearchParams(location.search).get('share')==='1'){
