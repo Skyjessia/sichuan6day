@@ -512,7 +512,7 @@ async function loadTripData() {
   if (typeof renderExpenses === 'function') renderExpenses();
 }
 
-loadTripData().then(() => setupAutoSave());
+// loadTripData called later after all vars defined
 
 // ===== Render eggs, ticket timeline, tips from data.json =====
 function renderEggs(data) {
@@ -1808,7 +1808,7 @@ async function loadTripData(retryCount = 0) {
   if (typeof renderExpenses === 'function') renderExpenses();
 }
 
-loadTripData().then(() => setupAutoSave());
+// loadTripData called later after all vars defined
 
 // ===== Render eggs, ticket timeline, tips from data.json =====
 function renderEggs(data) {
@@ -2128,9 +2128,14 @@ function markSettled(amount) {
   toast('已确认收款 ✅');
 }
 
-// Init todo + bookkeeping on load
-renderTodos();
-renderBookList();
+// Init: load data first, then render everything
+loadTripData().then(() => {
+  setupAutoSave();
+  renderTodos();
+  renderBookList();
+  const bkDate = document.getElementById('bkDate');
+  if (bkDate && !bkDate.value) bkDate.value = new Date().toISOString().slice(0,10);
+});
 // Set default date
 const bkDate = document.getElementById('bkDate');
 if (bkDate && !bkDate.value) bkDate.value = new Date().toISOString().slice(0,10);
