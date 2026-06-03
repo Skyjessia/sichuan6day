@@ -186,8 +186,21 @@ body.share-mode .al{display:none}
 .todo-item.urgent{border-left-color:var(--danger);color:var(--g900);font-weight:500}
 .todo-item.done{text-decoration:line-through;opacity:.4;border-left-color:var(--g200)}
 
+
+/* A2HS prompt */
+.a2hs-banner{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.15);padding:14px 18px;z-index:300;display:none;max-width:320px;text-align:center}
+.a2hs-banner.show{display:block;animation:slideUp .3s ease}
+@keyframes slideUp{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.a2hs-banner h4{font-size:14px;margin-bottom:6px;color:var(--g900)}
+.a2hs-banner p{font-size:12px;color:var(--g500);margin-bottom:10px;line-height:1.5}
+.a2hs-banner .a2hs-steps{font-size:11px;color:var(--g700);background:var(--g100);border-radius:8px;padding:8px 10px;text-align:left;margin-bottom:10px;line-height:1.6}
+.a2hs-banner button{padding:6px 16px;border:none;border-radius:8px;font-size:12px;cursor:pointer;margin:0 4px}
+.a2hs-banner .a2hs-ok{background:var(--p);color:#fff}
+.a2hs-banner .a2hs-later{background:var(--g100);color:var(--g500)}
+
 @media print{.nav,.bottom-bar,.data-bar,.quick-add,.edit-hint{display:none}.s{display:block!important}.dc .tl{display:block!important}.darr{display:none}}
 </style>
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoi5YyX5YqoNuaXqumZkOWPuCIsInNob3J0X25hbWUiOiLljJfliqgiLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI0ZCRkFGOCIsInRoZW1lX2NvbG9yIjoiI0Q0NTgzQSJ9"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="四川6日">
 </head>
 <body>
 <div class="c">
@@ -232,7 +245,7 @@ body.share-mode .al{display:none}
 <!-- D1 -->
 <div class="dc open"><div class="dh" onclick="tg(this)"><div class="db d1"><span class="n">D1</span><span class="l">6/13</span></div><div class="di"><h3 contenteditable="true" data-field="d1-title">上海✈️成都→高铁🚄进九寨沟</h3><div class="ds" contenteditable="true" data-field="d1-sub">MU9181 → C5796 → 直通车</div></div><div class="dht">🏨 青禾和院</div><div class="darr">▼</div></div><div class="tl">
 <div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">09:49<br>12:40</div><div class="td p"></div><div class="tc"><div class="t" contenteditable="true">✈️ MU9181 上海→成都</div><span class="tg p">飞机</span><div class="d" contenteditable="true">虹桥T2→天府T2</div><div class="cost" contenteditable="true">¥980/人 ✅已购</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">13:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚇 天府机场→成都东站</div><span class="tg x">市内</span><div class="d" contenteditable="true">地铁18号线→7号线 约1h</div><div class="cost" contenteditable="true">¥10/人</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">13:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚇 天府机场→成都东站</div><span class="tg x">市内</span><div class="d" contenteditable="true">地铁18号线→火车南站换乘7号线 约1h</div><div class="cost" contenteditable="true">¥10/人</div></div></div>
 <div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">15:45<br>17:24</div><div class="td tr"></div><div class="tc"><div class="t" contenteditable="true">🚄 C5796 成都东→松潘</div><span class="tg tr">高铁</span><div class="d" contenteditable="true">1h39min</div><div class="cost" contenteditable="true">¥135/人 ✅已购</div><div class="note" contenteditable="true">赶不上就改签C5782(18:22→20:37)</div></div></div>
 <div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">18:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚌 松潘站→九寨沟直通车</div><span class="tg x">景区</span><div class="d" contenteditable="true">约2h</div><div class="cost" contenteditable="true">¥56/人</div><div class="note" contenteditable="true">6:00-23:00循环发车</div></div></div>
 <div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">21:00</div><div class="td h"></div><div class="tc"><div class="t" contenteditable="true">🏨 入住青禾和院</div><span class="tg h">住宿</span><div class="d" contenteditable="true">含早+私汤 全屋智能</div><div class="cost" contenteditable="true">¥338/人 ✅已订</div></div></div>
@@ -554,6 +567,18 @@ body.share-mode .al{display:none}
 <div class="toast" id="toast"></div>
 
 <!-- Bottom nav -->
+
+<div class="a2hs-banner" id="a2hsBanner">
+<h4>📱 添加到主屏幕</h4>
+<p>像App一样快速打开，旅途中更方便！</p>
+<div class="a2hs-steps">
+🍎 iPhone：Safari → 底部分享按钮 → 添加到主屏幕<br>
+🤖 Android：Chrome菜单 → 添加到主屏幕
+</div>
+<button class="a2hs-ok" onclick="dismissA2HS()">知道了</button>
+<button class="a2hs-later" onclick="dismissA2HS()">稍后</button>
+</div>
+
 <div class="bottom-bar">
 <button class="on" onclick="sh('it');setBottom(this)"><span class="bi">📋</span>行程</button>
 <button onclick="sh('bu');setBottom(this)"><span class="bi">💰</span>预算</button>
@@ -953,6 +978,31 @@ function renderSplit(){
     </div>`;
   }).join('');
 }
+
+
+// ===== Add to Home Screen =====
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;showA2HS()});
+function showA2HS(){
+  const banner=document.getElementById('a2hsBanner');
+  if(!banner||localStorage.getItem('sc_a2hs_dismissed'))return;
+  banner.classList.add('show');
+  // Auto dismiss after 15s
+  setTimeout(()=>dismissA2HS(),15000);
+}
+function dismissA2HS(){
+  const banner=document.getElementById('a2hsBanner');
+  if(banner)banner.classList.remove('show');
+  localStorage.setItem('sc_a2hs_dismissed','1');
+}
+// Show A2HS hint after 3s on first visit
+setTimeout(()=>{
+  if(!localStorage.getItem('sc_a2hs_dismissed')){
+    const banner=document.getElementById('a2hsBanner');
+    if(banner)banner.classList.add('show');
+    setTimeout(()=>dismissA2HS(),12000);
+  }
+},3000);
 
 // ===== Init =====
 // Auto share mode from URL
