@@ -158,11 +158,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 body.share-mode .edit-hint,
 body.share-mode #todoBanner,
 body.share-mode .drag-handle,
+body.share-mode .ti-del,
 body.share-mode .quick-add,
 body.share-mode .data-bar,
 body.share-mode .expense-list,
 body.share-mode #dailySummary,
 body.share-mode [contenteditable]{pointer-events:none;background:transparent!important;box-shadow:none!important}
+body.share-mode #shareBtn{display:none!important}
+body.share-mode .copy-link-hint{display:block!important}
 body.share-mode .nav button:nth-child(3),  /* 记账 */
 body.share-mode .nav button:nth-child(4),  /* 交通 */
 body.share-mode .nav button:nth-child(5),  /* 门票 */
@@ -742,13 +745,15 @@ function loadEdits(){
 }
 
 function copyLink(){
-  const url='https://skyjessia.github.io/sichuan6day/';
+  const isShare=document.body.classList.contains('share-mode');
+  const url=isShare?'https://skyjessia.github.io/sichuan6day/?share=1':'https://skyjessia.github.io/sichuan6day/';
+  const msg=isShare?'🔗 分享链接已复制！对方只能看行程+预算+分账':'🔗 链接已复制！';
   if(navigator.clipboard&&navigator.clipboard.writeText){
-    navigator.clipboard.writeText(url).then(()=>toast('🔗 链接已复制！')).catch(()=>{
-      fallbackCopy(url);
+    navigator.clipboard.writeText(url).then(()=>toast(msg)).catch(()=>{
+      fallbackCopy(url);toast(msg);
     });
   }else{
-    fallbackCopy(url);
+    fallbackCopy(url);toast(msg);
   }
 }
 function fallbackCopy(text){
@@ -889,11 +894,13 @@ function toggleShareMode(){
     btn.style.color='#fff';
     btn.style.borderColor='var(--p)';
     sh('it');
+    history.replaceState(null,'','?share=1');
   }else{
     btn.innerHTML='👁 分享模式';
     btn.style.background='rgba(255,255,255,.7)';
     btn.style.color='var(--b)';
     btn.style.borderColor='var(--b)';
+    history.replaceState(null,'',location.pathname);
   }
 }
 
@@ -948,6 +955,13 @@ function renderSplit(){
 }
 
 // ===== Init =====
+// Auto share mode from URL
+if(new URLSearchParams(location.search).get('share')==='1'){
+  document.body.classList.add('share-mode');
+  const sb=document.getElementById('shareBtn');
+  if(sb){sb.innerHTML='🔒 退出分享';sb.style.background='var(--p)';sb.style.color='#fff';sb.style.borderColor='var(--p)'}
+}
+
 loadEdits();
 renderExpenses();
 syncTodoFromItinerary();
