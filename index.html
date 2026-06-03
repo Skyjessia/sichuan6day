@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>四川6日 · 数据分离版 v7</title>
+<title>四川6日 · 数据分离版 v8</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--p:#D4583A;--pl:#FDF0EC;--a:#F0A030;--al:#FFF8EC;--b:#4A8FD9;--bl:#EDF4FC;--g:#2E8B57;--gl:#EAF5EE;--g50:#FBFAF8;--g100:#F5F4F0;--g200:#E8E6E0;--g500:#8C8A80;--g700:#525048;--g900:#2C2A28;--sh:0 2px 16px rgba(0,0,0,.07);--r:14px;--danger:#E05040;--accent:#7C5CFC;--accent-l:#F0ECFF}
@@ -588,42 +588,14 @@ body.share-mode .al{display:none}
 <!-- ========== 彩蛋 ========== -->
 <div id="eg" class="s">
 <div class="st">🎁 彩蛋清单</div>
-<div class="ec"><div class="ei">🚄</div><div><div class="et"><b>三星堆高铁攻略</b>：成都东→广汉北仅18min！比直通车快5倍，上午逛宽窄巷+下午场5h深度看</div><div class="ed">D4</div></div></div>
-<div class="ec"><div class="ei">🌊</div><div><div class="et"><b>夜游锦江</b>：东门码头乘乌篷船，千年古都桨声灯影</div><div class="ed">D4夜间彩蛋</div></div></div>
-<div class="ec"><div class="ei">🎤</div><div><div class="et"><b>玉林西路</b>：赵雷《成都》打卡地，小酒馆+民谣+文艺气息</div><div class="ed">D4夜生活</div></div></div>
-<div class="ec"><div class="ei">🦶</div><div><div class="et"><b>金色印象影院式泡脚</b>：一边泡脚一边看电影，走了一周该放松了</div><div class="ed">D6下午</div></div></div>
-<div class="ec"><div class="ei">🎭</div><div><div class="et"><b>梨园会馆川剧变脸</b>：文殊院店古戏台+盖碗茶，比盖碗儿梨园更有氛围</div><div class="ed">D5雨天</div></div></div>
-<div class="ec"><div class="ei">🆔</div><div><div class="et"><b>都江堰上海身份证优惠</b>：门票¥15(原价¥80)，5·12对口支援感恩优惠</div><div class="ed">D5晴天</div></div></div>
-<div class="ec"><div class="ei">🍵</div><div><div class="et"><b>唯怡豆奶</b>：火锅解辣神器！成都人吃火锅必配</div><div class="ed">D3/D6火锅</div></div></div>
-<div class="ec"><div class="ei">🏮</div><div><div class="et"><b>安顺廊桥夜景</b>：合江亭观景台，廊桥金光倒映锦江，成都夜景天花板</div><div class="ed">D4夜景</div></div></div>
-<div class="ec"><div class="ei">🥟</div><div><div class="et"><b>蛋烘糕小推车</b>：窄巷支巷里找，5-10元/个，甜咸都试</div><div class="ed">D4上午</div></div></div>
-<div class="ec"><div class="ei">📚</div><div><div class="et"><b>方所书店</b>：太古里B1最美书店，选一本书点杯咖啡</div><div class="ed">D5雨天</div></div></div>
-<div class="ec"><div class="ei">🌉</div><div><div class="et"><b>南桥"蓝眼泪"</b>：都江堰南桥岷江水映灯光，绝美</div><div class="ed">D5晴天</div></div></div>
-<div class="ec"><div class="ei">🛍️</div><div><div class="et"><b>伴手礼清单</b>：文殊院宫廷糕点 / 老城南龙须酥 / 火锅底料 / 花椒</div><div class="ed">D5/D6</div></div></div>
-</div>
+<div id="eggsContainer"></div>
 
 <!-- ========== 贴士 ========== -->
-<div id="ti" class="s">
-<div class="st">抢票时间轴</div>
-<table class="dt2"><thead><tr><th>优先级</th><th>事项</th><th>时间</th></tr></thead><tbody>
-<tr><td>🔴 必抢</td><td>三星堆门票(6/16)</td><td>6/11 20:00！5分钟售罄</td></tr>
-<tr><td>🟡 重要</td><td>成都博物馆(6/17雨天)</td><td>6/10约6/17</td></tr>
-<tr><td>🟡 重要</td><td>梨园会馆川剧(6/17)</td><td>提前1-3天</td></tr>
-<tr><td>🟡 重要</td><td>九寨沟→黄龙包车</td><td>6/14晚让酒店约</td></tr>
-<tr><td>🟢 一般</td><td>黄龙门票+索道</td><td>提前1-2天</td></tr>
-<tr><td>🟢 一般</td><td>都江堰门票</td><td>当天现场买 带身份证</td></tr>
-</tbody></table>
+<div class="st" style="margin-top:16px">抢票时间轴</div>
+<table class="dt2"><thead><tr><th>优先级</th><th>事项</th><th>时间</th></tr></thead><tbody id="ticketTimeline"></tbody></table>
 <div class="st" style="margin-top:16px">重要注意事项</div>
-<div class="tc2"><h4>🏔️ 高反预防</h4><p>黄龙海拔3500-3900m，慢走！备好红景天/氧气，景区有免费吸氧点</p></div>
-<div class="tc2"><h4>🚄 三星堆下午场攻略</h4><p>下午场12:00-17:00\n高铁成都东→广汉北仅18min(比直通车快5倍)\n迟到30min不能入场！</p></div>
-<div class="tc2"><h4>✈️ D1交通风险</h4><p>赶不上C5796就改签C5782(成都东18:22→松潘20:37)，别慌</p></div>
-<div class="tc2"><h4>🆔 都江堰优惠</h4><p>上海身份证门票¥15(原价¥80)，务必带身份证原件！</p></div>
-<div class="tc2"><h4>🦶 泡脚时间</h4><p>D6最晚16:30结束，17:00前出发去机场</p></div>
-<div class="tc2"><h4>✈️ 航班安检</h4><p>19:45起飞撞晚高峰16:00-19:00，建议17:00前从市区出发</p></div>
-<div class="tc2"><h4>🚗 包车防坑</h4><p>九寨→黄龙包车约200-300元/车，让青禾和院前台联系最靠谱</p></div>
-</div>
-
-</div><!-- end .c -->
+<div id="tipsContainer"></div>
+</div></div><!-- end .c -->
 
 <!-- Toast -->
 <div class="toast" id="toast"></div>
@@ -762,10 +734,51 @@ async function loadTripData() {
   }
   if (tripData) {
     renderItinerary(tripData);
+    renderAllExtras(tripData);
+    // Update budget from data.json
+    if (tripData.budget) {
+      Object.assign(BUDGET, tripData.budget);
+    }
+    if (tripData.prefill) {
+      PREFILL.length = 0;
+      tripData.prefill.forEach(p => PREFILL.push(p));
+    }
   }
 }
 
 loadTripData();
+
+// ===== Render eggs, ticket timeline, tips from data.json =====
+function renderEggs(data) {
+  const container = document.getElementById('eggsContainer');
+  if (!container || !data.eggs) return;
+  container.innerHTML = data.eggs.map(e =>
+    `<div class="ec"><div class="ei">${e.icon}</div><div><div class="et"><b>${e.title}</b>：${e.desc}</div><div class="ed">${e.day}</div></div></div>`
+  ).join('');
+}
+
+function renderTicketTimeline(data) {
+  const tbody = document.getElementById('ticketTimeline');
+  if (!tbody || !data.ticketTimeline) return;
+  tbody.innerHTML = data.ticketTimeline.map(t =>
+    `<tr><td>${t.priority} ${t.level}</td><td>${t.item}</td><td>${t.time}</td></tr>`
+  ).join('');
+}
+
+function renderTips(data) {
+  const container = document.getElementById('tipsContainer');
+  if (!container || !data.tips) return;
+  container.innerHTML = data.tips.map(t =>
+    `<div class="tc2"><h4>${t.icon} ${t.title}</h4><p>${t.desc.replace(/\n/g,'<br>')}</p></div>`
+  ).join('');
+}
+
+function renderAllExtras(data) {
+  renderEggs(data);
+  renderTicketTimeline(data);
+  renderTips(data);
+}
+
 
 function tg(el){el.closest('.dc').classList.toggle('open')}
 
