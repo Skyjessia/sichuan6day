@@ -272,9 +272,9 @@ body.share-mode .al{display:none}
 
 <div id="bu" class="s">
 <div class="bu-head">
-<div class="bl">人均预算（不含购物）</div>
-<div class="ba" id="budgetTotal">¥5,115</div>
-<div style="font-size:11px;opacity:.7;margin-top:3px">2人总计 ¥10,231</div>
+<div class="bl">人均预算</div>
+<div class="ba" id="budgetTotal">¥5,500</div>
+<div style="font-size:11px;opacity:.7;margin-top:3px">2人总计 ¥11,000</div>
 </div>
 
 <div class="prog-wrap">
@@ -984,6 +984,12 @@ renderBookList();
 // Set default date
 const bkDate = document.getElementById('bkDate');
 if (bkDate && !bkDate.value) bkDate.value = new Date().toISOString().slice(0,10);
+
+const CAT_NAMES = {
+  flight:'✈️ 机票', train:'🚄 高铁/火车', local:'🚌 市内交通',
+  ticket:'🎫 门票', hotel:'🏨 住宿', food:'🍜 餐饮',
+  entertain:'🎭 娱乐', shop:'🛒 购物', other:'📦 其他(机动)'
+};
 
 function renderBudget(){
   const actual={flight:0,train:0,local:0,ticket:0,hotel:0,food:0,entertain:0,shop:0,other:0};
