@@ -6,11 +6,11 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>四川6日 · 实时编辑版 v3</title>
+<title>四川6日 · 实时编辑版 v5</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--p:#C4553A;--pl:#F8E8E4;--a:#E8A838;--al:#FFF8EC;--b:#4A90D9;--bl:#EBF3FC;--g:#2D8B5F;--gl:#E8F5EE;--g50:#FAFAF8;--g100:#F5F5F0;--g200:#E8E8E0;--g500:#8C8C80;--g700:#525250;--g900:#2C2C28;--sh:0 2px 12px rgba(0,0,0,.06);--r:12px;--danger:#E05040}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--g50);color:var(--g900);line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--g50);color:var(--g900);line-height:1.7;-webkit-font-smoothing:antialiased;padding-bottom:80px}
 .c{max-width:900px;margin:0 auto;padding:16px 12px 20px}
 
 /* Hero */
@@ -31,10 +31,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .s{display:none}.s.on{display:block}
 
 /* Section title */
-.st{font-size:16px;font-weight:700;color:var(--g900);margin-bottom:12px;padding-left:8px;border-left:4px solid var(--p)}
+.st{font-size:17px;font-weight:700;color:var(--g900);margin-bottom:14px;padding-left:10px;border-left:4px solid var(--p);letter-spacing:.3px}
 
 /* Day card */
-.dc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);margin-bottom:12px;overflow:hidden}
+.dc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);margin-bottom:14px;overflow:hidden}
 .dh{padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:background .2s}
 .dh:hover{background:var(--g50)}
 .db{width:40px;height:40px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:11px;color:#fff;flex-shrink:0}
@@ -46,7 +46,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .tl{padding:0 14px 12px;display:none}.dc.open .tl{display:block}
 
 /* Timeline item */
-.ti{display:flex;gap:10px;padding:6px 0;position:relative;transition:opacity .2s,transform .2s}
+.ti{display:flex;gap:10px;padding:8px 0;position:relative;transition:opacity .2s,transform .2s}
 .ti.dragging{opacity:.4;transform:scale(.96)}
 .ti.drag-over{border-top:2px solid var(--b);padding-top:4px}
 .drag-handle{width:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:grab;color:var(--g200);font-size:12px;font-weight:700;user-select:none;padding-top:2px;touch-action:none}
@@ -150,6 +150,36 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .bg{grid-template-columns:1fr 1fr}.bt .ba{font-size:22px}
 .quick-add{flex-direction:column}.quick-add .amt,.quick-add .cat,.quick-add .desc{width:100%}
 }
+
+/* Share mode - hide private sections */
+body.share-mode .edit-hint,
+body.share-mode #todoBanner,
+body.share-mode .drag-handle,
+body.share-mode .quick-add,
+body.share-mode .data-bar,
+body.share-mode .expense-list,
+body.share-mode #dailySummary,
+body.share-mode [contenteditable]{pointer-events:none;background:transparent!important;box-shadow:none!important}
+body.share-mode .nav button:nth-child(3),  /* 记账 */
+body.share-mode .nav button:nth-child(4),  /* 交通 */
+body.share-mode .nav button:nth-child(5),  /* 门票 */
+body.share-mode .nav button:nth-child(6),  /* 美食 */
+body.share-mode .nav button:nth-child(7),  /* 住宿 */
+body.share-mode .nav button:nth-child(9),  /* 彩蛋 */
+body.share-mode .nav button:nth-child(10), /* 贴士 */
+body.share-mode .bottom-bar button:nth-child(3), /* 记账 */
+body.share-mode .bottom-bar button:nth-child(4), /* 彩蛋 */
+body.share-mode .bottom-bar button:nth-child(5)  /* 贴士 */
+{display:none}
+body.share-mode #ex,body.share-mode #tr,body.share-mode #tk,body.share-mode #fo,body.share-mode #ho,body.share-mode #eg,body.share-mode #ti{display:none!important}
+body.share-mode .al{display:none}
+/* Todo date group */
+.todo-date{font-size:11px;font-weight:700;color:var(--b);padding:4px 8px;background:var(--bl);border-radius:6px;margin:8px 0 4px;display:inline-block}
+.todo-date:first-child{margin-top:0}
+.todo-item{padding:3px 0 3px 8px;border-left:2px solid var(--g200);margin-left:4px;font-size:12px;line-height:1.7}
+.todo-item.urgent{border-left-color:var(--danger);color:var(--g900)}
+.todo-item.done{text-decoration:line-through;opacity:.4;border-left-color:var(--g200)}
+
 @media print{.nav,.bottom-bar,.data-bar,.quick-add,.edit-hint{display:none}.s{display:block!important}.dc .tl{display:block!important}.darr{display:none}}
 </style>
 </head>
@@ -164,7 +194,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 
 <div class="al alg">✏️ 所有文字可直接点击编辑，费用可修改，数据自动保存到浏览器</div>
 <div id="todoBanner" style="background:#FFF0F0;border:1.5px solid #E05040;border-radius:var(--r);padding:12px;margin-bottom:10px">
-<div style="font-size:13px;font-weight:700;color:#C03020;margin-bottom:8px">🔴 待办提醒 · 还没定的赶紧定！</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<div style="font-size:13px;font-weight:700;color:#C03020">🔴 待办提醒 · 按日期查看</div>
+<button onclick="toggleShareMode()" style="font-size:11px;padding:3px 10px;border:1.5px solid var(--b);border-radius:12px;background:var(--bl);color:var(--b);cursor:pointer">🔗 分享模式</button>
+</div>
 <div id="todoList" style="font-size:12px;line-height:1.8;color:var(--g900)"></div>
 </div>
 
@@ -802,22 +835,64 @@ function renderTodo(){
   }
   banner.style.display='block';
   
-  const urgentItems=pending.filter(i=>i.urgent);
-  const normalItems=pending.filter(i=>!i.urgent);
+  // Group by action date
+  const dateGroups={};
+  const dateOrder=['6/4','6/5','6/6','6/8','6/9','6/10','6/11','6/12','6/14','6/15','6/16','6/17','6/18','出发前','当天'];
+  pending.forEach(item=>{
+    let dateKey='出发前';
+    const dl=item.deadline;
+    if(dl.includes('6/4'))dateKey='6/4';
+    else if(dl.includes('6/5'))dateKey='6/5';
+    else if(dl.includes('6/6'))dateKey='6/6';
+    else if(dl.includes('6/8'))dateKey='6/8';
+    else if(dl.includes('6/9'))dateKey='6/9';
+    else if(dl.includes('6/10'))dateKey='6/10';
+    else if(dl.includes('6/11'))dateKey='6/11';
+    else if(dl.includes('6/12'))dateKey='6/12';
+    else if(dl.includes('6/14'))dateKey='6/14';
+    else if(dl.includes('6/17'))dateKey='6/17';
+    else if(dl.includes('当天'))dateKey='当天';
+    else if(dl.includes('提前1天'))dateKey='6/17';
+    else if(dl.includes('提前1-3天'))dateKey='6/14';
+    else if(dl.includes('提前3-5天'))dateKey='6/11';
+    else if(dl.includes('出发前'))dateKey='出发前';
+    if(!dateGroups[dateKey])dateGroups[dateKey]=[];
+    dateGroups[dateKey].push(item);
+  });
   
   let html='';
-  if(urgentItems.length>0){
-    html+='<div style="margin-bottom:6px">'+urgentItems.map(i=>
-      `<div style="padding:4px 0;border-bottom:1px dashed #E0A0A0">🔴 <b>${i.name}</b> · ${i.deadline} · ${i.day}</div>`
-    ).join('')+'</div>';
-  }
-  if(normalItems.length>0){
-    html+=normalItems.map(i=>
-      `<div style="padding:2px 0">🟡 ${i.cat} ${i.name} · ${i.deadline} · ${i.day}</div>`
-    ).join('');
-  }
-  html+=`<div style="margin-top:6px;font-size:11px;color:var(--g500)">💡 记账后自动标记已购，待办会减少</div>`;
+  const sortedKeys=Object.keys(dateGroups).sort((a,b)=>dateOrder.indexOf(a)-dateOrder.indexOf(b));
+  sortedKeys.forEach(dateKey=>{
+    const items=dateGroups[dateKey];
+    const isUrgent=items.some(i=>i.urgent);
+    html+=`<div class="todo-date" style="${isUrgent?'background:#FDE8E8;color:var(--danger)':''}">📅 ${dateKey}</div>`;
+    items.forEach(i=>{
+      const cls=i.urgent?'todo-item urgent':'todo-item';
+      const icon=i.urgent?'🔴':'🟡';
+      html+=`<div class="${cls}">${icon} ${i.cat} ${i.name} · ${i.deadline} · ${i.day}</div>`;
+    });
+  });
+  html+=`<div style="margin-top:8px;font-size:11px;color:var(--g500)">💡 记账后自动标记已购，待办会减少</div>`;
   todoEl.innerHTML=html;
+}
+
+// Share mode
+function toggleShareMode(){
+  document.body.classList.toggle('share-mode');
+  const btn=event.target;
+  if(document.body.classList.contains('share-mode')){
+    btn.textContent='🔒 退出分享';
+    btn.style.background='var(--p)';
+    btn.style.color='#fff';
+    btn.style.borderColor='var(--p)';
+    // Auto show itinerary
+    sh('it');
+  }else{
+    btn.textContent='🔗 分享模式';
+    btn.style.background='var(--bl)';
+    btn.style.color='var(--b)';
+    btn.style.borderColor='var(--b)';
+  }
 }
 
 // ===== Split Bill =====
