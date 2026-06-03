@@ -241,6 +241,11 @@ body.share-mode .al{display:none}
 
 
 <!-- Nav tabs -->
+<div id="todoBanner" style="background:linear-gradient(135deg,#FFF5F0,#FDE8E8);border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:12px;display:none">
+<div style="font-weight:700;color:var(--p);margin-bottom:6px">🔴 待办提醒</div>
+<div id="todoList" style="line-height:1.8"></div>
+</div>
+
 <div class="nav" id="topNav">
 <div class="nav-row"><button class="on" onclick="sh('it')">📋 行程</button><button onclick="sh('bu')">💰 预算</button><button onclick="sh('ex')">📝 记账</button><button onclick="sh('fo')">🍜 美食</button></div>
 <div class="nav-row"><button onclick="sh('eg')">🎁 彩蛋</button><button onclick="sh('ti')">📌 贴士</button><button onclick="sh('sp')">💳 分账</button><button onclick="sh('ab')">📖 关于</button></div>
@@ -283,52 +288,34 @@ body.share-mode .al{display:none}
 
 <!-- ========== 记账 ========== -->
 <div id="ex" class="s">
-<div class="st">📝 随手记账</div>
-<div class="al ali">💡 旅途中花一笔记一笔，预算页自动更新</div>
+<div class="st">🧾 账本 · 记账+分账+平账</div>
+<div class="al ali">💡 记一笔自动算分账，待办联动自动打钩</div>
 
-<div class="quick-add">
-<select class="cat" id="expCat">
-<option value="✈️">✈️ 飞机</option>
-<option value="🚄">🚄 高铁</option>
-<option value="🚌">🚌 市内交通</option>
-<option value="🎫">🎫 门票</option>
-<option value="🏨">🏨 住宿</option>
-<option value="🍜" selected>🍜 餐饮</option>
-<option value="🎭">🎭 娱乐</option>
-<option value="🛒">🛒 购物</option>
-<option value="📦">📦 其他</option>
+<div style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:var(--sh)">
+<div style="font-size:13px;font-weight:600;margin-bottom:10px">➕ 添加消费</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+<input type="date" id="bkDate" style="padding:8px;border:1.5px solid var(--g200);border-radius:8px;font-size:12px">
+<input type="number" id="bkAmt" placeholder="总金额" inputmode="decimal" style="padding:8px;border:1.5px solid var(--g200);border-radius:8px;font-size:12px;font-weight:600">
+</div>
+<input type="text" id="bkDesc" placeholder="消费描述（如：三星堆门票）" style="width:100%;padding:8px;border:1.5px solid var(--g200);border-radius:8px;font-size:12px;margin-bottom:8px;box-sizing:border-box">
+<div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
+<div style="font-size:12px;color:var(--g500);flex-shrink:0">支付人：</div>
+<select id="bkPayer" style="padding:6px 10px;border:1.5px solid var(--g200);border-radius:8px;font-size:12px;flex:1">
+<option value="甲">甲</option><option value="乙">乙</option>
 </select>
-<input class="amt" id="expAmt" type="number" placeholder="金额" inputmode="decimal">
-<select id="expPpl" style="padding:7px 6px;border:1.5px solid var(--g200);border-radius:8px;font-size:12px;background:#fff">
-<option value="1">👤 1人</option>
-<option value="2" selected>👥 2人</option>
-</select>
-<select id="expDay" style="padding:7px 6px;border:1.5px solid var(--g200);border-radius:8px;font-size:12px;background:#fff">
-<option value="auto">📅 自动</option>
-<option value="D1">D1 6/13</option>
-<option value="D2">D2 6/14</option>
-<option value="D3">D3 6/15</option>
-<option value="D4">D4 6/16</option>
-<option value="D5">D5 6/17</option>
-<option value="D6">D6 6/18</option>
-</select>
-<input class="desc" id="expDesc" placeholder="描述（如：蜀九香火锅）">
-<button class="add-btn" onclick="addExpense()">+ 记一笔</button>
+<div style="font-size:12px;color:var(--g500);flex-shrink:0;margin-left:8px">参与：</div>
+<label style="font-size:12px;display:flex;align-items:center;gap:3px"><input type="checkbox" id="bkP1" checked>甲</label>
+<label style="font-size:12px;display:flex;align-items:center;gap:3px"><input type="checkbox" id="bkP2" checked>乙</label>
+</div>
+<button onclick="addBookEntry()" style="width:100%;padding:10px;background:var(--p);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">➕ 记一笔</button>
 </div>
 
-<div class="data-bar">
-<button class="save-btn" onclick="saveData()">💾 保存</button>
-<button onclick="copyLink()">🔗 复制链接</button>
-<button onclick="exportData()">📤 导出</button>
-<button onclick="document.getElementById('importFile').click()">📥 导入</button>
-<button onclick="clearExpenses()" style="color:var(--danger)">🗑️ 清空</button>
-<input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+<div id="bookList"></div>
+
+<div id="settleCard" style="position:sticky;bottom:56px;background:linear-gradient(135deg,var(--p),#E87050);color:#fff;border-radius:var(--r);padding:14px;margin-top:12px;box-shadow:0 4px 16px rgba(212,88,58,.25)">
+<div style="font-size:13px;font-weight:700;margin-bottom:8px">📊 全局结算</div>
+<div id="settleInfo" style="font-size:12px;line-height:1.8"></div>
 </div>
-
-<div class="day-tabs" id="expDayTabs"></div><div class="expense-list" id="expenseList"></div>
-
-<div class="st" style="margin-top:12px">按天汇总</div>
-<div id="dailySummary"></div>
 </div>
 
 <!-- ========== 交通 ========== -->
@@ -857,191 +844,203 @@ function resetToDefault() {
 
 function tg(el){el.closest('.dc').classList.toggle('open')}
 
-// ===== Expense data =====
-const BUDGET = {flight:1960,train:300,local:350,ticket:822,hotel:684,food:600,entertain:300,shop:400,other:200}; // Will be overridden by data.json
-const BUDGET_TOTAL = Object.values(BUDGET).reduce((a,b)=>a+b,0);
-const CAT_MAP = {'✈️':'flight','🚄':'train','🚌':'local','🎫':'ticket','🏨':'hotel','🍜':'food','🎭':'entertain','🛒':'shop','📦':'other'};
-const CAT_NAMES = {flight:'✈️ 飞机',train:'🚄 高铁',local:'🚌 市内交通',ticket:'🎫 门票',hotel:'🏨 住宿',food:'🍜 餐饮',entertain:'🎭 娱乐',shop:'🛒 购物',other:'📦 其他'};
-
-let expenses = JSON.parse(localStorage.getItem('sc_expenses')||'[]');
-
-// Pre-fill: only on first visit (empty). Version bumps NEVER overwrite user data.
-const DATA_VERSION = 4;
-const PREFILL = [
-  {id:1,cat:'✈️',amt:3920,desc:'MU9181 往返机票 上海↔成都',day:'D1',time:'已买',ppl:2},
-  {id:2,cat:'🚄',amt:270,desc:'C5796 成都东→松潘',day:'D1',time:'已买',ppl:2},
-  {id:3,cat:'🚄',amt:270,desc:'C5788 松潘→成都东',day:'D3',time:'已买',ppl:2},
-  {id:4,cat:'🚄',amt:26,desc:'成都东↔广汉北 往返高铁',day:'D4',time:'当天买',ppl:2},
-  {id:5,cat:'🚄',amt:20,desc:'犀浦↔青城山 往返高铁',day:'D5',time:'当天买',ppl:2},
-  {id:6,cat:'🏨',amt:676,desc:'青禾和院 2晚(6/13-6/15)',day:'D1',time:'已订',ppl:2},
-  {id:7,cat:'🏨',amt:691.51,desc:'汉庭宽窄巷子中心店 3晚(6/15-6/18)',day:'D3',time:'已订',ppl:2},
-  {id:8,cat:'🎫',amt:560,desc:'九寨沟门票+观光车',day:'D2',time:'已买',ppl:2},
-  {id:9,cat:'🎫',amt:500,desc:'黄龙门票+索道+观光车',day:'D3',time:'待买',ppl:2},
-  {id:10,cat:'🎫',amt:144,desc:'三星堆门票',day:'D4',time:'已买',ppl:2},
-  {id:11,cat:'🎫',amt:230,desc:'青城山+都江堰门票',day:'D5',time:'现场买',ppl:2},
-  {id:12,cat:'🎫',amt:180,desc:'梨园会馆川剧变脸',day:'D5',time:'待约',ppl:2},
-  {id:13,cat:'🚌',amt:400,desc:'九寨沟→黄龙包车',day:'D3',time:'酒店约',ppl:2},
-  {id:14,cat:'🚌',amt:100,desc:'松潘直通车(机场→九寨沟)',day:'D1',time:'现场买',ppl:2},
+// ===== Todo + Bookkeeping =====
+const DEFAULT_TODOS = [
+  {id:"1",text:"抢三星堆门票",deadline:"6/11 20:00",keyword:"三星堆",completed:false},
+  {id:"2",text:"预约成都博物馆（雨天备选）",deadline:"6/10",keyword:null,completed:false},
+  {id:"3",text:"买梨园会馆川剧票",deadline:"提前1-3天",keyword:"梨园会馆",completed:false},
+  {id:"4",text:"黄龙门票+索道",deadline:"提前1-2天",keyword:"黄龙",completed:false},
+  {id:"5",text:"都江堰门票（带身份证）",deadline:"当天现场",keyword:"都江堰",completed:false},
+  {id:"6",text:"备选：青城山（如去）",deadline:"提前规划",keyword:"青城山",completed:false}
 ];
 
-if(expenses.length===0){
-  // First visit only: pre-fill default data
-  expenses=PREFILL.map(e=>({...e}));
-  localStorage.setItem('sc_expenses',JSON.stringify(expenses));
-  localStorage.setItem('sc_version', DATA_VERSION);
-} else {
-  // Existing user: version bump triggers smart merge, never deletes user data
-  const oldVersion = parseInt(localStorage.getItem('sc_version')||'0');
-  if(oldVersion < DATA_VERSION){
-    // Merge: update prefilled items by desc match, add new ones, never remove user-added items
-    const prefillDescs = new Set(PREFILL.map(p=>p.desc));
-    // Update existing prefilled items
-    expenses.forEach(e=>{
-      const match = PREFILL.find(p=>p.desc===e.desc);
-      if(match){Object.assign(e,{...match,id:e.id})}
-    });
-    // Add new prefilled items not yet in expenses
-    const existingDescs = new Set(expenses.map(e=>e.desc));
-    let nextId = Math.max(...expenses.map(e=>e.id),0)+1;
-    PREFILL.filter(p=>!existingDescs.has(p.desc)).forEach(p=>{
-      expenses.push({...p,id:nextId++});
-    });
-    localStorage.setItem('sc_expenses',JSON.stringify(expenses));
-    localStorage.setItem('sc_version', DATA_VERSION);
-  }
+function getTodos() {
+  const raw = localStorage.getItem('todos');
+  if (raw) try { return JSON.parse(raw); } catch(e) {}
+  return JSON.parse(JSON.stringify(DEFAULT_TODOS));
+}
+function saveTodos(todos) { localStorage.setItem('todos', JSON.stringify(todos)); }
+
+function renderTodos() {
+  const todos = getTodos().filter(t => !t.completed);
+  const banner = document.getElementById('todoBanner');
+  const list = document.getElementById('todoList');
+  if (!banner || !list) return;
+  if (todos.length === 0) { banner.style.display = 'none'; return; }
+  banner.style.display = 'block';
+  list.innerHTML = todos.map(t => {
+    let html = '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">';
+    html += '<span style="color:var(--p)">🔴</span>';
+    html += '<span>' + t.text + '</span>';
+    html += '<span style="font-size:10px;color:var(--g500)">' + t.deadline + '</span>';
+    if (t.keyword === null) {
+      html += '<button onclick="completeTodo(\''+t.id+'\')" style="margin-left:auto;padding:2px 8px;border:1px solid var(--g);border-radius:6px;background:#fff;color:var(--g);font-size:11px;cursor:pointer">✅</button>';
+    }
+    html += '</div>';
+    return html;
+  }).join('');
 }
 
-function addExpense(){
-  const cat=document.getElementById('expCat').value;
-  const amt=parseFloat(document.getElementById('expAmt').value);
-  const ppl=parseInt(document.getElementById('expPpl').value);
-  const daySel=document.getElementById('expDay').value;
-  const desc=document.getElementById('expDesc').value.trim();
-  if(!amt||amt<=0){toast('请输入金额');return}
-  if(!desc){toast('请输入描述');return}
-  const now=new Date();
-  const day=daySel==='auto'?getDay(now):daySel;
-  expenses.push({id:Date.now(),cat,amt,desc,day,time:now.toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}),ppl});
-  document.getElementById('expAmt').value='';
-  document.getElementById('expDesc').value='';
-  document.getElementById('expDay').value='auto';
-  renderExpenses();
-  saveData();
-  renderTodo();
-  renderSplit();
-  toast('✅ 已记录 ¥'+amt+' → '+day+(ppl===2?' (2人)':''));
+function completeTodo(id) {
+  const todos = getTodos();
+  const t = todos.find(x => x.id === id);
+  if (t) { t.completed = true; saveTodos(todos); renderTodos(); }
 }
 
-function getDay(date){
-  const d13=new Date(2026,5,13),d14=new Date(2026,5,14),d15=new Date(2026,5,15),d16=new Date(2026,5,16),d17=new Date(2026,5,17),d18=new Date(2026,5,18);
-  const t=new Date(date.getFullYear(),date.getMonth(),date.getDate());
-  if(t.getTime()===d13.getTime())return'D1';if(t.getTime()===d14.getTime())return'D2';
-  if(t.getTime()===d15.getTime())return'D3';if(t.getTime()===d16.getTime())return'D4';
-  if(t.getTime()===d17.getTime())return'D5';if(t.getTime()===d18.getTime())return'D6';
-  return'D?';
-}
-
-function delExpense(id){
-  expenses=expenses.filter(e=>e.id!==id);
-  renderDayTabs();renderExpenses();saveData();renderTodo();renderSplit();toast('已删除');
-}
-
-function clearExpenses(){
-  if(expenses.length===0)return;
-  if(!confirm('确认清空所有记账记录？'))return;
-  expenses=[];renderExpenses();saveData();renderTodo();renderSplit();toast('已清空');
-}
-
-function renderExpenses(){
-  const list=document.getElementById('expenseList');
-  if(expenses.length===0){list.innerHTML='<div style="text-align:center;padding:20px;color:var(--g500);font-size:13px">还没有记录，花一笔记一笔 ✏️</div>';renderBudget();return}
-  const totalAll=expenses.reduce((s,e)=>s+e.amt,0);
-  const totalPpl1=expenses.filter(e=>e.ppl===1).reduce((s,e)=>s+e.amt,0);
-  const totalPpl2=expenses.filter(e=>e.ppl!==1).reduce((s,e)=>s+e.amt,0);
-  const perPerson=totalPpl1+totalPpl2/2;
-  
-  // Apply day filter
-  const filtered=expDayFilter==='all'?expenses:expenses.filter(e=>e.day===expDayFilter);
-  
-  // Group by day
-  const days=['D1','D2','D3','D4','D5','D6'];
-  const grouped={};
-  days.forEach(d=>grouped[d]=[]);
-  filtered.slice().reverse().forEach(e=>{
-    if(grouped[e.day])grouped[e.day].push(e);
+function checkTodoLinkage(desc) {
+  const todos = getTodos();
+  let changed = false;
+  todos.forEach(t => {
+    if (!t.completed && t.keyword && desc.toLowerCase().includes(t.keyword.toLowerCase())) {
+      t.completed = true; changed = true;
+    }
   });
-  
-  let html=`<div style="background:var(--bl);border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px">
-    <span>总计 ¥${fmt(totalAll)}</span>
-    <span style="color:var(--b)">人均 ¥${fmt(perPerson)}</span>
-    <span style="color:var(--g500)">👥¥${fmt(totalPpl2)} + 👤¥${fmt(totalPpl1)}</span>
-  </div>
-  <div style="display:flex;gap:6px;margin-bottom:8px">
-    <button onclick="document.querySelectorAll('.day-items').forEach(d=>{d.classList.remove('collapsed');d.style.maxHeight=d.scrollHeight+'px'});document.querySelectorAll('.day-header').forEach(h=>h.classList.remove('collapsed'))" style="padding:4px 10px;border:1.5px solid var(--g200);border-radius:8px;background:#fff;font-size:11px;cursor:pointer">📂 全部展开</button>
-    <button onclick="document.querySelectorAll('.day-items').forEach(d=>{d.classList.add('collapsed');d.style.maxHeight='0'});document.querySelectorAll('.day-header').forEach(h=>h.classList.add('collapsed'))" style="padding:4px 10px;border:1.5px solid var(--g200);border-radius:8px;background:#fff;font-size:11px;cursor:pointer">📁 全部折叠</button>
-  </div>`;
-  
-  days.forEach(d=>{
-    const items=grouped[d];
-    if(items.length===0)return;
-    const dayTotal=items.reduce((s,e)=>s+e.amt,0);
-    html+=`<div class="day-group"><div class="day-header" onclick="toggleDayGroup(this)"><span class="day-arrow">▼</span><span>${d}</span><span class="day-total">¥${fmt(dayTotal)}</span></div><div class="day-items">`;
-    items.forEach(e=>{
-      html+=`<div class="exp-item" data-id="${e.id}">
-      <div class="exp-cat" onclick="editExpense(${e.id},'cat')" style="cursor:pointer" title="点击修改分类">${e.cat}</div>
-      <div class="exp-info"><div class="exp-desc" onclick="editExpense(${e.id},'desc')" style="cursor:pointer" title="点击修改描述">${e.desc} ${e.ppl===1?'<span style="font-size:10px;color:var(--g500)">👤1人</span>':'<span style="font-size:10px;color:var(--b)">👥2人</span>'}</div><div class="exp-meta">${e.time}</div></div>
-      <div class="exp-amt" onclick="editExpense(${e.id},'amt')" style="cursor:pointer" title="点击修改金额">¥${fmt(e.amt)}</div>
-      <div class="exp-del" onclick="delExpense(${e.id})">✕</div>
-    </div>`;
-    });
-    html+=`</div></div>`;
+  if (changed) { saveTodos(todos); renderTodos(); }
+}
+
+function uncheckTodoLinkage() {
+  const todos = getTodos();
+  const expenses = getExpenses();
+  let changed = false;
+  todos.forEach(t => {
+    if (t.completed && t.keyword) {
+      const hasMatch = expenses.some(e => e.desc.toLowerCase().includes(t.keyword.toLowerCase()));
+      if (!hasMatch) { t.completed = false; changed = true; }
+    }
   });
-  
-  list.innerHTML=html;
-  // Set initial max-height for animation
-  document.querySelectorAll('.day-items').forEach(d=>{d.style.maxHeight=d.scrollHeight+'px'});
-  renderBudget();
-  renderDailySummary();
+  if (changed) { saveTodos(todos); renderTodos(); }
 }
 
-function toggleDayGroup(header){
-  const items=header.nextElementSibling;
-  const isCollapsed=items.classList.contains('collapsed');
-  if(isCollapsed){
-    items.classList.remove('collapsed');
-    items.style.maxHeight=items.scrollHeight+'px';
-    header.classList.remove('collapsed');
-  }else{
-    items.style.maxHeight=items.scrollHeight+'px';
-    requestAnimationFrame(()=>{items.classList.add('collapsed');items.style.maxHeight='0'});
-    header.classList.add('collapsed');
+// ===== Bookkeeping =====
+function getExpenses() {
+  const raw = localStorage.getItem('expenses');
+  if (raw) try { return JSON.parse(raw); } catch(e) {}
+  return [];
+}
+function saveExpenses(exps) { localStorage.setItem('expenses', JSON.stringify(exps)); }
+
+function addBookEntry() {
+  const date = document.getElementById('bkDate').value;
+  const amt = parseFloat(document.getElementById('bkAmt').value);
+  const desc = document.getElementById('bkDesc').value.trim();
+  const payer = document.getElementById('bkPayer').value;
+  const p1 = document.getElementById('bkP1').checked;
+  const p2 = document.getElementById('bkP2').checked;
+  if (!amt || amt <= 0) { toast('请输入金额'); return; }
+  if (!desc) { toast('请输入描述'); return; }
+  const participants = [];
+  if (p1) participants.push('甲');
+  if (p2) participants.push('乙');
+  if (participants.length === 0) { toast('至少选一个参与人'); return; }
+  const expenses = getExpenses();
+  expenses.push({
+    id: Date.now() + Math.random(),
+    date: date || new Date().toISOString().slice(0,10),
+    desc, amount: amt, payer, participants
+  });
+  saveExpenses(expenses);
+  document.getElementById('bkAmt').value = '';
+  document.getElementById('bkDesc').value = '';
+  renderBookList();
+  checkTodoLinkage(desc);
+  toast('已记录 ✅');
+}
+
+function delBookEntry(id) {
+  let expenses = getExpenses();
+  expenses = expenses.filter(e => e.id !== id);
+  saveExpenses(expenses);
+  renderBookList();
+  uncheckTodoLinkage();
+}
+
+function renderBookList() {
+  const expenses = getExpenses();
+  const container = document.getElementById('bookList');
+  const settleInfo = document.getElementById('settleInfo');
+  if (!container) return;
+
+  // Group by date desc
+  const groups = {};
+  expenses.forEach(e => { (groups[e.date] = groups[e.date] || []).push(e); });
+  const sortedDates = Object.keys(groups).sort().reverse();
+
+  const weekDays = ['日','一','二','三','四','五','六'];
+
+  let html = '';
+  let totalPaid = {甲:0, 乙:0}, totalOwed = {甲:0, 乙:0}, grandTotal = 0;
+
+  sortedDates.forEach(date => {
+    const items = groups[date];
+    const d = new Date(date);
+    const dayStr = '周' + weekDays[d.getDay()];
+
+    // Daily calc
+    let dayPaid = {甲:0, 乙:0}, dayOwed = {甲:0, 乙:0}, dayTotal = 0;
+    items.forEach(e => {
+      dayPaid[e.payer] = (dayPaid[e.payer]||0) + e.amount;
+      const share = e.amount / e.participants.length;
+      e.participants.forEach(p => { dayOwed[p] = (dayOwed[p]||0) + share; });
+      dayTotal += e.amount;
+    });
+
+    const dayBalanced = Math.abs((dayPaid['甲']||0) - (dayOwed['甲']||0)) < 0.01 &&
+                        Math.abs((dayPaid['乙']||0) - (dayOwed['乙']||0)) < 0.01;
+    const balanceIcon = dayBalanced ? '✅' : '❗';
+
+    html += '<div style="background:#fff;border-radius:var(--r);padding:12px;margin-bottom:10px;box-shadow:var(--sh)">';
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">';
+    html += '<div style="font-size:13px;font-weight:700">📅 ' + date + ' (' + dayStr + ')</div>';
+    html += '<span style="font-size:14px">' + balanceIcon + '</span></div>';
+
+    items.forEach(e => {
+      const share = (e.amount / e.participants.length).toFixed(2);
+      html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--g100);font-size:12px">';
+      html += '<div><b>' + e.desc + '</b> ¥' + e.amount.toFixed(0) + ' <span style="color:var(--g500)">(' + e.payer + '付)</span> 每人¥' + share + '</div>';
+      html += '<button onclick="delBookEntry(' + e.id + ')" style="border:none;background:none;color:var(--danger);cursor:pointer;font-size:14px">🗑️</button>';
+      html += '</div>';
+    });
+
+    html += '<div style="margin-top:8px;font-size:11px;color:var(--g700);line-height:1.6">';
+    html += '本日总支出：¥' + dayTotal.toFixed(0) + '<br>';
+    html += '甲：已付 ¥' + (dayPaid['甲']||0).toFixed(0) + '，应付 ¥' + (dayOwed['甲']||0).toFixed(0) + '<br>';
+    html += '乙：已付 ¥' + (dayPaid['乙']||0).toFixed(0) + '，应付 ¥' + (dayOwed['乙']||0).toFixed(0);
+    html += '</div></div>';
+
+    totalPaid['甲'] += dayPaid['甲']||0; totalPaid['乙'] += dayPaid['乙']||0;
+    totalOwed['甲'] += dayOwed['甲']||0; totalOwed['乙'] += dayOwed['乙']||0;
+    grandTotal += dayTotal;
+  });
+
+  if (expenses.length === 0) {
+    html = '<div style="text-align:center;padding:30px;color:var(--g500);font-size:13px">还没有记录，记一笔吧 ✏️</div>';
+  }
+
+  container.innerHTML = html;
+
+  // Settlement card
+  if (settleInfo) {
+    const diff = totalPaid['甲'] - totalOwed['甲'];
+    let settleText = '总支出：¥' + grandTotal.toFixed(0) + ' | 人均：¥' + (grandTotal/2).toFixed(0) + '<br>';
+    settleText += '甲：已付 ¥' + totalPaid['甲'].toFixed(0) + '，应付 ¥' + totalOwed['甲'].toFixed(0) + '<br>';
+    settleText += '乙：已付 ¥' + totalPaid['乙'].toFixed(0) + '，应付 ¥' + totalOwed['乙'].toFixed(0) + '<br>';
+    if (Math.abs(diff) < 0.01) {
+      settleText += '🎉 账目已平！';
+    } else if (diff > 0) {
+      settleText += '💰 乙应转给甲 ¥' + diff.toFixed(0);
+    } else {
+      settleText += '💰 甲应转给乙 ¥' + Math.abs(diff).toFixed(0);
+    }
+    settleInfo.innerHTML = settleText;
   }
 }
 
-function editExpense(id,field){
-  const e=expenses.find(x=>x.id===id);
-  if(!e)return;
-  if(field==='amt'){
-    const v=prompt('修改金额:',e.amt);
-    if(v===null)return;
-    const n=parseFloat(v);
-    if(isNaN(n)||n<0){toast('请输入有效金额');return}
-    e.amt=n;
-  }else if(field==='desc'){
-    const v=prompt('修改描述:',e.desc);
-    if(v===null)return;
-    if(!v.trim()){toast('描述不能为空');return}
-    e.desc=v.trim();
-  }else if(field==='cat'){
-    const cats=['✈️','🚄','🚌','🎫','🏨','🍜','🎭','🛒','📦'];
-    const ci=cats.indexOf(e.cat);
-    const v=prompt('修改分类 (✈️🚄🚌🎫🏨🍜🎭🛒📦):',e.cat);
-    if(v===null)return;
-    e.cat=v;
-  }
-  renderDayTabs();renderExpenses();saveData();renderTodo();renderSplit();
-  toast('✅ 已更新');
-}
+// Init todo + bookkeeping on load
+renderTodos();
+renderBookList();
+// Set default date
+const bkDate = document.getElementById('bkDate');
+if (bkDate && !bkDate.value) bkDate.value = new Date().toISOString().slice(0,10);
 
 function renderBudget(){
   const actual={flight:0,train:0,local:0,ticket:0,hotel:0,food:0,entertain:0,shop:0,other:0};
@@ -1170,78 +1169,11 @@ document.getElementById('expAmt').addEventListener('keydown',e=>{if(e.key==='Ent
 document.getElementById('expDesc').addEventListener('keydown',e=>{if(e.key==='Enter')addExpense()});
 
 // ===== Todo & Status Sync =====
-const TODO_ITEMS = [
-  {name:'三星堆门票',cat:'🎫',keyword:'三星堆',deadline:'6/11 20:00开抢！5分钟售罄',urgent:true,day:'D4'},
-  {name:'黄龙门票+索道',cat:'🎫',keyword:'黄龙',deadline:'出发前1-2天线上买',urgent:false,day:'D3'},
-  {name:'都江堰门票',cat:'🎫',keyword:'都江堰',deadline:'现场买 带上海身份证！',urgent:false,day:'D5'},
-  {name:'梨园会馆川剧',cat:'🎭',keyword:'川剧|梨园',deadline:'提前1-3天预约',urgent:false,day:'D5'},
-  {name:'成都博物馆',cat:'🎫',keyword:'成都博物馆',deadline:'6/10约6/17 🌧️备选',urgent:false,day:'D5'},
-  {name:'广汉北→三星堆高铁',cat:'🚄',keyword:'广汉北',deadline:'当天买即可',urgent:false,day:'D4'},
-  {name:'犀浦→都江堰高铁',cat:'🚄',keyword:'犀浦|都江堰',deadline:'当天买即可',urgent:false,day:'D5'},
-  {name:'九寨→黄龙包车',cat:'🚗',keyword:'包车',deadline:'6/14晚让酒店约',urgent:false,day:'D3'},
-  // ⬇️ 协商备选：青城山（如不去都江堰可替换）
-  {name:'青城山门票',cat:'🎫',keyword:'青城山',deadline:'当天线上/现场买 🔄备选',urgent:false,day:'D5备选'},
-  {name:'犀浦→青城山高铁',cat:'🚄',keyword:'青城山',deadline:'当天买即可 🔄备选',urgent:false,day:'D5备选'},
-];
+// TODO_ITEMS moved to DEFAULT_TODOS
 
-function isExpenseMatched(keyword){
-  return expenses.some(e=>{
-    const re=new RegExp(keyword,'i');
-    return re.test(e.desc)||re.test(e.cat);
-  });
-}
+// isExpenseMatched replaced
 
-function renderTodo(){
-  const todoEl=document.getElementById('todoList');
-  const banner=document.getElementById('todoBanner');
-  const pending=TODO_ITEMS.filter(item=>!isExpenseMatched(item.keyword));
-  
-  if(pending.length===0){
-    banner.style.display='none';
-    return;
-  }
-  banner.style.display='block';
-  
-  // Group by action date
-  const dateGroups={};
-  const dateOrder=['6/4','6/5','6/6','6/8','6/9','6/10','6/11','6/12','6/14','6/15','6/16','6/17','6/18','出发前','当天'];
-  pending.forEach(item=>{
-    let dateKey='出发前';
-    const dl=item.deadline;
-    if(dl.includes('6/4'))dateKey='6/4';
-    else if(dl.includes('6/5'))dateKey='6/5';
-    else if(dl.includes('6/6'))dateKey='6/6';
-    else if(dl.includes('6/8'))dateKey='6/8';
-    else if(dl.includes('6/9'))dateKey='6/9';
-    else if(dl.includes('6/10'))dateKey='6/10';
-    else if(dl.includes('6/11'))dateKey='6/11';
-    else if(dl.includes('6/12'))dateKey='6/12';
-    else if(dl.includes('6/14'))dateKey='6/14';
-    else if(dl.includes('6/17'))dateKey='6/17';
-    else if(dl.includes('当天'))dateKey='当天';
-    else if(dl.includes('提前1天'))dateKey='6/17';
-    else if(dl.includes('提前1-3天'))dateKey='6/14';
-    else if(dl.includes('提前3-5天'))dateKey='6/11';
-    else if(dl.includes('出发前'))dateKey='出发前';
-    if(!dateGroups[dateKey])dateGroups[dateKey]=[];
-    dateGroups[dateKey].push(item);
-  });
-  
-  let html='';
-  const sortedKeys=Object.keys(dateGroups).sort((a,b)=>dateOrder.indexOf(a)-dateOrder.indexOf(b));
-  sortedKeys.forEach(dateKey=>{
-    const items=dateGroups[dateKey];
-    const isUrgent=items.some(i=>i.urgent);
-    html+=`<div class="todo-date" style="${isUrgent?'background:#FDE8E8;color:var(--danger)':''}">📅 ${dateKey}</div>`;
-    items.forEach(i=>{
-      const cls=i.urgent?'todo-item urgent':'todo-item';
-      const icon=i.urgent?'🔴':'🟡';
-      html+=`<div class="${cls}">${icon} ${i.cat} ${i.name} · ${i.deadline} · ${i.day}</div>`;
-    });
-  });
-  html+=`<div style="margin-top:8px;font-size:11px;color:var(--g500)">💡 记账后自动标记已购，待办会减少</div>`;
-  todoEl.innerHTML=html;
-}
+// renderTodo replaced
 
 // Share mode
 function toggleShareMode(){
