@@ -589,13 +589,15 @@ body.share-mode .al{display:none}
 <div id="eg" class="s">
 <div class="st">🎁 彩蛋清单</div>
 <div id="eggsContainer"></div>
+</div>
 
-<!-- ========== 贴士 ========== -->
-<div class="st" style="margin-top:16px">抢票时间轴</div>
+<div id="ti" class="s">
+<div class="st">🎫 抢票时间轴</div>
 <table class="dt2"><thead><tr><th>优先级</th><th>事项</th><th>时间</th></tr></thead><tbody id="ticketTimeline"></tbody></table>
-<div class="st" style="margin-top:16px">重要注意事项</div>
+<div class="st" style="margin-top:16px">📌 重要注意事项</div>
 <div id="tipsContainer"></div>
-</div></div><!-- end .c -->
+</div>
+</div><!-- end .c -->
 
 <!-- Toast -->
 <div class="toast" id="toast"></div>
@@ -630,7 +632,8 @@ function fmt(n){return n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}
 // ===== Tab switching =====
 function sh(id){
   document.querySelectorAll('.s').forEach(s=>s.classList.remove('on'));
-  document.getElementById(id).classList.add('on');
+  const el=document.getElementById(id);
+  if(el) el.classList.add('on');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function setBottom(btn){
