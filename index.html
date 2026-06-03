@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>四川6日 · 实时编辑版 v6</title>
+<title>四川6日 · 数据分离版 v7</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--p:#D4583A;--pl:#FDF0EC;--a:#F0A030;--al:#FFF8EC;--b:#4A8FD9;--bl:#EDF4FC;--g:#2E8B57;--gl:#EAF5EE;--g50:#FBFAF8;--g100:#F5F4F0;--g200:#E8E6E0;--g500:#8C8A80;--g700:#525048;--g900:#2C2A28;--sh:0 2px 16px rgba(0,0,0,.07);--r:14px;--danger:#E05040;--accent:#7C5CFC;--accent-l:#F0ECFF}
@@ -257,84 +257,11 @@ body.share-mode .al{display:none}
 <div id="it" class="s">
 <div class="it-head">
 <div class="it-title">🗓️ 四川6日深度游</div>
-<div class="it-sub">6/13-6/18 · 上海✈️成都🚄九寨沟🏔️黄龙🏛️三星堆🌊都江堰🎭川剧</div>
+<div class="it-sub" id="tripSub">加载中...</div>
+</div>
+<div id="itineraryContainer"></div>
 </div>
 
-<!-- D1 -->
-<div class="dc open"><div class="dh" onclick="tg(this)"><div class="db d1"><span class="n">D1</span><span class="l">6/13</span></div><div class="di"><h3 contenteditable="true">上海✈️成都→高铁🚄进九寨沟</h3><div class="ds" contenteditable="true">MU9181 → C5796 → 直通车 · ⚠️赶不上C5796改签C5782</div></div><div class="dht">🏨 青禾和院</div><div class="darr">▼</div></div><div class="tl">
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">09:49<br>12:40</div><div class="td p"></div><div class="tc"><div class="t" contenteditable="true">✈️ MU9181 上海→成都</div><span class="tg p">飞机</span><div class="d" contenteditable="true">虹桥T2→天府T2</div><div class="note" contenteditable="true">📌 高铁上自备简餐！松潘→九寨沟直通车中途不停车，到酒店已九点多</div><div class="cost" contenteditable="true">¥980/人 ✅已购</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">13:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚇 天府机场→成都东站</div><span class="tg x">市内</span><div class="d" contenteditable="true">地铁18号线→火车南站换乘7号线 约1h</div><div class="cost" contenteditable="true">¥10/人</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">15:45<br>17:24</div><div class="td tr"></div><div class="tc"><div class="t" contenteditable="true">🚄 C5796 成都东→松潘</div><span class="tg tr">高铁</span><div class="d" contenteditable="true">1h39min</div><div class="cost" contenteditable="true">¥135/人 ✅已购</div><div class="note" contenteditable="true">赶不上就改签C5782(18:22→20:37)</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">18:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚌 松潘站→九寨沟直通车</div><span class="tg x">景区</span><div class="d" contenteditable="true">约2h 现场买票</div><div class="cost" contenteditable="true">¥56/人</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">21:00</div><div class="td h"></div><div class="tc"><div class="t" contenteditable="true">🏨 入住青禾和院</div><span class="tg h">住宿</span><div class="d" contenteditable="true">含早+私汤 全屋智能</div><div class="cost" contenteditable="true">¥338/人 ✅已订</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">21:30</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍲 晚餐：牦牛汤锅（清淡版）</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">方案A：酒店内清汤牦牛肉锅+青稞饼 / 方案B：彭丰村·阿布藏家牦牛汤锅</div><div class="cost" contenteditable="true">¥70/人</div></div></div>
-</div></div>
-
-<!-- D2 -->
-<div class="dc"><div class="dh" onclick="tg(this)"><div class="db d2"><span class="n">D2</span><span class="l">6/14</span></div><div class="di"><h3 contenteditable="true">九寨沟全天深度游</h3><div class="ds" contenteditable="true">日则沟→则查洼沟→树正沟 · 芦苇海黄昏光线绝美</div></div><div class="dht">🏨 青禾和院</div><div class="darr">▼</div></div><div class="tl">
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">07:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚗 酒店送景区</div><div class="d" contenteditable="true">青禾和院免费送</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">08:00<br>12:00</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">🎒 日则沟深度游</div><span class="tg tk">门票</span><div class="d" contenteditable="true">箭竹海→熊猫海→五花海→镜海</div><div class="note" contenteditable="true">📌 自带干粮！诺日朗自助¥60/人性价比低</div><div class="cost" contenteditable="true">¥280/人(含观光车)</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">12:30<br>14:00</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">🎒 则查洼沟</div><span class="tg tk">门票</span><div class="d" contenteditable="true">长海→五彩池</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">14:30<br>17:30</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">🎒 树正沟</div><span class="tg tk">门票</span><div class="d" contenteditable="true">树正瀑布→树正群海→芦苇海</div><div class="egg" contenteditable="true">🎁 芦苇海黄昏光线绝美！</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">18:30</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍽️ 晚餐：卡万金藏餐</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">酥油茶+糌粑+牦牛肉</div><div class="cost" contenteditable="true">¥80/人</div></div></div>
-</div></div>
-
-<!-- D3 -->
-<div class="dc"><div class="dh" onclick="tg(this)"><div class="db d3"><span class="n">D3</span><span class="l">6/15</span></div><div class="di"><h3 contenteditable="true">黄龙→岷江源头→松潘→成都</h3><div class="ds" contenteditable="true">索道上+步行下 · 途经岷江源头 · 包车让酒店约</div></div><div class="dht">🏨 汉庭宽窄巷子</div><div class="darr">▼</div></div><div class="tl">
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">07:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚗 包车→黄龙 约2.5h</div><span class="tg x">景区</span><div class="cost" contenteditable="true">¥125/人</div><div class="note" contenteditable="true">让青禾和院前台约 防坑</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">10:00<br>13:00</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">🏔️ 黄龙景区（索道上步行下）</div><span class="tg tk">门票</span><div class="d" contenteditable="true">五彩池→迎宾池→飞瀑流辉</div><div class="note" contenteditable="true">📌 自带干粮！景区内无热餐 · 海拔3500-3900m慢行防高反</div><div class="cost" contenteditable="true">¥250/人(含索道+观光车)</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">13:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">📸 途经岷江源头</div><div class="d" contenteditable="true">停车30min打卡</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">17:58<br>19:51</div><div class="td tr"></div><div class="tc"><div class="t" contenteditable="true">🚄 C5788 松潘→成都东</div><span class="tg tr">高铁</span><div class="cost" contenteditable="true">¥135/人 ✅已购</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">20:30</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍲 晚餐：百年蹄花馆 🔥</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">宽窄巷子支巷 非遗蹄花汤+秘制青椒酱</div><div class="cost" contenteditable="true">¥60/人</div><div class="egg" contenteditable="true">🎁 暖胃首选！配唯怡豆奶</div></div></div>
-</div></div>
-
-<!-- D4 -->
-<div class="dc"><div class="dh" onclick="tg(this)"><div class="db d4"><span class="n">D4</span><span class="l">6/16</span></div><div class="di"><h3 contenteditable="true">宽窄巷慢逛+三星堆下午场+夜生活</h3><div class="ds" contenteditable="true">上午养精蓄锐 下午高铁18min直达三星堆 · 夜生活可选玉林西路/九眼桥</div></div><div class="dht">🏨 汉庭宽窄巷子</div><div class="darr">▼</div></div><div class="tl">
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">08:00</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍜 早餐：梁记肥肠粉</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">肥肠粉+葱油饼（长顺上街）</div><div class="cost" contenteditable="true">¥20/人</div><div class="egg" contenteditable="true">🎁 本地人最爱！比甘食记更地道</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">10:00</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍵 人民公园·鹤鸣茶社</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">盖碗茶+采耳 歇脚发呆不赶路</div><div class="cost" contenteditable="true">¥30/人</div><div class="egg" contenteditable="true">🎁 百年老茶馆 养精蓄锐</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">11:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚇 地铁/打车→成都东站</div><div class="d" contenteditable="true">约20分钟</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">11:48</div><div class="td tr"></div><div class="tc"><div class="t" contenteditable="true">🚄 C6308 成都东→广汉北</div><span class="tg tr">城际</span><div class="d" contenteditable="true">仅18分钟！比直通车快5倍</div><div class="cost" contenteditable="true">¥18/人</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">12:30<br>17:00</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">🏛️ 三星堆下午场深度游</div><span class="tg tk">门票</span><div class="d" contenteditable="true">青铜神树·金面具·青铜大立人</div><div class="note" contenteditable="true">📌 自带干粮！馆内无正餐</div><div class="cost" contenteditable="true">¥72/人 ✅已买</div><div class="egg" contenteditable="true">🎁 下午场避开旅行团高峰\n⚠️ 迟到30min不能入场！</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">17:30</div><div class="td tr"></div><div class="tc"><div class="t" contenteditable="true">🚄 高铁返程：广汉北→成都东</div><span class="tg tr">城际</span><div class="cost" contenteditable="true">¥18/人</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">19:00</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🔥 晚餐：冒椒火辣</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">奎星楼街33号 冷锅串串+绵绵冰</div><div class="cost" contenteditable="true">¥70/人</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">21:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🌙 夜生活二选一</div><div class="d" contenteditable="true">A: 🎤玉林西路（民谣）\nB: 🍸九眼桥（夜景/酒吧）</div></div></div>
-</div></div>
-
-<!-- D5 -->
-<div class="dc"><div class="dh" onclick="tg(this)"><div class="db d5"><span class="n">D5</span><span class="l">6/17</span></div><div class="di"><h3 contenteditable="true">☀️都江堰+文化+川剧 / 🌧️博物馆+书店+川剧</h3><div class="ds" contenteditable="true">晚上川剧变脸+文殊坊小吃街</div></div><div class="dht">🏨 汉庭宽窄巷子</div><div class="darr">▼</div></div><div class="tl">
-<div class="ti"><div class="tt"></div><div class="td" style="background:var(--a)"></div><div class="tc"><div class="t">☀️ 晴天方案</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">07:30</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍜 早餐：西月城谭豆花</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">豆花面+冰醉豆花</div><div class="cost" contenteditable="true">¥20/人</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">08:00<br>09:00</div><div class="td tr"></div><div class="tc"><div class="t" contenteditable="true">🚄 犀浦→都江堰</div><span class="tg tr">城际</span><div class="d" contenteditable="true">城际高铁约23分钟 车次多</div><div class="cost" contenteditable="true">¥10/人</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">09:30<br>12:30</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">🌊 都江堰景区</div><span class="tg tk">门票</span><div class="d" contenteditable="true">鱼嘴分水堤→飞沙堰→宝瓶口→安澜索桥</div><div class="cost" contenteditable="true">¥15/人 🎉上海身份证优惠！</div><div class="egg" contenteditable="true">🎁 原价¥80→¥15 务必带身份证原件</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">12:30</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍽️ 午餐：老号罗鸡肉/钟鸭子</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">都江堰古城内 清淡不辣</div><div class="cost" contenteditable="true">¥50/人</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">13:30<br>14:30</div><div class="td tr"></div><div class="tc"><div class="t" contenteditable="true">🚄 高铁返成都→回酒店休整</div><span class="tg tr">城际</span></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">15:00<br>17:00</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">🏛️ 二选一：武侯祠/杜甫草堂</div><span class="tg tk">门票</span><div class="d" contenteditable="true">A: 武侯祠（三国文化，毗邻锦里）\nB: 杜甫草堂（诗圣故居，清幽）</div><div class="cost" contenteditable="true">¥50/人</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">17:30</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍽️ 川剧前简餐：洞子口张老二</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">文殊院附近 甜水面+白凉粉 轻食不撑</div><div class="cost" contenteditable="true">¥30/人</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">19:30<br>21:00</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">🎭 梨园会馆川剧变脸</div><span class="tg tk">门票</span><div class="d" contenteditable="true">文殊院店 古戏台+盖碗茶</div><div class="cost" contenteditable="true">¥90/人</div><div class="egg" contenteditable="true">🎁 变脸+吐火+滚灯+水袖</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">21:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🏮 逛文殊坊小吃街</div><div class="d" contenteditable="true">宫廷糕点、龙须酥、糖油果子 买伴手礼</div></div></div>
-<div class="ti"><div class="tt" style="margin-top:10px"></div><div class="td" style="background:var(--b)"></div><div class="tc"><div class="t">🌧️ 雨天方案</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">07:30</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍜 早餐：西月城谭豆花</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">豆花面+冰醉豆花</div><div class="cost" contenteditable="true">¥20/人</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">09:30<br>12:30</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">🏛️ 成都博物馆</div><span class="tg tk">门票</span><div class="d" contenteditable="true">免费 提前7天预约</div><div class="egg" contenteditable="true">🎁 负一楼贝林自然展 300+动物标本</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">12:30</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍽️ 午餐：舌尖记忆/悦百味</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">天府广场 川式简餐 不辣</div><div class="cost" contenteditable="true">¥40/人</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">14:00<br>16:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">📚 方所书店</div><div class="d" contenteditable="true">太古里B1 咖啡+看书避雨</div><div class="egg" contenteditable="true">🎁 最美书店 雨天最惬意</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">16:00<br>17:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🏠 回酒店休整</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">17:30</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍽️ 川剧前简餐：洞子口张老二</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">文殊院附近 甜水面+白凉粉</div><div class="cost" contenteditable="true">¥30/人</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">19:30<br>21:00</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">🎭 梨园会馆川剧变脸</div><span class="tg tk">门票</span><div class="d" contenteditable="true">文殊院店 古戏台+盖碗茶</div><div class="cost" contenteditable="true">¥90/人</div><div class="egg" contenteditable="true">🎁 变脸+吐火+滚灯+水袖</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">21:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🏮 逛文殊坊小吃街</div><div class="d" contenteditable="true">宫廷糕点、龙须酥、糖油果子 买伴手礼</div></div></div>
-</div></div>
-
-<!-- D6 -->
-<div class="dc"><div class="dh" onclick="tg(this)"><div class="db d6"><span class="n">D6</span><span class="l">6/18</span></div><div class="di"><h3 contenteditable="true">锦里+购物+茶馆→✈️飞回</h3><div class="ds" contenteditable="true">MU5404 19:45起飞 · 16:00前出发去机场</div></div><div class="dht">✈️ 回家</div><div class="darr">▼</div></div><div class="tl">
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">08:30</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍜 早餐：陆老爹猪蹄面</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">汉庭附近 猪蹄面</div><div class="cost" contenteditable="true">¥25/人</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">09:30<br>11:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🏮 锦里闲逛+购物</div><div class="d" contenteditable="true">火锅底料、张飞牛肉、宫廷糕点、熊猫周边</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">11:30</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍽️ 午餐：洞子口张老二甜水面</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">文殊院店 甜水面+白凉粉 最后打卡</div><div class="cost" contenteditable="true">¥30/人</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">13:00<br>14:30</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍵 人民公园·鹤鸣茶社</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">盖碗茶+采耳 体验老成都慢生活</div><div class="cost" contenteditable="true">¥30/人</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">15:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🏠 回酒店取行李</div><div class="d" contenteditable="true">已提前整理好</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">16:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚇 出发去天府机场</div><div class="d" contenteditable="true">地铁18号线约1.5h / 打车约1h</div><div class="note" contenteditable="true">⚠️ 16:00前必须出发！</div></div></div>
-<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div><div class="tt">19:45</div><div class="td p"></div><div class="tc"><div class="t" contenteditable="true">✈️ MU5404 成都→上海</div><span class="tg p">飞机</span><div class="cost" contenteditable="true">¥980/人 ✅已买</div><div class="egg" contenteditable="true">🎁 落地上海！旅程结束 🎉</div></div></div>
-</div></div>
-
-</div>
 <!-- ========== 预算 ========== -->
 
 <div id="bu" class="s">
@@ -738,10 +665,112 @@ function setBottom(btn){
   document.querySelectorAll('.bottom-bar button').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
 }
+
+
+// ===== Data-driven itinerary rendering =====
+let tripData = null;
+
+function renderTime(timeStr) {
+  const parts = timeStr.split('-');
+  if (parts.length === 2) {
+    return `<div class="tt">${parts[0]}<br>${parts[1]}</div>`;
+  }
+  return `<div class="tt">${timeStr}</div>`;
+}
+
+function renderItem(item, showDrag) {
+  let html = '<div class="ti">';
+  if (showDrag) {
+    html += '<div class="drag-handle" title="拖拽排序">⠿</div><div class="ti-del" onclick="delTi(this)" title="删除">✕</div>';
+  }
+  html += renderTime(item.time);
+  html += `<div class="td ${item.dot||''}"></div>`;
+  html += '<div class="tc">';
+  html += `<div class="t" contenteditable="true">${item.title}</div>`;
+  if (item.tag) {
+    html += `<span class="tg ${item.tag}">${item.tagText}</span>`;
+  }
+  if (item.desc) {
+    html += `<div class="d" contenteditable="true">${item.desc.replace(/\n/g,'<br>')}</div>`;
+  }
+  if (item.note) {
+    html += `<div class="note" contenteditable="true">${item.note}</div>`;
+  }
+  if (item.cost) {
+    html += `<div class="cost" contenteditable="true">${item.cost}</div>`;
+  }
+  if (item.egg) {
+    html += `<div class="egg" contenteditable="true">${item.egg.replace(/\n/g,'<br>')}</div>`;
+  }
+  html += '</div></div>';
+  return html;
+}
+
+function renderDay(day) {
+  let html = `<div class="dc${day.open?' open':''}">`;
+  html += `<div class="dh" onclick="tg(this)">`;
+  html += `<div class="db ${day.color}"><span class="n">${day.day}</span><span class="l">${day.date}</span></div>`;
+  html += `<div class="di"><h3 contenteditable="true">${day.title}</h3><div class="ds" contenteditable="true">${day.sub}</div></div>`;
+  html += `<div class="dht">${day.hotel}</div>`;
+  html += '<div class="darr">▼</div></div>';
+  html += '<div class="tl">';
+
+  if (day.hasWeatherSplit) {
+    // Sunny
+    html += '<div class="ti"><div class="tt"></div><div class="td" style="background:var(--a)"></div><div class="tc"><div class="t">☀️ 晴天方案</div></div></div>';
+    (day.sunny||[]).forEach(item => { html += renderItem(item, true); });
+    // Rainy
+    html += '<div class="ti"><div class="tt" style="margin-top:10px"></div><div class="td" style="background:var(--b)"></div><div class="tc"><div class="t">🌧️ 雨天方案</div></div></div>';
+    (day.rainy||[]).forEach(item => { html += renderItem(item, true); });
+  } else {
+    (day.items||[]).forEach(item => { html += renderItem(item, true); });
+  }
+
+  html += '</div></div>';
+  return html;
+}
+
+function renderItinerary(data) {
+  const container = document.getElementById('itineraryContainer');
+  if (!container) return;
+  let html = '';
+  (data.days||[]).forEach(day => { html += renderDay(day); });
+  container.innerHTML = html;
+  // Update subtitle
+  const sub = document.getElementById('tripSub');
+  if (sub && data.tripSub) sub.textContent = data.tripSub;
+}
+
+// ===== Load data.json =====
+async function loadTripData() {
+  try {
+    const resp = await fetch('data.json');
+    if (!resp.ok) throw new Error('fetch failed');
+    tripData = await resp.json();
+  } catch(e) {
+    console.warn('data.json load failed, using embedded fallback');
+    tripData = null;
+  }
+  // Check localStorage for user-edited itinerary
+  const saved = localStorage.getItem('sc_itinerary');
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      renderItinerary(parsed);
+      return;
+    } catch(e2) {}
+  }
+  if (tripData) {
+    renderItinerary(tripData);
+  }
+}
+
+loadTripData();
+
 function tg(el){el.closest('.dc').classList.toggle('open')}
 
 // ===== Expense data =====
-const BUDGET = {flight:1960,train:300,local:350,ticket:822,hotel:684,food:600,entertain:300,shop:400,other:200};
+const BUDGET = {flight:1960,train:300,local:350,ticket:822,hotel:684,food:600,entertain:300,shop:400,other:200}; // Will be overridden by data.json
 const BUDGET_TOTAL = Object.values(BUDGET).reduce((a,b)=>a+b,0);
 const CAT_MAP = {'✈️':'flight','🚄':'train','🚌':'local','🎫':'ticket','🏨':'hotel','🍜':'food','🎭':'entertain','🛒':'shop','📦':'other'};
 const CAT_NAMES = {flight:'✈️ 飞机',train:'🚄 高铁',local:'🚌 市内交通',ticket:'🎫 门票',hotel:'🏨 住宿',food:'🍜 餐饮',entertain:'🎭 娱乐',shop:'🛒 购物',other:'📦 其他'};
