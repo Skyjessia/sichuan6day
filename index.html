@@ -46,7 +46,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .tl{padding:0 14px 12px;display:none}.dc.open .tl{display:block}
 
 /* Timeline item */
-.ti{display:flex;gap:10px;padding:6px 0;position:relative}
+.ti{display:flex;gap:10px;padding:6px 0;position:relative;transition:opacity .2s,transform .2s}
+.ti.dragging{opacity:.4;transform:scale(.96)}
+.ti.drag-over{border-top:2px solid var(--b);padding-top:4px}
+.drag-handle{width:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:grab;color:var(--g200);font-size:12px;font-weight:700;user-select:none;padding-top:2px;touch-action:none}
+.drag-handle:active{cursor:grabbing;color:var(--b)}
+.tl.drop-ready .drag-handle{color:var(--g500)}
 .ti:not(:last-child)::before{content:"";position:absolute;left:24px;top:30px;bottom:-2px;width:1.5px;background:var(--g200)}
 .tt{width:48px;flex-shrink:0;font-size:10px;color:var(--g500);text-align:right;padding-top:2px;font-variant-numeric:tabular-nums}
 .td{width:8px;height:8px;border-radius:50%;background:var(--g200);flex-shrink:0;margin-top:4px;position:relative;z-index:1}
@@ -187,67 +192,67 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 
 <!-- D1 -->
 <div class="dc open"><div class="dh" onclick="tg(this)"><div class="db d1"><span class="n">D1</span><span class="l">6/13</span></div><div class="di"><h3 contenteditable="true" data-field="d1-title">上海✈️成都→高铁🚄进九寨沟</h3><div class="ds" contenteditable="true" data-field="d1-sub">MU9181 → C5796 → 直通车</div></div><div class="dht">🏨 青禾和院</div><div class="darr">▼</div></div><div class="tl">
-<div class="ti"><div class="tt">09:49<br>12:40</div><div class="td p"></div><div class="tc"><div class="t" contenteditable="true">✈️ MU9181 上海→成都</div><span class="tg p">飞机</span><div class="d" contenteditable="true">虹桥T2→天府T2</div><div class="cost" contenteditable="true">¥980/人 ✅已购</div></div></div>
-<div class="ti"><div class="tt">13:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚇 天府机场→成都东站</div><span class="tg x">市内</span><div class="d" contenteditable="true">地铁18号线→7号线 约1h</div><div class="cost" contenteditable="true">¥10/人</div></div></div>
-<div class="ti"><div class="tt">15:45<br>17:24</div><div class="td tr"></div><div class="tc"><div class="t" contenteditable="true">🚄 C5796 成都东→松潘</div><span class="tg tr">高铁</span><div class="d" contenteditable="true">1h39min</div><div class="cost" contenteditable="true">¥135/人 ✅已购</div><div class="note" contenteditable="true">赶不上就改签C5782(18:22→20:37)</div></div></div>
-<div class="ti"><div class="tt">18:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚌 松潘站→九寨沟直通车</div><span class="tg x">景区</span><div class="d" contenteditable="true">约2h</div><div class="cost" contenteditable="true">¥56/人</div><div class="note" contenteditable="true">6:00-23:00循环发车</div></div></div>
-<div class="ti"><div class="tt">21:00</div><div class="td h"></div><div class="tc"><div class="t" contenteditable="true">🏨 入住青禾和院</div><span class="tg h">住宿</span><div class="d" contenteditable="true">含早+私汤 全屋智能</div><div class="cost" contenteditable="true">¥338/人 ✅已订</div></div></div>
-<div class="ti"><div class="tt">21:30</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍽️ 晚餐：川菜人家</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">水煮牦牛肉、回锅肉</div><div class="cost" contenteditable="true">¥70/人</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">09:49<br>12:40</div><div class="td p"></div><div class="tc"><div class="t" contenteditable="true">✈️ MU9181 上海→成都</div><span class="tg p">飞机</span><div class="d" contenteditable="true">虹桥T2→天府T2</div><div class="cost" contenteditable="true">¥980/人 ✅已购</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">13:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚇 天府机场→成都东站</div><span class="tg x">市内</span><div class="d" contenteditable="true">地铁18号线→7号线 约1h</div><div class="cost" contenteditable="true">¥10/人</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">15:45<br>17:24</div><div class="td tr"></div><div class="tc"><div class="t" contenteditable="true">🚄 C5796 成都东→松潘</div><span class="tg tr">高铁</span><div class="d" contenteditable="true">1h39min</div><div class="cost" contenteditable="true">¥135/人 ✅已购</div><div class="note" contenteditable="true">赶不上就改签C5782(18:22→20:37)</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">18:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚌 松潘站→九寨沟直通车</div><span class="tg x">景区</span><div class="d" contenteditable="true">约2h</div><div class="cost" contenteditable="true">¥56/人</div><div class="note" contenteditable="true">6:00-23:00循环发车</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">21:00</div><div class="td h"></div><div class="tc"><div class="t" contenteditable="true">🏨 入住青禾和院</div><span class="tg h">住宿</span><div class="d" contenteditable="true">含早+私汤 全屋智能</div><div class="cost" contenteditable="true">¥338/人 ✅已订</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">21:30</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍽️ 晚餐：川菜人家</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">水煮牦牛肉、回锅肉</div><div class="cost" contenteditable="true">¥70/人</div></div></div>
 </div></div>
 
 <!-- D2 -->
 <div class="dc"><div class="dh" onclick="tg(this)"><div class="db d2"><span class="n">D2</span><span class="l">6/14</span></div><div class="di"><h3 contenteditable="true">九寨沟全天深度游</h3><div class="ds" contenteditable="true">日则沟→则查洼沟→树正沟</div></div><div class="dht">🏨 青禾和院</div><div class="darr">▼</div></div><div class="tl">
-<div class="ti"><div class="tt">07:15</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">入园→乘观光车</div><span class="tg tk">门票</span><div class="cost" contenteditable="true">¥280/人 ✅已买</div><div class="note" contenteditable="true">7:00开门就进 光车随机分配</div></div></div>
-<div class="ti"><div class="tt">07:30<br>12:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🌊 日则沟(右线)</div><div class="d" contenteditable="true">箭竹海→熊猫海→五花海→珍珠滩瀑布→镜海</div><div class="egg" contenteditable="true">🎁 五花海=九寨之魂！\n🎁 镜海上午无风倒影最美</div></div></div>
-<div class="ti"><div class="tt">12:30<br>15:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🏞️ 则查洼沟(左线)</div><div class="d" contenteditable="true">长海→五彩池</div></div></div>
-<div class="ti"><div class="tt">15:00<br>16:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🌲 树正沟(下线)</div><div class="d" contenteditable="true">犀牛海→树正瀑布→树正群海→芦苇海</div><div class="egg" contenteditable="true">🎁 芦苇海黄昏光线绝美</div></div></div>
-<div class="ti"><div class="tt">18:00</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍽️ 晚餐：卡万金藏餐</div><span class="tg f">餐饮</span><div class="cost" contenteditable="true">¥80/人</div><div class="egg" contenteditable="true">🎁 正宗藏餐体验</div></div></div>
-<div class="ti"><div class="tt">19:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">♨️ 泡私汤+确认明天包车</div><div class="note" contenteditable="true">让前台帮忙约包车</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">07:15</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">入园→乘观光车</div><span class="tg tk">门票</span><div class="cost" contenteditable="true">¥280/人 ✅已买</div><div class="note" contenteditable="true">7:00开门就进 光车随机分配</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">07:30<br>12:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🌊 日则沟(右线)</div><div class="d" contenteditable="true">箭竹海→熊猫海→五花海→珍珠滩瀑布→镜海</div><div class="egg" contenteditable="true">🎁 五花海=九寨之魂！\n🎁 镜海上午无风倒影最美</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">12:30<br>15:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🏞️ 则查洼沟(左线)</div><div class="d" contenteditable="true">长海→五彩池</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">15:00<br>16:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🌲 树正沟(下线)</div><div class="d" contenteditable="true">犀牛海→树正瀑布→树正群海→芦苇海</div><div class="egg" contenteditable="true">🎁 芦苇海黄昏光线绝美</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">18:00</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍽️ 晚餐：卡万金藏餐</div><span class="tg f">餐饮</span><div class="cost" contenteditable="true">¥80/人</div><div class="egg" contenteditable="true">🎁 正宗藏餐体验</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">19:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">♨️ 泡私汤+确认明天包车</div><div class="note" contenteditable="true">让前台帮忙约包车</div></div></div>
 </div></div>
 
 <!-- D3 -->
 <div class="dc"><div class="dh" onclick="tg(this)"><div class="db d3"><span class="n">D3</span><span class="l">6/15</span></div><div class="di"><h3 contenteditable="true">黄龙→岷江源头→松潘→成都</h3><div class="ds" contenteditable="true">索道上+步行下 · 途经岷江源头</div></div><div class="dht">🏨 汉庭宽窄巷子</div><div class="darr">▼</div></div><div class="tl">
-<div class="ti"><div class="tt">07:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚗 包车→黄龙 约2.5h</div><span class="tg x">景区</span><div class="cost" contenteditable="true">¥125/人</div><div class="note" contenteditable="true">让青禾和院前台约 防坑</div></div></div>
-<div class="ti"><div class="tt">10:00</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">⛰️ 黄龙景区</div><span class="tg tk">门票</span><div class="d" contenteditable="true">索道上山→步行下山(经典无痛路线)</div><div class="cost" contenteditable="true">¥250/人</div></div></div>
-<div class="ti"><div class="tt">10:30<br>12:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🎁 五彩池</div><div class="d" contenteditable="true">黄龙灵魂 海拔3576m</div><div class="egg" contenteditable="true">🎁 慢行！有高反就吸氧</div></div></div>
-<div class="ti"><div class="tt">15:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🌊 岷江源头</div><div class="d" contenteditable="true">包车途经 停30min拍照</div><div class="egg" contenteditable="true">🎁 免费！弓杠岭 岷江发源地</div></div></div>
-<div class="ti"><div class="tt">17:58<br>19:51</div><div class="td tr"></div><div class="tc"><div class="t" contenteditable="true">🚄 松潘→成都东</div><span class="tg tr">高铁</span><div class="cost" contenteditable="true">¥135/人 ✅已购</div></div></div>
-<div class="ti"><div class="tt">21:30</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🔥 晚餐：蜀九香火锅</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">牛油火锅+鲜毛肚</div><div class="cost" contenteditable="true">¥90/人</div><div class="egg" contenteditable="true">🎁 配唯怡豆奶 解辣神器！</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">07:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚗 包车→黄龙 约2.5h</div><span class="tg x">景区</span><div class="cost" contenteditable="true">¥125/人</div><div class="note" contenteditable="true">让青禾和院前台约 防坑</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">10:00</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">⛰️ 黄龙景区</div><span class="tg tk">门票</span><div class="d" contenteditable="true">索道上山→步行下山(经典无痛路线)</div><div class="cost" contenteditable="true">¥250/人</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">10:30<br>12:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🎁 五彩池</div><div class="d" contenteditable="true">黄龙灵魂 海拔3576m</div><div class="egg" contenteditable="true">🎁 慢行！有高反就吸氧</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">15:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🌊 岷江源头</div><div class="d" contenteditable="true">包车途经 停30min拍照</div><div class="egg" contenteditable="true">🎁 免费！弓杠岭 岷江发源地</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">17:58<br>19:51</div><div class="td tr"></div><div class="tc"><div class="t" contenteditable="true">🚄 松潘→成都东</div><span class="tg tr">高铁</span><div class="cost" contenteditable="true">¥135/人 ✅已购</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">21:30</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🔥 晚餐：蜀九香火锅</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">牛油火锅+鲜毛肚</div><div class="cost" contenteditable="true">¥90/人</div><div class="egg" contenteditable="true">🎁 配唯怡豆奶 解辣神器！</div></div></div>
 </div></div>
 
 <!-- D4 -->
 <div class="dc"><div class="dh" onclick="tg(this)"><div class="db d4"><span class="n">D4</span><span class="l">6/16</span></div><div class="di"><h3 contenteditable="true">宽窄巷慢逛+三星堆下午场+夜生活</h3><div class="ds" contenteditable="true">上午慢慢逛 下午高铁18min直达三星堆</div></div><div class="dht">🏨 汉庭宽窄巷子</div><div class="darr">▼</div></div><div class="tl">
-<div class="ti"><div class="tt">07:00</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍜 早餐：梁记肥肠粉</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">肥肠粉+葱油饼</div><div class="cost" contenteditable="true">¥20/人</div><div class="egg" contenteditable="true">🎁 本地人最爱！比甘食记更地道</div></div></div>
-<div class="ti"><div class="tt">07:30<br>10:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚶 宽窄巷子慢慢逛</div><div class="d" contenteditable="true">清晨人少 宽巷子老建筑+窄巷子小店+井巷子静谧</div><div class="egg" contenteditable="true">🎁 窄巷支巷找蛋烘糕小推车！5-10元/个 甜咸都试</div></div></div>
-<div class="ti"><div class="tt">10:30</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍵 鹤鸣茶社</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">盖碗茶+采耳 人民公园</div><div class="cost" contenteditable="true">¥30/人</div><div class="egg" contenteditable="true">🎁 百年老茶馆 上午逛累了歇歇脚</div></div></div>
-<div class="ti"><div class="tt">11:00</div><div class="td tr"></div><div class="tc"><div class="t" contenteditable="true">🚄 成都东→广汉北 仅18min！</div><span class="tg tr">高铁</span><div class="d" contenteditable="true">比直通车快5倍！班次多当天买</div><div class="cost" contenteditable="true">¥18/人</div></div></div>
-<div class="ti"><div class="tt">12:00<br>17:00</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">🏛️ 三星堆下午场 5h深度游！</div><span class="tg tk">门票</span><div class="d" contenteditable="true">下午场12:00-17:00\n陈列馆新馆→修复馆→文创</div><div class="cost" contenteditable="true">¥72/人 ⚠️待买</div><div class="egg" contenteditable="true">🎁 青铜大立人·金面具·青铜神树\n⚠️ 迟到30min不能入场！\n下午场避开旅行团高峰\n🔴 6/11 20:00开抢！5分钟售罄</div></div></div>
-<div class="ti"><div class="tt">17:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">返程</div><div class="d" contenteditable="true">打车→广汉北→成都东</div><div class="cost" contenteditable="true">¥33/人</div><div class="note" contenteditable="true">高铁18min回成都</div></div></div>
-<div class="ti"><div class="tt">19:00</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍢 晚餐：奎星楼街</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">冒椒火辣 冷锅串串+农家小土豆+缠绵火锅粉</div><div class="cost" contenteditable="true">¥60/人</div><div class="egg" contenteditable="true">🎁 宽窄巷旁本地美食街 烟火味重</div></div></div>
-<div class="ti"><div class="tt">21:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🌙 夜生活 三选一</div><div class="d" contenteditable="true">A: 🌉安顺廊桥夜景(合江亭观景台)\nB: 🎤玉林西路(赵雷《成都》打卡地)\nC: 🍸九眼桥/兰桂坊(清吧/蹦迪)</div><div class="egg" contenteditable="true">🎁 彩蛋：夜游锦江(东门码头乌篷船)\n千年古都桨声灯影</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">07:00</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍜 早餐：梁记肥肠粉</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">肥肠粉+葱油饼</div><div class="cost" contenteditable="true">¥20/人</div><div class="egg" contenteditable="true">🎁 本地人最爱！比甘食记更地道</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">07:30<br>10:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚶 宽窄巷子慢慢逛</div><div class="d" contenteditable="true">清晨人少 宽巷子老建筑+窄巷子小店+井巷子静谧</div><div class="egg" contenteditable="true">🎁 窄巷支巷找蛋烘糕小推车！5-10元/个 甜咸都试</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">10:30</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍵 鹤鸣茶社</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">盖碗茶+采耳 人民公园</div><div class="cost" contenteditable="true">¥30/人</div><div class="egg" contenteditable="true">🎁 百年老茶馆 上午逛累了歇歇脚</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">11:00</div><div class="td tr"></div><div class="tc"><div class="t" contenteditable="true">🚄 成都东→广汉北 仅18min！</div><span class="tg tr">高铁</span><div class="d" contenteditable="true">比直通车快5倍！班次多当天买</div><div class="cost" contenteditable="true">¥18/人</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">12:00<br>17:00</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">🏛️ 三星堆下午场 5h深度游！</div><span class="tg tk">门票</span><div class="d" contenteditable="true">下午场12:00-17:00\n陈列馆新馆→修复馆→文创</div><div class="cost" contenteditable="true">¥72/人 ⚠️待买</div><div class="egg" contenteditable="true">🎁 青铜大立人·金面具·青铜神树\n⚠️ 迟到30min不能入场！\n下午场避开旅行团高峰\n🔴 6/11 20:00开抢！5分钟售罄</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">17:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">返程</div><div class="d" contenteditable="true">打车→广汉北→成都东</div><div class="cost" contenteditable="true">¥33/人</div><div class="note" contenteditable="true">高铁18min回成都</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">19:00</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍢 晚餐：奎星楼街</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">冒椒火辣 冷锅串串+农家小土豆+缠绵火锅粉</div><div class="cost" contenteditable="true">¥60/人</div><div class="egg" contenteditable="true">🎁 宽窄巷旁本地美食街 烟火味重</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">21:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🌙 夜生活 三选一</div><div class="d" contenteditable="true">A: 🌉安顺廊桥夜景(合江亭观景台)\nB: 🎤玉林西路(赵雷《成都》打卡地)\nC: 🍸九眼桥/兰桂坊(清吧/蹦迪)</div><div class="egg" contenteditable="true">🎁 彩蛋：夜游锦江(东门码头乌篷船)\n千年古都桨声灯影</div></div></div>
 </div></div>
 
 <!-- D5 -->
 <div class="dc"><div class="dh" onclick="tg(this)"><div class="db d5"><span class="n">D5</span><span class="l">6/17</span></div><div class="di"><h3 contenteditable="true">☀️青城山+都江堰 / 🌧️博物馆+书店+川剧</h3><div class="ds" contenteditable="true">晚上不管晴雨都去酒吧！</div></div><div class="dht">🏨 汉庭宽窄巷子</div><div class="darr">▼</div></div><div class="tl">
-<div class="ti"><div class="tt"></div><div class="td" style="background:var(--a)"></div><div class="tc"><div class="t">☀️ 晴天方案</div></div></div>
-<div class="ti"><div class="tt">07:50</div><div class="td tr"></div><div class="tc"><div class="t" contenteditable="true">🚄 犀浦→青城山</div><span class="tg tr">城际</span><div class="cost" contenteditable="true">¥10/人</div></div></div>
-<div class="ti"><div class="tt">08:30<br>11:30</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">⛰️ 青城山前山</div><span class="tg tk">门票</span><div class="cost" contenteditable="true">¥115/人</div></div></div>
-<div class="ti"><div class="tt">13:00<br>16:00</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">🌊 都江堰景区</div><span class="tg tk">门票</span><div class="cost" contenteditable="true">¥15/人 🎉上海身份证优惠！</div><div class="egg" contenteditable="true">🎁 原价¥80→¥15 务必带身份证\n🎁 南桥"蓝眼泪"</div></div></div>
-<div class="ti"><div class="tt">21:00</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍸 九眼桥/兰桂坊酒吧</div><span class="tg f">餐饮</span><div class="cost" contenteditable="true">¥120/人</div><div class="egg" contenteditable="true">🎁 不管晴雨都去！</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt"></div><div class="td" style="background:var(--a)"></div><div class="tc"><div class="t">☀️ 晴天方案</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">07:50</div><div class="td tr"></div><div class="tc"><div class="t" contenteditable="true">🚄 犀浦→青城山</div><span class="tg tr">城际</span><div class="cost" contenteditable="true">¥10/人</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">08:30<br>11:30</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">⛰️ 青城山前山</div><span class="tg tk">门票</span><div class="cost" contenteditable="true">¥115/人</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">13:00<br>16:00</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">🌊 都江堰景区</div><span class="tg tk">门票</span><div class="cost" contenteditable="true">¥15/人 🎉上海身份证优惠！</div><div class="egg" contenteditable="true">🎁 原价¥80→¥15 务必带身份证\n🎁 南桥"蓝眼泪"</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">21:00</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍸 九眼桥/兰桂坊酒吧</div><span class="tg f">餐饮</span><div class="cost" contenteditable="true">¥120/人</div><div class="egg" contenteditable="true">🎁 不管晴雨都去！</div></div></div>
 <div class="ti"><div class="tt" style="margin-top:10px"></div><div class="td" style="background:var(--b)"></div><div class="tc"><div class="t">🌧️ 雨天方案</div></div></div>
-<div class="ti"><div class="tt">10:00</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">🏛️ 成都博物馆</div><span class="tg tk">门票</span><div class="d" contenteditable="true">免费 6/10约6/17</div><div class="egg" contenteditable="true">🎁 负一楼贝林自然展 300+动物标本</div></div></div>
-<div class="ti"><div class="tt">14:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">📚 方所/钟书阁</div><div class="d" contenteditable="true">太古里B1 咖啡+看书</div><div class="egg" contenteditable="true">🎁 最美书店 雨天最惬意</div></div></div>
-<div class="ti"><div class="tt">16:30</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">🎭 梨园会馆川剧变脸</div><span class="tg tk">门票</span><div class="d" contenteditable="true">文殊院店 古戏台+盖碗茶</div><div class="cost" contenteditable="true">¥90/人</div><div class="egg" contenteditable="true">🎁 变脸+吐火+滚灯+水袖\n比盖碗儿梨园更有氛围</div></div></div>
-<div class="ti"><div class="tt">21:00</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍸 九眼桥/兰桂坊酒吧</div><span class="tg f">餐饮</span><div class="cost" contenteditable="true">¥120/人</div><div class="egg" contenteditable="true">🎁 不管晴雨都去！</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">10:00</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">🏛️ 成都博物馆</div><span class="tg tk">门票</span><div class="d" contenteditable="true">免费 6/10约6/17</div><div class="egg" contenteditable="true">🎁 负一楼贝林自然展 300+动物标本</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">14:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">📚 方所/钟书阁</div><div class="d" contenteditable="true">太古里B1 咖啡+看书</div><div class="egg" contenteditable="true">🎁 最美书店 雨天最惬意</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">16:30</div><div class="td tk"></div><div class="tc"><div class="t" contenteditable="true">🎭 梨园会馆川剧变脸</div><span class="tg tk">门票</span><div class="d" contenteditable="true">文殊院店 古戏台+盖碗茶</div><div class="cost" contenteditable="true">¥90/人</div><div class="egg" contenteditable="true">🎁 变脸+吐火+滚灯+水袖\n比盖碗儿梨园更有氛围</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">21:00</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🍸 九眼桥/兰桂坊酒吧</div><span class="tg f">餐饮</span><div class="cost" contenteditable="true">¥120/人</div><div class="egg" contenteditable="true">🎁 不管晴雨都去！</div></div></div>
 </div></div>
 
 <!-- D6 -->
 <div class="dc"><div class="dh" onclick="tg(this)"><div class="db d6"><span class="n">D6</span><span class="l">6/18</span></div><div class="di"><h3 contenteditable="true">锦里+火锅+泡脚下午茶→✈️飞回</h3><div class="ds" contenteditable="true">MU5404 19:45起飞</div></div><div class="dht">✈️ 回家</div><div class="darr">▼</div></div><div class="tl">
-<div class="ti"><div class="tt">09:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🏮 锦里闲逛</div><div class="d" contenteditable="true">免费 早上人少体验好</div><div class="egg" contenteditable="true">🎁 必吃：锦里伤心凉粉\n🎁 陈皮牛肉面(桔子武侯祠店)</div></div></div>
-<div class="ti"><div class="tt">12:00</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🔥 午餐：蜀九香火锅</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">最后一顿必须火锅！</div><div class="cost" contenteditable="true">¥90/人</div><div class="egg" contenteditable="true">🎁 配唯怡豆奶</div></div></div>
-<div class="ti"><div class="tt">14:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🦶🍵 金色印象影院式泡脚</div><div class="d" contenteditable="true">泡脚+看电影+养生茶 约1.5h</div><div class="cost" contenteditable="true">¥200/人</div><div class="egg" contenteditable="true">🎁 一边泡脚一边看电影\n走了一周该放松了\n⚠️ 16:30前结束！</div></div></div>
-<div class="ti"><div class="tt">17:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚇 出发去天府机场</div><div class="d" contenteditable="true">地铁或打车 约1-1.5h</div><div class="cost" contenteditable="true">¥70/人</div><div class="note" contenteditable="true">⚠️ 17:00前出发！\n19:45航班撞安检晚高峰</div></div></div>
-<div class="ti"><div class="tt">19:45</div><div class="td p"></div><div class="tc"><div class="t" contenteditable="true">✈️ MU5404 成都→上海</div><span class="tg p">飞机</span><div class="cost" contenteditable="true">¥980/人 ✅已买</div><div class="egg" contenteditable="true">🎁 落地上海！旅程结束 🎉</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">09:30</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🏮 锦里闲逛</div><div class="d" contenteditable="true">免费 早上人少体验好</div><div class="egg" contenteditable="true">🎁 必吃：锦里伤心凉粉\n🎁 陈皮牛肉面(桔子武侯祠店)</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">12:00</div><div class="td f"></div><div class="tc"><div class="t" contenteditable="true">🔥 午餐：蜀九香火锅</div><span class="tg f">餐饮</span><div class="d" contenteditable="true">最后一顿必须火锅！</div><div class="cost" contenteditable="true">¥90/人</div><div class="egg" contenteditable="true">🎁 配唯怡豆奶</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">14:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🦶🍵 金色印象影院式泡脚</div><div class="d" contenteditable="true">泡脚+看电影+养生茶 约1.5h</div><div class="cost" contenteditable="true">¥200/人</div><div class="egg" contenteditable="true">🎁 一边泡脚一边看电影\n走了一周该放松了\n⚠️ 16:30前结束！</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">17:00</div><div class="td"></div><div class="tc"><div class="t" contenteditable="true">🚇 出发去天府机场</div><div class="d" contenteditable="true">地铁或打车 约1-1.5h</div><div class="cost" contenteditable="true">¥70/人</div><div class="note" contenteditable="true">⚠️ 17:00前出发！\n19:45航班撞安检晚高峰</div></div></div>
+<div class="ti"><div class="drag-handle" title="拖拽排序">⠿</div><div class="tt">19:45</div><div class="td p"></div><div class="tc"><div class="t" contenteditable="true">✈️ MU5404 成都→上海</div><span class="tg p">飞机</span><div class="cost" contenteditable="true">¥980/人 ✅已买</div><div class="egg" contenteditable="true">🎁 落地上海！旅程结束 🎉</div></div></div>
 </div></div>
 </div>
 
@@ -870,6 +875,144 @@ loadEdits();
 renderExpenses();
 renderTodo();
 renderSplit();
+
+// ===== Drag & Drop for timeline items =====
+(function(){
+  let dragEl=null, dragDay=null, touchStartY=0, touchClone=null, dropTarget=null;
+
+  function initDrag(){
+    document.querySelectorAll('.tl').forEach(tl=>{
+      tl.addEventListener('dragover',onDragOver);
+      tl.addEventListener('drop',onDrop);
+      tl.addEventListener('dragleave',onDragLeave);
+    });
+    document.addEventListener('touchmove',onTouchMove,{passive:false});
+    document.addEventListener('touchend',onTouchEnd);
+  }
+
+  function findTi(el){while(el&&!el.classList.contains('ti'))el=el.parentElement;return el}
+  function findTl(el){while(el&&!el.classList.contains('tl'))el=el.parentElement;return el}
+
+  // Mouse drag
+  document.addEventListener('mousedown',e=>{
+    if(!e.target.classList.contains('drag-handle'))return;
+    const ti=findTi(e.target);if(!ti)return;
+    startDrag(ti,e);
+  });
+  document.addEventListener('mouseup',endDrag);
+
+  function startDrag(ti,e){
+    dragEl=ti;
+    dragDay=findTl(ti);
+    ti.setAttribute('draggable','true');
+    ti.classList.add('dragging');
+    if(dragDay)dragDay.classList.add('drop-ready');
+  }
+
+  function endDrag(){
+    if(dragEl){
+      dragEl.removeAttribute('draggable');
+      dragEl.classList.remove('dragging');
+      document.querySelectorAll('.drag-over').forEach(e=>e.classList.remove('drag-over'));
+      document.querySelectorAll('.drop-ready').forEach(e=>e.classList.remove('drop-ready'));
+      dragEl=null;dragDay=null;
+    }
+  }
+
+  function onDragOver(e){
+    e.preventDefault();
+    if(!dragEl)return;
+    const tl=e.currentTarget;
+    const items=[...tl.querySelectorAll('.ti:not(.dragging)')];
+    const afterEl=items.reduce((closest,child)=>{
+      const box=child.getBoundingClientRect();
+      const offset=e.clientY-box.top-box.height/2;
+      if(offset<0&&offset>closest.offset)return{offset,element:child};
+      return closest;
+    },{offset:Number.NEGATIVE_INFINITY,element:null}).element;
+
+    tl.querySelectorAll('.drag-over').forEach(e=>e.classList.remove('drag-over'));
+    if(afterEl)afterEl.classList.add('drag-over');
+    else if(items.length>0)items[items.length-1].classList.add('drag-over');
+  }
+
+  function onDragLeave(e){
+    e.currentTarget.querySelectorAll('.drag-over').forEach(el=>el.classList.remove('drag-over'));
+  }
+
+  function onDrop(e){
+    e.preventDefault();
+    if(!dragEl)return;
+    const tl=e.currentTarget;
+    tl.querySelectorAll('.drag-over').forEach(el=>el.classList.remove('drag-over'));
+    const items=[...tl.querySelectorAll('.ti:not(.dragging)')];
+    const afterEl=items.reduce((closest,child)=>{
+      const box=child.getBoundingClientRect();
+      const offset=e.clientY-box.top-box.height/2;
+      if(offset<0&&offset>closest.offset)return{offset,element:child};
+      return closest;
+    },{offset:Number.NEGATIVE_INFINITY,element:null}).element;
+
+    if(afterEl)tl.insertBefore(dragEl,afterEl);
+    else tl.appendChild(dragEl);
+    endDrag();
+    saveData();
+  }
+
+  // Touch drag (mobile)
+  document.addEventListener('touchstart',e=>{
+    if(!e.target.classList.contains('drag-handle'))return;
+    const ti=findTi(e.target);if(!ti)return;
+    e.preventDefault();
+    dragEl=ti;
+    dragDay=findTl(ti);
+    touchStartY=e.touches[0].clientY;
+    ti.classList.add('dragging');
+    if(dragDay)dragDay.classList.add('drop-ready');
+    // Open all day cards for cross-day drop
+    document.querySelectorAll('.dc:not(.open)').forEach(dc=>dc.classList.add('open'));
+  },{passive:false});
+
+  function onTouchMove(e){
+    if(!dragEl)return;
+    e.preventDefault();
+    const touch=e.touches[0];
+    const el=document.elementFromPoint(touch.clientX,touch.clientY);
+    if(!el)return;
+    // Find the closest .ti to insert before
+    const targetTi=findTi(el);
+    const targetTl=findTl(el);
+    if(!targetTl)return;
+
+    document.querySelectorAll('.drag-over').forEach(e=>e.classList.remove('drag-over'));
+    if(targetTi&&targetTi!==dragEl)targetTi.classList.add('drag-over');
+  }
+
+  function onTouchEnd(e){
+    if(!dragEl)return;
+    const touch=e.changedTouches[0];
+    const el=document.elementFromPoint(touch.clientX,touch.clientY);
+    if(el){
+      const targetTl=findTl(el);
+      const targetTi=findTi(el);
+      if(targetTl){
+        targetTl.querySelectorAll('.drag-over').forEach(el=>el.classList.remove('drag-over'));
+        if(targetTi&&targetTi!==dragEl){
+          targetTl.insertBefore(dragEl,targetTi);
+        }else{
+          targetTl.appendChild(dragEl);
+        }
+        saveData();
+      }
+    }
+    endDrag();
+  }
+
+  // Init after DOM ready
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initDrag);
+  else initDrag();
+})();
+
 </script>
 </body>
 </html>
