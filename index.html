@@ -804,7 +804,7 @@ function renderBudget(){
     const a=actual[k],b=BUDGET[k]||0;
     const diff=b-a;
     const pctCat=b>0?Math.round(a/b*100):0;
-    const diffStr=diff>=0?`剩余¥${diff}`:`超¥${Math.abs(diff)}`;
+    const diffStr=diff>=0?`剩余¥${diff.toFixed(2)}`:`超¥${Math.abs(diff).toFixed(2)}`;
     const diffCls=diff>=0?'pos':'neg';
     const fillColor=diff>=0?(pctCat<70?'var(--g)':pctCat<90?'var(--a)':'var(--danger)'):'var(--danger)';
     const ico=CAT_NAMES[k].split(' ')[0];
