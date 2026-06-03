@@ -723,26 +723,26 @@ async function loadTripData() {
     console.warn('data.json load failed, using embedded fallback');
     tripData = null;
   }
-  // Check localStorage for user-edited itinerary
+
+  // Always render extras from data.json (eggs, tips, ticket timeline, budget)
+  if (tripData) {
+    renderAllExtras(tripData);
+    if (tripData.budget) Object.assign(BUDGET, tripData.budget);
+    if (tripData.prefill) { PREFILL.length = 0; tripData.prefill.forEach(p => PREFILL.push(p)); }
+  }
+
+  // Render itinerary: prefer localStorage edits, fallback to data.json
   const saved = localStorage.getItem('sc_itinerary');
   if (saved) {
-    try {
-      const parsed = JSON.parse(saved);
-      renderItinerary(parsed);
-      return;
-    } catch(e2) {}
-  }
-  if (tripData) {
+    try { renderItinerary(JSON.parse(saved)); } catch(e2) { if (tripData) renderItinerary(tripData); }
+  } else if (tripData) {
     renderItinerary(tripData);
-    renderAllExtras(tripData);
-    // Update budget from data.json
-    if (tripData.budget) {
-      Object.assign(BUDGET, tripData.budget);
-    }
-    if (tripData.prefill) {
-      PREFILL.length = 0;
-      tripData.prefill.forEach(p => PREFILL.push(p));
-    }
+  }
+
+  // Hide loading indicator
+  const loading = document.getElementById('tripSub');
+  if (loading && loading.textContent === '加载中...') {
+    loading.textContent = tripData ? tripData.tripSub : '';
   }
 }
 
