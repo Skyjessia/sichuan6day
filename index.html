@@ -726,6 +726,12 @@ async function loadTripData() {
     const resp = await fetch('data.json');
     if (!resp.ok) throw new Error('fetch failed');
     tripData = await resp.json();
+    // If data.json version is newer than saved, clear old page edits
+    const savedVer = localStorage.getItem('sc_data_version');
+    if (tripData.version && (!savedVer || parseInt(savedVer) < tripData.version)) {
+      localStorage.removeItem('sc_page_edits');
+      localStorage.setItem('sc_data_version', tripData.version);
+    }
   } catch(e) {
     console.warn('data.json load failed, using embedded fallback');
     tripData = null;
@@ -748,6 +754,9 @@ async function loadTripData() {
   if (loading && loading.textContent === '加载中...') {
     loading.textContent = tripData ? tripData.tripSub : '';
   }
+
+  // Re-render expenses now that PREFILL is loaded from data.json
+  if (typeof renderExpenses === 'function') renderExpenses();
 }
 
 loadTripData().then(() => setupAutoSave());
