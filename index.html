@@ -732,7 +732,7 @@ async function loadTripData() {
   }
 
   // Render itinerary: prefer localStorage edits, fallback to data.json
-  const saved = localStorage.getItem('sc_itinerary');
+  const saved = localStorage.getItem('sc_itinerary_edits');
   if (saved) {
     try { renderItinerary(JSON.parse(saved)); } catch(e2) { if (tripData) renderItinerary(tripData); }
   } else if (tripData) {
@@ -746,7 +746,7 @@ async function loadTripData() {
   }
 }
 
-loadTripData();
+loadTripData().then(() => setupAutoSave());
 
 // ===== Render eggs, ticket timeline, tips from data.json =====
 function renderEggs(data) {
@@ -779,6 +779,61 @@ function renderAllExtras(data) {
   renderTips(data);
 }
 
+// ===== Auto-save page edits to localStorage =====
+function saveItineraryToStorage() {
+  const container = document.getElementById('itineraryContainer');
+  if (!container) return;
+  // Collect all editable content from itinerary
+  const days = [];
+  container.querySelectorAll('.dc').forEach(dc => {
+    const day = {};
+    const h3 = dc.querySelector('h3');
+    const ds = dc.querySelector('.ds');
+    if (h3) day.title = h3.textContent;
+    if (ds) day.sub = ds.textContent;
+    day.items = [];
+    dc.querySelectorAll('.ti').forEach(ti => {
+      const item = {};
+      const t = ti.querySelector('.t');
+      const d = ti.querySelector('.d');
+      const note = ti.querySelector('.note');
+      const cost = ti.querySelector('.cost');
+      const egg = ti.querySelector('.egg');
+      if (t) item.title = t.textContent;
+      if (d) item.desc = d.textContent;
+      if (note) item.note = note.textContent;
+      if (cost) item.cost = cost.textContent;
+      if (egg) item.egg = egg.textContent;
+      if (Object.keys(item).length) day.items.push(item);
+    });
+    days.push(day);
+  });
+  localStorage.setItem('sc_itinerary_edits', JSON.stringify({days, savedAt: Date.now()}));
+}
+
+function setupAutoSave() {
+  const container = document.getElementById('itineraryContainer');
+  if (!container) return;
+  // Save on any edit
+  container.addEventListener('input', () => { clearTimeout(window._saveTimer); window._saveTimer = setTimeout(saveItineraryToStorage, 800); });
+  // Also save eggs/tips edits
+  const eggsC = document.getElementById('eggsContainer');
+  const tipsC = document.getElementById('tipsContainer');
+  [eggsC, tipsC].forEach(el => {
+    if (el) el.addEventListener('input', () => { clearTimeout(window._saveTimer); window._saveTimer = setTimeout(saveItineraryToStorage, 800); });
+  });
+}
+
+// ===== Reset to data.json defaults =====
+function resetToDefault() {
+  localStorage.removeItem('sc_itinerary');
+  localStorage.removeItem('sc_itinerary_edits');
+  if (tripData) {
+    renderItinerary(tripData);
+    renderAllExtras(tripData);
+    toast('已恢复默认行程 ✅');
+  }
+}
 
 function tg(el){el.closest('.dc').classList.toggle('open')}
 
