@@ -248,7 +248,7 @@ body.share-mode .al{display:none}
 
 <div class="nav" id="topNav">
 <div class="nav-row"><button class="on" onclick="sh('it')">📋 行程</button><button onclick="sh('bu')">💰 预算</button><button onclick="sh('ex')">📝 记账</button><button onclick="sh('fo')">🍜 美食</button></div>
-<div class="nav-row"><button onclick="sh('eg')">🎁 彩蛋</button><button onclick="sh('ti')">📌 贴士</button><button onclick="sh('sp')">💳 分账</button><button onclick="sh('ab')">📖 关于</button></div>
+<div class="nav-row"><button onclick="sh('eg')">🎁 彩蛋</button><button onclick="sh('ti')">📌 贴士</button><button onclick="sh('ho')">🚗🏨 交酒</button><button onclick="sh('ab')">📖 关于</button></div>
 </div>
 
 <!-- ========== 行程 ========== -->
@@ -319,7 +319,7 @@ body.share-mode .al{display:none}
 </div>
 
 <!-- ========== 交通 ========== -->
-<div id="tr" class="s">
+<div id="tr" class="s" style="display:none">
 <div class="st">交通明细</div>
 <table class="dt2"><thead><tr><th>天</th><th>类别</th><th>路段</th><th>方式</th><th>费用/人</th><th>状态</th></tr></thead><tbody>
 <tr><td>D1</td><td>飞机</td><td>上海→成都</td><td>MU9181 09:49-12:40</td><td>¥980</td><td>✅</td></tr>
@@ -431,118 +431,61 @@ body.share-mode .al{display:none}
 
 <!-- ========== 住宿 ========== -->
 <div id="ho" class="s">
-<div class="st">🏨 住宿详情</div>
+<div class="st">🚗🏨 交通+住宿</div>
 
-<div style="background:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--sh);border-left:4px solid var(--g)">
+<div style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--p)">🚗 交通明细</div>
+<table class="dt2"><thead><tr><th>天</th><th>类别</th><th>路段</th><th>方式</th><th>费用/人</th><th>状态</th></tr></thead><tbody>
+<tr><td>D1</td><td>飞机</td><td>上海→成都</td><td>MU9181 09:49-12:40</td><td>¥980</td><td>✅</td></tr>
+<tr><td>D1</td><td>高铁</td><td>成都东→松潘</td><td>C5796 15:45-17:24</td><td>¥135</td><td>✅</td></tr>
+<tr><td>D1</td><td>景区</td><td>松潘站→九寨沟</td><td>直通车 约2h</td><td>¥56</td><td>现场买</td></tr>
+<tr><td>D3</td><td>景区</td><td>九寨沟→黄龙</td><td>包车(含岷江源头)</td><td>¥125</td><td>让酒店约</td></tr>
+<tr><td>D3</td><td>高铁</td><td>松潘→成都东</td><td>17:58-19:51</td><td>¥135</td><td>✅</td></tr>
+<tr><td>D4</td><td>高铁</td><td>成都东↔广汉北</td><td>仅18min×2</td><td>¥36</td><td>当天买</td></tr>
+<tr><td>D5</td><td>高铁</td><td>犀浦↔都江堰</td><td>约23min×2</td><td>¥20</td><td>当天买</td></tr>
+<tr><td>D6</td><td>地铁</td><td>市区→天府机场</td><td>18号线 约1.5h</td><td>¥10</td><td>—</td></tr>
+</tbody></table>
+
+<div style="font-size:13px;font-weight:600;margin:16px 0 8px;color:var(--p)">🏨 住宿详情</div>
+
+<div style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:var(--sh);border-left:4px solid var(--g)">
 <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
 <div>
-<div style="font-size:16px;font-weight:700;color:var(--g)">🏔️ 青禾和院</div>
-<div style="font-size:12px;color:var(--g500);margin-top:2px">九寨沟 · D1-D3 · 2晚</div>
+<div style="font-size:15px;font-weight:700;color:var(--g)">🏔️ 青禾和院</div>
+<div style="font-size:11px;color:var(--g500);margin-top:2px">九寨沟 · D1-D3 · 2晚</div>
 </div>
 <div style="text-align:right">
-<div style="font-size:18px;font-weight:700;color:var(--p)">¥676</div>
-<div style="font-size:11px;color:var(--g500)">2晚1间 · 离店后付</div>
+<div style="font-size:17px;font-weight:700;color:var(--p)">¥676</div>
+<div style="font-size:10px;color:var(--g500)">2晚1间 · 含早+私汤</div>
 </div>
 </div>
-<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--g100)">
-<div style="display:flex;gap:8px;flex-wrap:wrap">
-<span style="font-size:11px;padding:2px 8px;border-radius:4px;background:var(--gl);color:var(--g)">✅ 已订</span>
-<span style="font-size:11px;padding:2px 8px;border-radius:4px;background:var(--al);color:#B08020">私汤轻奢</span>
-<span style="font-size:11px;padding:2px 8px;border-radius:4px;background:var(--bl);color:var(--b)">携程4.8分</span>
-<span style="font-size:11px;padding:2px 8px;border-radius:4px;background:var(--g100);color:var(--g700)">2025年新开</span>
-</div>
-</div>
-<div style="margin-top:10px;font-size:12px;color:var(--g700);line-height:1.6">
-<div>🎁 含早餐 + 免费接送站</div>
-<div>🎁 房间私汤泡脚解乏</div>
-<div>📍 九寨沟景区附近</div>
-<div>💡 让前台联系包车去黄龙最靠谱</div>
+<div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
+<span style="font-size:10px;padding:2px 8px;border-radius:4px;background:var(--gl);color:var(--g)">✅已订</span>
+<span style="font-size:10px;padding:2px 8px;border-radius:4px;background:var(--bl);color:var(--b)">含早</span>
+<span style="font-size:10px;padding:2px 8px;border-radius:4px;background:var(--al);color:var(--a)">私汤</span>
+<span style="font-size:10px;padding:2px 8px;border-radius:4px;background:var(--pl);color:var(--p)">接送</span>
 </div>
 </div>
 
-<div style="background:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--sh);border-left:4px solid var(--b)">
+<div style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:var(--sh);border-left:4px solid var(--b)">
 <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
 <div>
-<div style="font-size:16px;font-weight:700;color:var(--b)">🏙️ 汉庭宽窄巷子中心店</div>
-<div style="font-size:12px;color:var(--g500);margin-top:2px">成都 · D3-D6 · 3晚</div>
+<div style="font-size:15px;font-weight:700;color:var(--b)">🏙️ 汉庭宽窄巷子中心店</div>
+<div style="font-size:11px;color:var(--g500);margin-top:2px">成都 · D3-D6 · 3晚</div>
 </div>
 <div style="text-align:right">
-<div style="font-size:18px;font-weight:700;color:var(--p)">¥691.51</div>
-<div style="font-size:11px;color:var(--g500)">3晚1间 · 在线付</div>
+<div style="font-size:17px;font-weight:700;color:var(--p)">¥691</div>
+<div style="font-size:10px;color:var(--g500)">3晚1间 · 不含早</div>
 </div>
 </div>
-<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--g100)">
-<div style="display:flex;gap:8px;flex-wrap:wrap">
-<span style="font-size:11px;padding:2px 8px;border-radius:4px;background:var(--gl);color:var(--g)">✅ 已订</span>
-<span style="font-size:11px;padding:2px 8px;border-radius:4px;background:var(--g100);color:var(--g700)">不含早</span>
+<div style="margin-top:10px;font-size:11px;color:var(--g500)">📍 青羊区西月城街16号 · 周边早餐丰富</div>
+<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+<span style="font-size:10px;padding:2px 8px;border-radius:4px;background:var(--gl);color:var(--g)">✅已订</span>
+<span style="font-size:10px;padding:2px 8px;border-radius:4px;background:var(--g100);color:var(--g500)">不含早</span>
 </div>
-</div>
-<div style="margin-top:10px;font-size:12px;color:var(--g700);line-height:1.6">
-<div>📍 西月城街16号</div>
-<div>🚶 步行可达宽窄巷子/人民公园/奎星楼街</div>
-<div>🍜 周边早餐丰富：梁记肥肠粉/谭豆花</div>
-<div>🚇 地铁4号线宽窄巷子站</div>
 </div>
 </div>
 
-<div style="background:var(--al);border-radius:var(--r);padding:12px;font-size:12px;color:var(--g700);line-height:1.6">
-<div style="font-weight:600;margin-bottom:4px">💰 住宿总花费</div>
-<div>2人共 ¥1,367.51（人均 ¥683.76）</div>
-<div style="margin-top:4px;font-size:11px;color:var(--g500)">青禾和院 ¥676(2晚1间) + 汉庭 ¥691.51(3晚1间)</div>
-</div>
-</div>
-
-
-
-<!-- ========== 关于 ========== -->
-<div id="ab" class="s">
-<div style="max-width:520px;margin:0 auto">
-
-<div style="text-align:center;margin-bottom:24px">
-<div style="font-size:28px;margin-bottom:8px">📖</div>
-<div style="font-size:20px;font-weight:700;color:var(--g900);letter-spacing:.5px">小序 · 介绍</div>
-</div>
-
-<div style="font-size:14px;color:var(--g700);line-height:2;margin-bottom:20px;text-align:center">
-自由行，让人又爱又怕。<br>
-爱它的随心所欲，怕它的前期繁琐。<br>
-账目、路线、交通、票务……每一项都要自己啃。<br>
-<span style="color:var(--p);font-weight:600">现成App不好用？那就自己手搓一个。</span>
-</div>
-
-<div style="font-size:14px;color:var(--g500);margin-bottom:16px;text-align:center;font-style:italic">这个轻应用，不复杂，但有点温柔：</div>
-
-<div style="display:grid;gap:8px;margin-bottom:24px">
-<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:var(--sh)"><div style="font-size:18px;flex-shrink:0">✏️</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">想改就改</div><div style="font-size:11px;color:var(--g500)">点一下任意文字，直接编辑，不用下载</div></div></div>
-<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:var(--sh)"><div style="font-size:18px;flex-shrink:0">💰</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">自动记账</div><div style="font-size:11px;color:var(--g500)">花了多少、还剩多少，它替你记着</div></div></div>
-<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:var(--sh)"><div style="font-size:18px;flex-shrink:0">📶</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">没网也能用</div><div style="font-size:11px;color:var(--g500)">山里、地铁、飞机上，行程不慌</div></div></div>
-<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:var(--sh)"><div style="font-size:18px;flex-shrink:0">📤</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">一发共享</div><div style="font-size:11px;color:var(--g500)">链接给朋友，同个版本，不用反复传</div></div></div>
-<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:var(--sh)"><div style="font-size:18px;flex-shrink:0">📱</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">秒变App</div><div style="font-size:11px;color:var(--g500)">添加到主屏幕，一点就进，像老朋友</div></div></div>
-</div>
-
-<div style="background:linear-gradient(135deg,var(--pl),var(--accent-l));border-radius:14px;padding:16px 18px;margin-bottom:20px">
-<div style="font-size:13px;font-weight:700;color:var(--g900);margin-bottom:6px">初心</div>
-<div style="font-size:12px;color:var(--g700);line-height:1.9">
-人懂体验，AI帮实现。<br>
-三位一体，缺一不可。<br>
-这是一份小小的人机协作尝试——<br>
-<span style="color:var(--p);font-weight:600">很小，但很认真。<br>这是第一步。</span>
-</div>
-</div>
-
-<div style="background:var(--g100);border-radius:12px;padding:12px 14px">
-<div style="font-size:12px;font-weight:600;color:var(--g700);margin-bottom:4px">💡 使用小贴士</div>
-<div style="font-size:11px;color:var(--g500);line-height:1.8">
-点击任意文字直接修改 → 切标签或点"完成编辑"自动保存 → 右下角可随时重置。<br>
-分享链接给同行的人，你们打开的是同一个最新版本。
-</div>
-</div>
-
-</div>
-</div>
-
-<!-- ========== 分账收款 ========== -->
-<div id="sp" class="s">
+<div id="sp" class="s" style="display:none">
 <div class="st">💳 分账收款 · 谁付了谁欠谁</div>
 <div class="al ali">💡 记账时选👥2人的项目，系统自动算出对方该给你多少</div>
 
