@@ -250,6 +250,7 @@ body.share-mode .al{display:none}
 <button onclick="sh('tk')">🎫 门票</button>
 <button onclick="sh('ho')">🏨 住宿</button>
 <button onclick="sh('eg')">🎁 彩蛋</button>
+<button onclick="sh('ti')">📌 贴士</button>
 <button onclick="sh('sp')">💳 同行分账</button>
 </div>
 
@@ -634,6 +635,14 @@ function sh(id){
   document.querySelectorAll('.s').forEach(s=>s.classList.remove('on'));
   const el=document.getElementById(id);
   if(el) el.classList.add('on');
+  // Highlight top nav button
+  document.querySelectorAll('#topNav button').forEach(b=>b.classList.remove('on'));
+  const navBtn=document.querySelector('#topNav button[onclick*="'+id+'"]');
+  if(navBtn) navBtn.classList.add('on');
+  // Highlight bottom bar button
+  document.querySelectorAll('.bottom-bar button').forEach(b=>b.classList.remove('on'));
+  const botBtn=document.querySelector('.bottom-bar button[onclick*="'+id+'"]');
+  if(botBtn) botBtn.classList.add('on');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function setBottom(btn){
@@ -1152,15 +1161,16 @@ document.getElementById('expDesc').addEventListener('keydown',e=>{if(e.key==='En
 // ===== Todo & Status Sync =====
 const TODO_ITEMS = [
   {name:'三星堆门票',cat:'🎫',keyword:'三星堆',deadline:'6/11 20:00开抢！5分钟售罄',urgent:true,day:'D4'},
-  {name:'黄龙门票+索道',cat:'🎫',keyword:'黄龙',deadline:'出发前在阿坝旅游网买',urgent:false,day:'D3'},
-  {name:'青城山门票',cat:'🎫',keyword:'青城山',deadline:'当天线上/现场买',urgent:false,day:'D5'},
+  {name:'黄龙门票+索道',cat:'🎫',keyword:'黄龙',deadline:'出发前1-2天线上买',urgent:false,day:'D3'},
   {name:'都江堰门票',cat:'🎫',keyword:'都江堰',deadline:'现场买 带上海身份证！',urgent:false,day:'D5'},
-  {name:'熊猫基地门票',cat:'🎫',keyword:'熊猫',deadline:'提前1天线上买',urgent:false,day:'D6'},
   {name:'梨园会馆川剧',cat:'🎭',keyword:'川剧|梨园',deadline:'提前1-3天预约',urgent:false,day:'D5'},
   {name:'成都博物馆',cat:'🎫',keyword:'成都博物馆',deadline:'6/10约6/17 🌧️备选',urgent:false,day:'D5'},
   {name:'广汉北→三星堆高铁',cat:'🚄',keyword:'广汉北',deadline:'当天买即可',urgent:false,day:'D4'},
-  {name:'犀浦→青城山高铁',cat:'🚄',keyword:'犀浦|青城山',deadline:'当天买即可',urgent:false,day:'D5'},
-  {name:'金色印象泡脚',cat:'🎭',keyword:'金色印象|泡脚',deadline:'提前1天预约',urgent:false,day:'D6'},
+  {name:'犀浦→都江堰高铁',cat:'🚄',keyword:'犀浦|都江堰',deadline:'当天买即可',urgent:false,day:'D5'},
+  {name:'九寨→黄龙包车',cat:'🚗',keyword:'包车',deadline:'6/14晚让酒店约',urgent:false,day:'D3'},
+  // ⬇️ 协商备选：青城山（如不去都江堰可替换）
+  {name:'青城山门票',cat:'🎫',keyword:'青城山',deadline:'当天线上/现场买 🔄备选',urgent:false,day:'D5备选'},
+  {name:'犀浦→青城山高铁',cat:'🚄',keyword:'青城山',deadline:'当天买即可 🔄备选',urgent:false,day:'D5备选'},
 ];
 
 function isExpenseMatched(keyword){
