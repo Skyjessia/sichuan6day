@@ -166,16 +166,13 @@ body.share-mode #dailySummary,
 body.share-mode [contenteditable]{pointer-events:none;background:transparent!important;box-shadow:none!important}
 body.share-mode #shareBtn{display:none!important}
 body.share-mode .copy-link-hint{display:block!important}
-body.share-mode .nav button:nth-child(3),  /* 记账 */
-body.share-mode .nav button:nth-child(4),  /* 交通 */
-body.share-mode .nav button:nth-child(5),  /* 门票 */
+body.share-mode .nav button:nth-child(5),  /* 交通 */
 body.share-mode .nav button:nth-child(6),  /* 美食 */
-body.share-mode .nav button:nth-child(7),  /* 住宿 */
+body.share-mode .nav button:nth-child(7),  /* 门票 */
+body.share-mode .nav button:nth-child(8),  /* 住宿 */
 body.share-mode .nav button:nth-child(9),  /* 彩蛋 */
-body.share-mode .nav button:nth-child(10), /* 贴士 */
-body.share-mode .bottom-bar button:nth-child(3), /* 记账 */
-body.share-mode .bottom-bar button:nth-child(4), /* 彩蛋 */
-body.share-mode .bottom-bar button:nth-child(5)  /* 贴士 */
+body.share-mode .bottom-bar button:nth-child(5), /* 彩蛋 */
+body.share-mode .bottom-bar button:nth-child(6)  /* 贴士 */
 {display:none}
 body.share-mode #ex,body.share-mode #tr,body.share-mode #tk,body.share-mode #fo,body.share-mode #ho,body.share-mode #eg,body.share-mode #ti{display:none!important}
 body.share-mode .al{display:none}
@@ -228,17 +225,16 @@ body.share-mode .al{display:none}
 
 <!-- Nav tabs -->
 <div class="nav" id="topNav">
-<button class="on" onclick="sh('it')">📋 行程</button>
 <button onclick="sh('ab')">📖 关于</button>
+<button class="on" onclick="sh('it')">📋 行程</button>
 <button onclick="sh('bu')">💰 预算</button>
 <button onclick="sh('ex')">📝 记账</button>
 <button onclick="sh('tr')">🚄 交通</button>
-<button onclick="sh('tk')">🎫 门票</button>
 <button onclick="sh('fo')">🍜 美食</button>
+<button onclick="sh('tk')">🎫 门票</button>
 <button onclick="sh('ho')">🏨 住宿</button>
-<button onclick="sh('sp')">💳 分账</button>
 <button onclick="sh('eg')">🎁 彩蛋</button>
-<button onclick="sh('ti')">📌 贴士</button>
+<button onclick="sh('sp')">💳 同行分账</button>
 </div>
 
 <!-- ========== 行程 ========== -->
@@ -636,8 +632,8 @@ body.share-mode .al{display:none}
 
 <button id="aboutFab" onclick="sh('ab')" style="position:fixed;bottom:72px;right:12px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--pl),var(--accent-l));border:2px solid rgba(0,0,0,.06);box-shadow:0 2px 12px rgba(0,0,0,.12);font-size:18px;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:transform .2s" title="小序 · 介绍">📖</button>
 <div class="bottom-bar">
-<button class="on" onclick="sh('it');setBottom(this)"><span class="bi">📋</span>行程</button>
 <button onclick="sh('ab');setBottom(this)"><span class="bi">📖</span>关于</button>
+<button class="on" onclick="sh('it');setBottom(this)"><span class="bi">📋</span>行程</button>
 <button onclick="sh('bu');setBottom(this)"><span class="bi">💰</span>预算</button>
 <button onclick="sh('ex');setBottom(this)"><span class="bi">📝</span>记账</button>
 <button onclick="sh('eg');setBottom(this)"><span class="bi">🎁</span>彩蛋</button>
@@ -756,15 +752,40 @@ function renderExpenses(){
     <span style="color:var(--b)">人均 ¥${perPerson.toFixed(2)}</span>
     <span style="color:var(--g500)">👥¥${totalPpl2.toFixed(2)} + 👤¥${totalPpl1.toFixed(2)}</span>
   </div>`+expenses.slice().reverse().map(e=>`
-    <div class="exp-item">
-      <div class="exp-cat">${e.cat}</div>
-      <div class="exp-info"><div class="exp-desc">${e.desc} ${e.ppl===1?'<span style="font-size:10px;color:var(--g500)">👤1人</span>':'<span style="font-size:10px;color:var(--b)">👥2人</span>'}</div><div class="exp-meta">${e.day} · ${e.time}</div></div>
-      <div class="exp-amt">¥${e.amt}</div>
+    <div class="exp-item" data-id="${e.id}">
+      <div class="exp-cat" onclick="editExpense(${e.id},'cat')" style="cursor:pointer" title="点击修改分类">${e.cat}</div>
+      <div class="exp-info"><div class="exp-desc" onclick="editExpense(${e.id},'desc')" style="cursor:pointer" title="点击修改描述">${e.desc} ${e.ppl===1?'<span style="font-size:10px;color:var(--g500)">👤1人</span>':'<span style="font-size:10px;color:var(--b)">👥2人</span>'}</div><div class="exp-meta">${e.day} · ${e.time}</div></div>
+      <div class="exp-amt" onclick="editExpense(${e.id},'amt')" style="cursor:pointer" title="点击修改金额">¥${e.amt}</div>
       <div class="exp-del" onclick="delExpense(${e.id})">✕</div>
     </div>
   `).join('');
   renderBudget();
   renderDailySummary();
+}
+
+function editExpense(id,field){
+  const e=expenses.find(x=>x.id===id);
+  if(!e)return;
+  if(field==='amt'){
+    const v=prompt('修改金额:',e.amt);
+    if(v===null)return;
+    const n=parseFloat(v);
+    if(isNaN(n)||n<0){toast('请输入有效金额');return}
+    e.amt=n;
+  }else if(field==='desc'){
+    const v=prompt('修改描述:',e.desc);
+    if(v===null)return;
+    if(!v.trim()){toast('描述不能为空');return}
+    e.desc=v.trim();
+  }else if(field==='cat'){
+    const cats=['✈️','🚄','🚌','🎫','🏨','🍜','🎭','🛒','📦'];
+    const ci=cats.indexOf(e.cat);
+    const v=prompt('修改分类 (✈️🚄🚌🎫🏨🍜🎭🛒📦):',e.cat);
+    if(v===null)return;
+    e.cat=v;
+  }
+  renderExpenses();saveData();renderTodo();renderSplit();
+  toast('✅ 已更新');
 }
 
 function renderBudget(){
