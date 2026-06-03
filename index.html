@@ -1091,6 +1091,7 @@ function renderSplit(){
     if(paidBack[e.id])totalReceived+=owed;
   });
   const totalPending=totalOwed-totalReceived;
+  const hasUnpaid=shared.some(e=>!paidBack[e.id]);
   
   overview.innerHTML=`
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;text-align:center">
@@ -1102,21 +1103,43 @@ function renderSplit(){
       <div style="height:100%;border-radius:3px;background:var(--g);width:${totalOwed>0?Math.round(totalReceived/totalOwed*100):0}%"></div>
     </div>
     <div style="text-align:center;font-size:11px;color:var(--g500);margin-top:4px">收款进度 ${totalOwed>0?Math.round(totalReceived/totalOwed*100):0}%</div>
+    ${hasUnpaid?'<div style="margin-top:8px;padding:6px 10px;background:#FFF0F0;border-radius:8px;font-size:11px;color:var(--danger);font-weight:600">⚠️ 还有未结清的账目，记得催对方转账！</div>':'<div style="margin-top:8px;padding:6px 10px;background:var(--gl);border-radius:8px;font-size:11px;color:var(--g);font-weight:600">✅ 全部结清！</div>'}
   `;
   
-  list.innerHTML=shared.map(e=>{
-    const owed=e.amt/2;
-    const isPaid=paidBack[e.id];
-    return `<div style="display:flex;align-items:center;padding:8px 0;border-bottom:1px solid var(--g100);font-size:12px;${isPaid?'opacity:.5':''}">
-      <div style="width:30%">${e.cat} ${e.desc.length>8?e.desc.slice(0,8)+'…':e.desc}</div>
-      <div style="width:20%;text-align:right">¥${e.amt}</div>
-      <div style="width:20%;text-align:right">¥${e.amt}</div>
-      <div style="width:20%;text-align:right;font-weight:600;color:${isPaid?'var(--g)':'var(--p)'}">¥${fmt(owed)}</div>
-      <div style="width:10%;text-align:center">
-        <span onclick="togglePaid(${e.id})" style="cursor:pointer;font-size:14px">${isPaid?'✅':'⬜'}</span>
-      </div>
+  // Apply day filter
+  const filtered=spDayFilter==='all'?shared:shared.filter(e=>e.day===spDayFilter);
+  
+  // Group by day
+  const days=['D1','D2','D3','D4','D5','D6'];
+  const grouped={};
+  days.forEach(d=>grouped[d]=[]);
+  filtered.forEach(e=>{if(grouped[e.day])grouped[e.day].push(e)});
+  
+  let html='<div style="display:flex;gap:6px;margin-bottom:8px"><button onclick="document.querySelectorAll(\'.sp-day-items\').forEach(d=>{d.classList.remove(\'collapsed\');d.style.maxHeight=d.scrollHeight+\'px\'});document.querySelectorAll(\'.sp-day-header\').forEach(h=>h.classList.remove(\'collapsed\'))" style="padding:4px 10px;border:1.5px solid var(--g200);border-radius:8px;background:#fff;font-size:11px;cursor:pointer">📂 全部展开</button><button onclick="document.querySelectorAll(\'.sp-day-items\').forEach(d=>{d.classList.add(\'collapsed\');d.style.maxHeight=\'0\'});document.querySelectorAll(\'.sp-day-header\').forEach(h=>h.classList.add(\'collapsed\'))" style="padding:4px 10px;border:1.5px solid var(--g200);border-radius:8px;background:#fff;font-size:11px;cursor:pointer">📁 全部折叠</button></div>';
+  
+  days.forEach(d=>{
+    const items=grouped[d];
+    if(items.length===0)return;
+    const dayTotal=items.reduce((s,e)=>s+e.amt,0);
+    const dayOwed=dayTotal/2;
+    const dayUnpaid=items.some(e=>!paidBack[e.id]);
+    html+=`<div class="day-group"><div class="sp-day-header day-header" onclick="toggleDayGroup(this)" style="${dayUnpaid?'border-left:3px solid var(--danger)':''}"><span class="day-arrow">▼</span><span>${d}</span>${dayUnpaid?'<span style="color:var(--danger);font-size:10px;font-weight:700">⚠ 未结清</span>':'<span style="color:var(--g);font-size:10px">✅</span>'}<span class="day-total">¥${fmt(dayTotal)} · 对方¥${fmt(dayOwed)}</span></div><div class="sp-day-items day-items">`;
+    items.forEach(e=>{
+      const owed=e.amt/2;
+      const isPaid=paidBack[e.id];
+      html+=`<div style="display:flex;align-items:center;padding:8px 0;border-bottom:1px solid var(--g100);font-size:12px;${isPaid?'opacity:.5':''}">
+      <div style="width:10%;color:var(--g500)">${e.day}</div>
+      <div style="width:25%">${e.cat} ${e.desc.length>6?e.desc.slice(0,6)+'…':e.desc}</div>
+      <div style="width:20%;text-align:right">¥${fmt(e.amt)}</div>
+      <div style="width:20%;text-align:right;font-weight:600;color:${isPaid?'var(--g)':'var(--danger)'}">${isPaid?'¥'+fmt(owed):'⚠ ¥'+fmt(owed)}</div>
+      <div style="width:10%;text-align:center"><span onclick="togglePaid(${e.id})" style="cursor:pointer;font-size:14px">${isPaid?'✅':'⬜'}</span></div>
     </div>`;
-  }).join('');
+    });
+    html+=`</div></div>`;
+  });
+  
+  list.innerHTML=html;
+  document.querySelectorAll('.sp-day-items').forEach(d=>{d.style.maxHeight=d.scrollHeight+'px'});
 }
 
 
