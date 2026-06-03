@@ -318,8 +318,12 @@ body.share-mode .al{display:none}
 <div id="bookList"></div>
 
 <div id="settleCard" style="position:sticky;bottom:56px;background:linear-gradient(135deg,var(--p),#E87050);color:#fff;border-radius:var(--r);padding:14px;margin-top:12px;box-shadow:0 4px 16px rgba(212,88,58,.25)">
-<div style="font-size:13px;font-weight:700;margin-bottom:8px">📊 全局结算</div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+<div style="font-size:13px;font-weight:700">📊 全局结算</div>
+<div style="font-size:11px;opacity:.8" id="settleTotal"></div>
+</div>
 <div id="settleInfo" style="font-size:12px;line-height:1.8"></div>
+<div id="settleAction" style="margin-top:10px;display:none"></div>
 </div>
 </div>
 
@@ -970,18 +974,55 @@ function renderBookList() {
   // Settlement card
   if (settleInfo) {
     const diff = totalPaid['甲'] - totalOwed['甲'];
-    let settleText = '总支出：¥' + grandTotal.toFixed(0) + ' | 人均：¥' + (grandTotal/2).toFixed(0) + '<br>';
-    settleText += '甲：已付 ¥' + totalPaid['甲'].toFixed(0) + '，应付 ¥' + totalOwed['甲'].toFixed(0) + '<br>';
-    settleText += '乙：已付 ¥' + totalPaid['乙'].toFixed(0) + '，应付 ¥' + totalOwed['乙'].toFixed(0) + '<br>';
+    const absDiff = Math.abs(diff);
+    const who = diff > 0 ? '乙' : '甲';
+    const toWho = diff > 0 ? '甲' : '乙';
+
+    // Total display
+    const settleTotal = document.getElementById('settleTotal');
+    if (settleTotal) settleTotal.textContent = '总支出 ¥' + grandTotal.toFixed(0) + ' · 人均 ¥' + (grandTotal/2).toFixed(0);
+
+    // Per person breakdown
+    let html = '';
+    html += '<div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>甲已付 ¥' + totalPaid['甲'].toFixed(0) + '</span><span>应付 ¥' + totalOwed['甲'].toFixed(0) + '</span></div>';
+    html += '<div style="display:flex;justify-content:space-between;margin-bottom:8px"><span>乙已付 ¥' + totalPaid['乙'].toFixed(0) + '</span><span>应付 ¥' + totalOwed['乙'].toFixed(0) + '</span></div>';
+
     if (Math.abs(diff) < 0.01) {
-      settleText += '🎉 账目已平！';
-    } else if (diff > 0) {
-      settleText += '💰 乙应转给甲 ¥' + diff.toFixed(0);
+      html += '<div style="text-align:center;font-size:14px;font-weight:700">🎉 账目已平！</div>';
     } else {
-      settleText += '💰 甲应转给乙 ¥' + Math.abs(diff).toFixed(0);
+      // Transfer progress bar
+      const settled = parseFloat(localStorage.getItem('settledAmount') || '0');
+      const remaining = Math.max(0, absDiff - settled);
+      const pct = absDiff > 0 ? Math.min(100, Math.round(settled / absDiff * 100)) : 0;
+
+      html += '<div style="margin-bottom:6px;font-size:12px">💰 ' + who + ' → ' + toWho + ' ¥' + absDiff.toFixed(0) + '</div>';
+      html += '<div style="background:rgba(255,255,255,.2);border-radius:4px;height:8px;margin-bottom:4px;overflow:hidden">';
+      html += '<div style="background:#fff;height:100%;border-radius:4px;width:' + pct + '%;transition:width .3s"></div></div>';
+      html += '<div style="display:flex;justify-content:space-between;font-size:10px;opacity:.8">';
+      html += '<span>已收 ¥' + settled.toFixed(0) + '</span><span>待收 ¥' + remaining.toFixed(0) + '</span></div>';
+
+      // Action area
+      const settleAction = document.getElementById('settleAction');
+      if (settleAction) {
+        if (remaining > 0.01) {
+          settleAction.style.display = 'block';
+          settleAction.innerHTML = '<button onclick="markSettled(' + remaining + ')" style="width:100%;padding:8px;background:rgba(255,255,255,.2);color:#fff;border:1.5px solid rgba(255,255,255,.4);border-radius:8px;font-size:12px;cursor:pointer;font-weight:600">✅ 收到 ¥' + remaining.toFixed(0) + '</button>';
+        } else {
+          settleAction.style.display = 'block';
+          settleAction.innerHTML = '<div style="text-align:center;font-size:13px;font-weight:700">✅ 已全部收回！</div>';
+        }
+      }
     }
-    settleInfo.innerHTML = settleText;
+    settleInfo.innerHTML = html;
   }
+}
+
+// ===== Settlement tracking =====
+function markSettled(amount) {
+  const current = parseFloat(localStorage.getItem('settledAmount') || '0');
+  localStorage.setItem('settledAmount', (current + amount).toFixed(2));
+  renderBookList();
+  toast('已确认收款 ✅');
 }
 
 // Init todo + bookkeeping on load
