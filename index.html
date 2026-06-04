@@ -561,7 +561,7 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 <button class="a2hs-later" onclick="dismissA2HS()">稍后</button>
 </div>
 
-<button id="aboutFab" onclick="sh('ab')" style="position:fixed;bottom:72px;right:12px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--pl),var(--accent-l));border:2px solid rgba(0,0,0,.06);box-shadow:0 2px 12px rgba(0,0,0,.12);font-size:18px;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:transform .2s" title="回到顶部">⬆</button>
+<button id="aboutFab" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="position:fixed;bottom:72px;right:12px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--pl),var(--accent-l));border:2px solid rgba(0,0,0,.06);box-shadow:0 2px 12px rgba(0,0,0,.12);font-size:18px;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:transform .2s" title="回到顶部">⬆</button>
 <div class="bottom-bar">
 <button onclick="sh('ab');setBottom(this)"><span class="bi">📖</span>关于</button>
 <button class="on" onclick="sh('it');setBottom(this)"><span class="bi">📋</span>行程</button>
