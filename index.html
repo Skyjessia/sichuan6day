@@ -800,6 +800,8 @@ function sh(id){
   document.querySelectorAll('.bottom-bar button').forEach(b=>b.classList.remove('on'));
   const botBtn=document.querySelector('.bottom-bar button[onclick*="'+id+'"]');
   if(botBtn) botBtn.classList.add('on');
+  // Render budget when switching to budget tab
+  if(id==='bu' && typeof renderBudget==='function') renderBudget();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function setBottom(btn){
@@ -848,7 +850,7 @@ function renderItem(item, showDrag) {
 }
 
 function renderDay(day) {
-  let html = `<div class="dc${day.open?' open':''}">`;
+  let html = `<div class="dc">`;
   html += `<div class="dh" onclick="tg(this)">`;
   html += `<div class="db ${day.color}"><span class="n">${day.day}</span><span class="l">${day.date}</span></div>`;
   html += `<div class="di"><h3 contenteditable="true">${day.title}</h3><div class="ds" contenteditable="true">${day.sub}</div></div>`;
