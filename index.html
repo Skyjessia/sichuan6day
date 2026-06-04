@@ -193,9 +193,12 @@ span:contains('提醒'), b:contains('提醒'), div:contains('提醒') {
 <title>四川6日 · v11</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--p:#D4583A;--pl:#FDF0EC;--a:#F0A030;--al:#FFF8EC;--b:#4A8FD9;--bl:#EDF4FC;--g:#2E8B57;--gl:#EAF5EE;--g50:#FBFAF8;--g100:#F5F4F0;--g200:#E8E6E0;--g500:#8C8A80;--g700:#525048;--g900:#2C2A28;--sh:0 2px 16px rgba(0,0,0,.07);--r:14px;--danger:#E05040;--accent:#7C5CFC;--accent-l:#F0ECFF}
+:root{--p:#D4583A;--pl:#FDF0EC;--a:#F0A030;--al:#FFF8EC;--b:#4A8FD9;--bl:#EDF4FC;--g:#2E8B57;--gl:#EAF5EE;--g50:#F5F7FA;--g100:#F0F2F5;--g200:#E0E3E8;--g500:#8C8A80;--g700:#525048;--g900:#2C2A28;--sh:0 2px 12px rgba(0,0,0, .06);--r:14px;--danger:#E05040;--accent:#7C5CFC;--accent-l:#F0ECFF}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--g50);color:var(--g900);line-height:1.7;-webkit-font-smoothing:antialiased;padding-bottom:80px}
-.c{max-width:900px;margin:0 auto;padding:16px 12px 20px}
+.c{max-width:960px;margin:0 auto;padding:16px 14px 20px}
+
+/* Status text colors */
+.st-paid{color:#00a850;font-weight:600}.st-wait{color:#ff6b00;font-weight:600}.st-alert{color:#ff3030;font-weight:600}
 
 /* Hero */
 .hero{text-align:center;padding:36px 16px 28px;background:linear-gradient(135deg,var(--pl),#FFF5F0 40%,var(--al),var(--accent-l));border-radius:18px;margin-bottom:20px;position:relative;overflow:hidden}
@@ -209,17 +212,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .alw{background:#FFF3E0;border-left:4px solid var(--a)}.ali{background:var(--bl);border-left:4px solid var(--b)}.alg{background:var(--gl);border-left:4px solid var(--g)}
 
 /* Nav */
-.nav{display:flex;flex-direction:column;gap:4px;margin-bottom:16px;position:sticky;top:0;background:var(--g50);z-index:100;padding-top:8px}
+.nav{display:flex;flex-direction:column;gap:4px;margin-bottom:16px;position:sticky;top:0;background:rgba(245,247,250,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:100;padding:8px 0 4px}
 .nav-row{display:flex;gap:5px;justify-content:center}
-.nav button{padding:6px 12px;border:1.5px solid var(--g200);border-radius:16px;background:#fff;font-size:12px;color:var(--g700);cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0}
-.nav button:hover{border-color:var(--p);color:var(--p)}.nav button.on{background:var(--p);color:#fff;border-color:var(--p)}
+.nav button{padding:7px 14px;border:1.5px solid var(--g200);border-radius:20px;background:#fff;font-size:12px;color:var(--g700);cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.nav button:hover{border-color:var(--p);color:var(--p);box-shadow:0 2px 8px rgba(212,88,58,.12)}.nav button.on{background:var(--p);color:#fff;border-color:var(--p);box-shadow:0 2px 10px rgba(212,88,58,.25)}
 .s{display:none}.s.on{display:block}
 
 /* Section title */
 .st{font-size:17px;font-weight:700;color:var(--g900);margin-bottom:14px;padding:6px 0 6px 12px;border-left:4px solid var(--p);letter-spacing:.3px;background:linear-gradient(90deg,var(--pl) 0%,transparent 100%);border-radius:0 var(--r) var(--r) 0}
 
 /* Day card */
-.dc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);margin-bottom:14px;overflow:hidden}
+.dc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);margin-bottom:14px;overflow:hidden;border:1px solid rgba(0,0,0,.04)}
 .dh{padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:background .2s}
 .dh:hover{background:var(--g50)}
 .db{width:40px;height:40px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:11px;color:#fff;flex-shrink:0}
@@ -305,7 +308,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .toast.show{opacity:1}
 
 /* Bottom bar */
-.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--g200);display:flex;z-index:200;padding:6px 0 env(safe-area-inset-bottom)}
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--g200);display:flex;z-index:200;padding:6px 0 env(safe-area-inset-bottom);box-shadow:0 -2px 10px rgba(0,0,0,.05)}
 .bottom-bar button{flex:1;border:none;background:none;padding:8px 4px;font-size:10px;color:var(--g500);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:color .15s}
 .bottom-bar button .bi{font-size:18px}
 .bottom-bar button.on{color:var(--p)}
@@ -337,6 +340,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .hero h1{font-size:18px}.hero{padding:20px 12px 16px}
 .bg{grid-template-columns:1fr 1fr}.bt .ba{font-size:22px}
 .quick-add{flex-direction:column}.quick-add .amt,.quick-add .cat,.quick-add .desc{width:100%}
+.nav button{padding:6px 10px;font-size:11px;border-radius:16px}
+.c{padding:10px 8px 20px}
+.dc{border-radius:10px}
 }
 
 /* Share mode - hide private sections */
@@ -947,6 +953,14 @@ function renderTime(timeStr) {
   return `<div class="tt">${timeStr}</div>`;
 }
 
+// Color status text: 已买/已付/已订→green, 待买/待约/待抢→orange, 提醒/注意/务必→red
+function colorStatus(text) {
+  return text
+    .replace(/(已买|已付|已订|已购|✅)/g, '<span class="st-paid">$1</span>')
+    .replace(/(待买|待约|待抢|待定|⏳)/g, '<span class="st-wait">$1</span>')
+    .replace(/(提醒|注意|务必|⚠️|❗)/g, '<span class="st-alert">$1</span>');
+}
+
 function renderItem(item, showDrag) {
   let html = '<div class="ti">';
   if (showDrag) {
@@ -955,18 +969,18 @@ function renderItem(item, showDrag) {
   html += renderTime(item.time);
   html += `<div class="td ${item.dot||''}"></div>`;
   html += '<div class="tc">';
-  html += `<div class="t" contenteditable="true">${item.title}</div>`;
+  html += `<div class="t" contenteditable="true">${colorStatus(item.title)}</div>`;
   if (item.tag) {
     html += `<span class="tg ${item.tag}">${item.tagText}</span>`;
   }
   if (item.desc) {
-    html += `<div class="d" contenteditable="true">${item.desc.replace(/\n/g,'<br>')}</div>`;
+    html += `<div class="d" contenteditable="true">${colorStatus(item.desc.replace(/\n/g,'<br>'))}</div>`;
   }
   if (item.note) {
-    html += `<div class="note" contenteditable="true">${item.note}</div>`;
+    html += `<div class="note" contenteditable="true">${colorStatus(item.note)}</div>`;
   }
   if (item.cost) {
-    html += `<div class="cost" contenteditable="true">${item.cost}</div>`;
+    html += `<div class="cost" contenteditable="true">${colorStatus(item.cost)}</div>`;
   }
   if (item.egg) {
     html += `<div class="egg" contenteditable="true">${item.egg.replace(/\n/g,'<br>')}</div>`;
