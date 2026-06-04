@@ -338,6 +338,10 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 <div class="bl">人均预算</div>
 <div class="ba" id="budgetTotal">¥5,500</div>
 <div style="font-size:11px;opacity:.7;margin-top:3px">2人总计 ¥11,000</div>
+<div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+  <div style="font-size:12px;color:var(--g700)">已花费 <span id="actualTotal" style="font-weight:700;color:var(--p)">¥0</span></div>
+  <div style="font-size:12px;color:var(--g700)">花费率 <span id="actualPct" style="font-weight:700;color:var(--p)">0%</span></div>
+</div>
 </div>
 
 <div class="prog-wrap">
@@ -347,6 +351,10 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 
 <!-- Budget Chart -->
 <div id="budgetChart" style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:var(--sh)"></div>
+<div style="display:flex;gap:8px;margin-bottom:12px">
+  <button onclick="exportData()" style="flex:1;padding:10px;border:1.5px solid var(--p);border-radius:8px;background:#fff;color:var(--p);font-size:12px;font-weight:600;cursor:pointer">📤 导出数据</button>
+  <label style="flex:1;padding:10px;border:1.5px solid var(--g300);border-radius:8px;background:#fff;color:var(--g700);font-size:12px;font-weight:600;cursor:pointer;text-align:center">📥 导入同步<input type="file" accept=".json" onchange="importData(event)" style="display:none"></label>
+</div>
 </div>
 
 
@@ -540,7 +548,7 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 <div id="ti" class="s">
 <div class="st">🎫 抢票时间轴</div>
 <table class="dt2"><thead><tr><th>优先级</th><th>事项</th><th>时间</th></tr></thead><tbody id="ticketTimeline"></tbody></table>
-<div class="st" style="margin-top:16px">📌 重要注意事项</div>
+<div class="st" style="margin-top:16px">⚠ 出行提醒</div>
 <div id="tipsContainer"></div>
 </div>
 </div><!-- end .c -->
@@ -910,7 +918,7 @@ async function loadTripData(retryCount = 0) {
   try {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 5000);
-    const resp = await fetch('data.json', {signal: ctrl.signal});
+    const resp = await fetch('data.json?v=' + Date.now(), {signal: ctrl.signal});
     clearTimeout(timer);
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     tripData = await resp.json();
@@ -1391,6 +1399,10 @@ function renderBudget(){
 
   // Update budget total display
   document.getElementById('budgetTotal').textContent='¥'+BUDGET_TOTAL.toLocaleString();
+  const actualEl = document.getElementById('actualTotal');
+  if(actualEl) actualEl.textContent='¥'+fmt(actualTotal);
+  const actualPctEl = document.getElementById('actualPct');
+  if(actualPctEl) actualPctEl.textContent=pct+'%';
 
   // ===== Render visual chart =====
   const chartEl = document.getElementById('budgetChart');
@@ -1498,12 +1510,13 @@ function fallbackCopy(text){
 }
 
 function exportData(){
-  const data={expenses,edits:localStorage.getItem('sc_edits'),exportTime:new Date().toISOString()};
+  const bkData = JSON.parse(localStorage.getItem('expenses')||'[]');
+  const data={expenses,bookkeeping:bkData,edits:localStorage.getItem('sc_edits'),exportTime:new Date().toISOString()};
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
-  a.download='四川6日_记账_'+new Date().toLocaleDateString('zh-CN').replace(/\//g,'-')+'.json';
-  a.click();toast('📤 已导出');
+  a.download='四川6日_数据_'+new Date().toLocaleDateString('zh-CN').replace(/\//g,'-')+'.json';
+  a.click();toast('📤 已导出，可在手机端导入同步');
 }
 
 function importData(event){
@@ -1513,8 +1526,12 @@ function importData(event){
     try{
       const data=JSON.parse(e.target.result);
       if(data.expenses){expenses=data.expenses;localStorage.setItem('sc_expenses',JSON.stringify(expenses))}
+      if(data.bookkeeping){localStorage.setItem('expenses',JSON.stringify(data.bookkeeping))}
       if(data.edits){localStorage.setItem('sc_edits',data.edits);loadEdits()}
-      renderExpenses();toast('📥 已导入');
+      renderExpenses();
+      if(typeof renderBookList==='function') renderBookList();
+      if(typeof renderBudget==='function') renderBudget();
+      toast('📥 已导入同步');
     }catch(err){toast('导入失败：文件格式错误')}
   };
   reader.readAsText(file);
