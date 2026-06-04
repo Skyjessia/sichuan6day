@@ -267,8 +267,8 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 
 
 <div class="nav" id="topNav">
-<div class="nav-row"><button class="on" onclick="sh('it')">📋 行程</button><button onclick="sh('bu')">💰 预算</button><button data-share="hide" onclick="sh('ex')">📝 记账</button><button data-share="hide" onclick="sh('fo')">🍜 美食</button></div>
-<div class="nav-row"><button data-share="hide" onclick="sh('eg')">🎁 彩蛋</button><button data-share="hide" onclick="sh('ti')">📌 贴士</button><button data-share="hide" onclick="sh('ho')">🚗🏨 交酒</button><button onclick="window.scrollTo({top:0,behavior:'smooth'})">📖 关于</button></div>
+<div class="nav-row"><button class="on" onclick="sh('it')">📅 行程</button><button onclick="sh('bu')">💵 总账单</button><button data-share="hide" onclick="sh('ex')">👥 AA记账</button><button data-share="hide" onclick="sh('fo')">🍲 美食指南</button></div>
+<div class="nav-row"><button data-share="hide" onclick="sh('eg')">🎈 行程彩蛋</button><button data-share="hide" onclick="sh('ti')">⚠ 出行提醒</button><button data-share="hide" onclick="sh('ho')">🚗 住宿交通</button><button onclick="window.scrollTo({top:0,behavior:'smooth'})">📖 简介</button></div>
 </div>
 <div id="ab" class="s">
 <div style="max-width:520px;margin:0 auto">
@@ -424,7 +424,7 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 
 <!-- ========== 美食 ========== -->
 <div id="fo" class="s">
-<div class="st">🍜 美食宝藏地图</div>
+<div class="st">🍲 美食指南宝藏地图</div>
 
 <div style="background:linear-gradient(135deg,var(--al),#FFF5F0);border-radius:var(--r);padding:14px 16px;margin-bottom:14px">
 <div style="font-size:14px;font-weight:700;color:var(--g900);margin-bottom:8px">📅 每日餐食安排</div>
@@ -446,7 +446,7 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 </div>
 
 <div id="ho" class="s">
-<div class="st">🚗🏨 交通+住宿</div>
+<div class="st">🚗 住宿交通</div>
 
 <div style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--p)">🚗 交通明细</div>
 <table class="dt2"><thead><tr><th>天</th><th>类别</th><th>路段</th><th>方式</th><th>费用/人</th><th>状态</th></tr></thead><tbody>
@@ -533,7 +533,7 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 
 <!-- ========== 彩蛋 ========== -->
 <div id="eg" class="s">
-<div class="st">🎁 彩蛋清单</div>
+<div class="st">🎈 行程彩蛋清单</div>
 <div id="eggsContainer"></div>
 </div>
 
@@ -563,10 +563,10 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 
 <button id="aboutFab" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="position:fixed;bottom:72px;right:12px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--pl),var(--accent-l));border:2px solid rgba(0,0,0,.06);box-shadow:0 2px 12px rgba(0,0,0,.12);font-size:18px;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:transform .2s" title="回到顶部">⬆</button>
 <div class="bottom-bar">
-<button onclick="sh('ab');setBottom(this)"><span class="bi">📖</span>关于</button>
-<button class="on" onclick="sh('it');setBottom(this)"><span class="bi">📋</span>行程</button>
-<button data-share="hide" onclick="sh('fo');setBottom(this)"><span class="bi">🍜</span>美食</button>
-<button data-share="hide" onclick="sh('ti');setBottom(this)"><span class="bi">📌</span>贴士</button>
+<button onclick="sh('ab');setBottom(this)"><span class="bi">📖</span>简介</button>
+<button class="on" onclick="sh('it');setBottom(this)"><span class="bi">📅</span>行程</button>
+<button data-share="hide" onclick="sh('fo');setBottom(this)"><span class="bi">🍲</span>美食</button>
+<button data-share="hide" onclick="sh('ti');setBottom(this)"><span class="bi">⚠</span>提醒</button>
 </div>
 <script>
 // Format money: 2 decimals + thousands separator
@@ -835,12 +835,20 @@ function renderDay(day) {
   html += '<div class="tl">';
 
   if (day.hasWeatherSplit) {
-    // Sunny
-    html += '<div class="ti"><div class="tt"></div><div class="td" style="background:var(--a)"></div><div class="tc"><div class="t">☀️ 晴天方案</div></div></div>';
+    // Sunny - collapsible
+    html += '<div style="margin-bottom:8px">';
+    html += '<div onclick="var c=this.nextElementSibling;c.style.display=c.style.display===\'none\'?\'block\':\'none\';this.querySelector(\'.ws-arrow\').textContent=c.style.display===\'none\'?\'▶\':\'▼\'" style="display:flex;align-items:center;gap:6px;padding:8px 10px;background:linear-gradient(90deg,#FFF8EC,#FFF);border-radius:8px;cursor:pointer;margin-bottom:6px;border-left:3px solid var(--a)">';
+    html += '<span style="font-size:13px;font-weight:700">☀️ 晴天方案</span><span class="ws-arrow" style="font-size:10px;color:var(--g500)">▶</span></div>';
+    html += '<div style="display:none">';
     (day.sunny||[]).forEach(item => { html += renderItem(item, true); });
-    // Rainy
-    html += '<div class="ti"><div class="tt" style="margin-top:10px"></div><div class="td" style="background:var(--b)"></div><div class="tc"><div class="t">🌧️ 雨天方案</div></div></div>';
+    html += '</div></div>';
+    // Rainy - collapsible
+    html += '<div style="margin-bottom:8px">';
+    html += '<div onclick="var c=this.nextElementSibling;c.style.display=c.style.display===\'none\'?\'block\':\'none\';this.querySelector(\'.ws-arrow\').textContent=c.style.display===\'none\'?\'▶\':\'▼\'" style="display:flex;align-items:center;gap:6px;padding:8px 10px;background:linear-gradient(90deg,var(--bl),#fff);border-radius:8px;cursor:pointer;margin-bottom:6px;border-left:3px solid var(--b)">';
+    html += '<span style="font-size:13px;font-weight:700">🌧️ 雨天方案</span><span class="ws-arrow" style="font-size:10px;color:var(--g500)">▶</span></div>';
+    html += '<div style="display:none">';
     (day.rainy||[]).forEach(item => { html += renderItem(item, true); });
+    html += '</div></div>';
   } else {
     (day.items||[]).forEach(item => { html += renderItem(item, true); });
   }
@@ -1350,6 +1358,7 @@ loadTripData().then(() => {
   renderTodos();
   renderBookList();
   renderBudget(); // Ensure budget renders after data.json loads
+  switchDay('D1'); // Default show D1 after itinerary is rendered
   const bkDate = document.getElementById('bkDate');
   if (bkDate && !bkDate.value) bkDate.value = new Date().toISOString().slice(0,10);
 });
@@ -1718,7 +1727,6 @@ if(new URLSearchParams(location.search).get('share')==='1'){
 
 loadEdits();
 sh('it'); // Show itinerary by default
-switchDay('D1'); // Default show D1
 renderDayTabs();renderExpenses();
 renderBookList(); // Show saved bookkeeping entries immediately
 syncTodoFromItinerary();
