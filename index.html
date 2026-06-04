@@ -321,8 +321,6 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 
 <!-- Budget Chart -->
 <div id="budgetChart" style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:var(--sh)"></div>
-
-<div id="budgetRows"></div>
 </div>
 
 
@@ -1274,7 +1272,7 @@ const CAT_NAMES = {
 };
 
 function renderBudget(){
-  // Calculate actual spending (per-person amounts)
+  // Calculate actual spending from bookkeeping only (per-person amounts)
   const actual={flight:0,train:0,local:0,ticket:0,hotel:0,food:0,entertain:0,shop:0,other:0};
   const bkExpenses = getExpenses();
   bkExpenses.forEach(e => {
@@ -1282,7 +1280,6 @@ function renderBudget(){
     const perPerson = e.amount / e.participants.length;
     actual[k] += perPerson;
   });
-  expenses.forEach(e=>{const k=CAT_MAP[e.cat]||'other';actual[k]+=(e.ppl===2?e.amt/2:e.amt)});
   const actualTotal=Object.values(actual).reduce((a,b)=>a+b,0);
   const pct=BUDGET_TOTAL>0?Math.round(actualTotal/BUDGET_TOTAL*100):0;
 
@@ -1343,19 +1340,6 @@ function renderBudget(){
     chartEl.innerHTML = chartHtml;
   }
 
-  // ===== Detail rows =====
-  const br=document.getElementById('budgetRows');
-  br.innerHTML=Object.keys(CAT_NAMES).filter(k=>BUDGET[k]>0).map(k=>{
-    const a=actual[k],b=BUDGET[k]||0;
-    const diff=b-a;
-    const pctCat=b>0?Math.round(a/b*100):0;
-    const diffStr=a>0?(diff>=0?`剩余¥${fmt(diff)}`:`超¥${fmt(Math.abs(diff))}`):'待花费';
-    const diffCls=a===0?'pos':(diff>=0?'pos':'neg');
-    const fillColor=a===0?'var(--g200)':(diff>=0?(pctCat<70?'var(--g)':pctCat<90?'var(--a)':'var(--danger)'):'var(--danger)');
-    const ico=CAT_NAMES[k].split(' ')[0];
-    const name=CAT_NAMES[k].split(' ').slice(1).join(' ');
-    return`<div class="bu-row"><div class="bu-top"><div class="bu-ico">${ico}</div><div class="bu-name">${name}</div><div class="bu-actual">¥${fmt(a)}</div><div class="bu-diff ${diffCls}">${diffStr}</div></div><div class="bu-bar"><div class="bu-fill" style="width:${a>0?Math.min(pctCat,100):0}%;background:${fillColor}"></div></div><div class="bu-labels"><span>${a>0?'实际 ¥'+fmt(a):'—'}</span><span>预算 ¥${fmt(b)}</span></div></div>`;
-  }).join('');
 }
 
 function renderDailySummary(){
