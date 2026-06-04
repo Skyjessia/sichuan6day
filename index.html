@@ -677,6 +677,7 @@ function clearExpenses(){
 
 function renderExpenses(){
   const list=document.getElementById('expenseList');
+  if(!list)return;
   if(expenses.length===0){list.innerHTML='<div style="text-align:center;padding:20px;color:var(--g500);font-size:13px">还没有记录，花一笔记一笔 ✏️</div>';renderBudget();return}
   const totalAll=expenses.reduce((s,e)=>s+e.amt,0);
   const totalPpl1=expenses.filter(e=>e.ppl===1).reduce((s,e)=>s+e.amt,0);
@@ -965,6 +966,7 @@ async function loadTripData(retryCount = 0) {
 function renderEggs(data) {
   const container = document.getElementById('eggsContainer');
   if (!container || !data.eggs) return;
+  if(!container)return;
   container.innerHTML = data.eggs.map(e =>
     `<div class="ec"><div class="ei">${e.icon}</div><div><div class="et"><b>${e.title}</b>：${e.desc}</div><div class="ed">${e.day}</div></div></div>`
   ).join('');
@@ -973,6 +975,7 @@ function renderEggs(data) {
 function renderTicketTimeline(data) {
   const tbody = document.getElementById('ticketTimeline');
   if (!tbody || !data.ticketTimeline) return;
+  if(!tbody)return;
   tbody.innerHTML = data.ticketTimeline.map(t =>
     `<tr><td>${t.priority} ${t.level}</td><td>${t.item}</td><td>${t.time}</td></tr>`
   ).join('');
@@ -1528,6 +1531,7 @@ function renderBudget(){
 function renderDailySummary(){
   const days=['D1','D2','D3','D4','D5','D6'];
   const ds=document.getElementById('dailySummary');
+  if(!ds)return;
   ds.innerHTML=days.map(d=>{
     const dayExps=expenses.filter(e=>e.day===d);
     const total=dayExps.reduce((s,e)=>s+e.amt,0);
@@ -1646,6 +1650,7 @@ const _ed=document.getElementById('expDesc');if(_ed)_ed.addEventListener('keydow
 function toggleShareMode(){
   document.body.classList.toggle('share-mode');
   const btn=document.getElementById('shareBtn');
+  if(!btn)return;
   if(document.body.classList.contains('share-mode')){
     btn.innerHTML='🔒 退出分享';
     btn.style.background='var(--p)';
@@ -1675,6 +1680,7 @@ function renderSplit(){
   const shared=expenses.filter(e=>e.ppl===2);
   const overview=document.getElementById('splitOverview');
   const list=document.getElementById('splitList');
+  if(!overview||!list)return;
   
   let totalShared=0, totalOwed=0, totalReceived=0;
   shared.forEach(e=>{
