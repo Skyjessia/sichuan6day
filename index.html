@@ -399,84 +399,9 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 <!-- ========== 美食 ========== -->
 <div id="fo" class="s">
 <div class="st">🍜 美食宝藏地图</div>
-
-<div style="background:linear-gradient(135deg,var(--al),#FFF5F0);border-radius:var(--r);padding:14px 16px;margin-bottom:14px">
-<div style="font-size:14px;font-weight:700;color:var(--g900);margin-bottom:8px">📅 每日餐食安排</div>
-<table class="dt2"><thead><tr><th>天</th><th>早餐</th><th>午餐</th><th>晚餐</th></tr></thead><tbody>
-<tr><td>D3</td><td>青禾和院含早</td><td>黄龙景区自带干粮</td><td>百年蹄花馆 🔥</td></tr>
-<tr><td>D4</td><td>梁记肥肠粉</td><td>三星堆自带干粮</td><td>冒椒火辣 🔥</td></tr>
-<tr><td>D5</td><td>西月城谭豆花</td><td>青城山/都江堰解决</td><td>巴蜀大宅门/飘香火锅 🔥</td></tr>
-<tr><td>D6</td><td>陆老爹猪蹄面</td><td>轩轩小院/洞子口张老二</td><td>✈️ 回家</td></tr>
-</tbody></table>
-<div style="margin-top:8px;font-size:11px;color:var(--g500);line-height:1.6">🥤 每天配 <b style="color:var(--p)">唯怡豆奶</b> 解辣 — 成都人吃火锅标配<br>🥮 蛋烘糕、甜水面、糖油果子穿插在宽窄巷子/锦里游玩间隙，不占正餐</div>
+<div id="foodPoolsContainer"></div>
 </div>
 
-<div style="background:#fff;border-radius:var(--r);padding:14px 16px;margin-bottom:12px;box-shadow:var(--sh)">
-<div style="font-size:14px;font-weight:700;color:var(--p);margin-bottom:10px">🔥 火锅苍蝇馆子推荐 <span style="font-size:11px;color:var(--g500);font-weight:400">2026第十五届成都苍蝇馆子50强</span></div>
-<div style="display:grid;gap:8px">
-
-<div style="padding:10px 12px;background:var(--g100);border-radius:10px;border-left:3px solid var(--p)">
-<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:13px;font-weight:700;color:var(--g900)">百年蹄花馆</div><div style="font-size:11px;color:var(--g500)">宽窄巷子支巷 · 约¥50-70</div></div>
-<div style="font-size:11px;color:var(--g700);margin-top:4px">112年非遗老店，蹄花汤熬6小时，奶白色汤底</div>
-<div style="font-size:11px;color:var(--p);margin-top:2px">必点：蹄花汤、秘制青椒酱</div>
-</div>
-
-<div style="padding:10px 12px;background:var(--g100);border-radius:10px;border-left:3px solid var(--a)">
-<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:13px;font-weight:700;color:var(--g900)">冒椒火辣（冷锅串串）</div><div style="font-size:11px;color:var(--g500)">奎星楼街33号 · 约¥60-80</div></div>
-<div style="font-size:11px;color:var(--g700);margin-top:4px">排队王，冷锅串串配老鹰茶</div>
-<div style="font-size:11px;color:var(--p);margin-top:2px">必点：小郡肝、兔腰、绵绵冰、老卤鹌鹑蛋</div>
-</div>
-
-<div style="padding:10px 12px;background:var(--g100);border-radius:10px;border-left:3px solid var(--danger)">
-<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:13px;font-weight:700;color:var(--g900)">飘香火锅</div><div style="font-size:11px;color:var(--g500)">玉林路 · 约¥80-100</div></div>
-<div style="font-size:11px;color:var(--g700);margin-top:4px">20年老店，牛油现炒，环境简朴</div>
-<div style="font-size:11px;color:var(--p);margin-top:2px">必点：火锅牛排、猪天堂、鞭炮笋</div>
-</div>
-
-<div style="padding:10px 12px;background:var(--g100);border-radius:10px;border-left:3px solid var(--b)">
-<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:13px;font-weight:700;color:var(--g900)">巴蜀大宅门</div><div style="font-size:11px;color:var(--g500)">高升桥店 · 约¥80-100</div></div>
-<div style="font-size:11px;color:var(--g700);margin-top:4px">本地人也爱的火锅，锅底有小泡泡代表地道</div>
-<div style="font-size:11px;color:var(--p);margin-top:2px">必点：千层肚、鸭肠、耗儿鱼</div>
-</div>
-
-<div style="padding:10px 12px;background:var(--g100);border-radius:10px;border-left:3px solid var(--g)">
-<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:13px;font-weight:700;color:var(--g900)">玉林串串香</div><div style="font-size:11px;color:var(--g500)">玉林路 · 约¥50-70</div></div>
-<div style="font-size:11px;color:var(--g700);margin-top:4px">1995年创立，400+家分店的串串鼻祖</div>
-<div style="font-size:11px;color:var(--p);margin-top:2px">必点：牛肉串串、鱿鱼串，配唯怡豆奶</div>
-</div>
-
-</div>
-</div>
-
-<div style="background:#fff;border-radius:var(--r);padding:14px 16px;margin-bottom:12px;box-shadow:var(--sh)">
-<div style="font-size:14px;font-weight:700;color:var(--a);margin-bottom:10px">🥣 宽窄巷子周边美食补充</div>
-<div style="display:grid;gap:8px">
-
-<div style="padding:10px 12px;background:var(--al);border-radius:10px">
-<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:13px;font-weight:700;color:var(--g900)">无名蛋烘糕</div><div style="font-size:11px;color:var(--g500)">小吃 · ¥3-5</div></div>
-<div style="font-size:11px;color:var(--g700);margin-top:4px">窄巷支巷小推车，限量300个/天，现烤焦糖脆边</div>
-<div style="font-size:11px;color:var(--p);margin-top:2px">必点：奶油肉松、芝麻花生馅</div>
-</div>
-
-<div style="padding:10px 12px;background:var(--al);border-radius:10px">
-<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:13px;font-weight:700;color:var(--g900)">轩轩小院</div><div style="font-size:11px;color:var(--g500)">川菜 · ¥110左右</div></div>
-<div style="font-size:11px;color:var(--g700);margin-top:4px">宽窄巷子最正宗川菜，黑珍珠主厨出品</div>
-<div style="font-size:11px;color:var(--p);margin-top:2px">必点：宫保鸡丁、麻婆豆腐、豆瓣鱼</div>
-</div>
-
-<div style="padding:10px 12px;background:var(--al);border-radius:10px">
-<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:13px;font-weight:700;color:var(--g900)">洞子口张老二</div><div style="font-size:11px;color:var(--g500)">小吃 · ¥15-20</div></div>
-<div style="font-size:11px;color:var(--g700);margin-top:4px">本地人从小吃到大的甜水面</div>
-<div style="font-size:11px;color:var(--p);margin-top:2px">必点：甜水面、白凉粉、老鹰茶</div>
-</div>
-
-</div>
-</div>
-
-</div>
-
-
-<!-- ========== 住宿 ========== -->
 <div id="ho" class="s">
 <div class="st">🚗🏨 交通+住宿</div>
 
@@ -965,6 +890,60 @@ function renderAllExtras(data) {
   renderEggs(data);
   renderTicketTimeline(data);
   renderTips(data);
+  renderFoodPools(data);
+}
+
+// ===== Render food pools from data.json =====
+function renderFoodPools(data) {
+  const container = document.getElementById('foodPoolsContainer');
+  if (!container || !data.foodPools) return;
+  const pools = data.foodPools;
+  const poolColors = ['#4A8FD9','#F0A030','#D4583A','#2E8B57'];
+
+  let html = '';
+  pools.forEach((pool, idx) => {
+    const color = poolColors[idx % poolColors.length];
+    html += `<div style="background:#fff;border-radius:var(--r);margin-bottom:10px;box-shadow:var(--sh);overflow:hidden">`;
+    // Header - clickable to expand
+    html += `<div onclick="var d=this.nextElementSibling;d.style.display=d.style.display==='none'?'block':'none';this.querySelector('.fp-arrow').textContent=d.style.display==='none'?'▶':'▼'" style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;cursor:pointer;border-left:4px solid ${color}">`;
+    html += `<div><span style="font-size:16px;margin-right:6px">${pool.icon}</span><span style="font-size:14px;font-weight:700">${pool.title}</span>`;
+    if (pool.subtitle) html += `<span style="font-size:11px;color:var(--g500);margin-left:6px">${pool.subtitle}</span>`;
+    html += `</div>`;
+    html += `<span class="fp-arrow" style="font-size:10px;color:var(--g500)">▶</span>`;
+    html += `</div>`;
+    // Content - collapsed by default
+    html += `<div style="display:none;padding:0 14px 14px">`;
+    // Principle
+    if (pool.principle) {
+      html += `<div style="font-size:11px;color:var(--g700);background:var(--g100);border-radius:8px;padding:8px 10px;margin-bottom:10px;line-height:1.6">💡 ${pool.principle}</div>`;
+    }
+    // Sections
+    pool.sections.forEach(sec => {
+      html += `<div style="font-size:12px;font-weight:700;color:${color};margin:10px 0 6px">${sec.heading}</div>`;
+      html += `<div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table style="width:100%;border-collapse:collapse;font-size:11px;min-width:320px">`;
+      html += `<thead><tr style="border-bottom:2px solid var(--g200);text-align:left"><th style="padding:4px 6px;font-weight:600">店名</th><th style="padding:4px 6px;font-weight:600">特色</th><th style="padding:4px 6px;font-weight:600;width:60px">人均</th><th style="padding:4px 6px;font-weight:600">位置</th></tr></thead><tbody>`;
+      sec.rows.forEach(row => {
+        html += `<tr style="border-bottom:1px solid var(--g100)">`;
+        html += `<td style="padding:5px 6px;font-weight:600;white-space:nowrap">${row.name}</td>`;
+        html += `<td style="padding:5px 6px">${row.specialty}</td>`;
+        html += `<td style="padding:5px 6px;color:var(--p);font-weight:600;white-space:nowrap">${row.price}</td>`;
+        html += `<td style="padding:5px 6px;color:var(--g500)">${row.location}</td>`;
+        html += `</tr>`;
+      });
+      html += `</tbody></table></div>`;
+    });
+    // Must try
+    if (pool.mustTry) {
+      html += `<div style="margin-top:10px;padding:8px 10px;background:linear-gradient(135deg,var(--pl),var(--al));border-radius:8px;font-size:11px;line-height:1.6"><b style="color:var(--p)">🔥 必点：</b>${pool.mustTry}</div>`;
+    }
+    // Tips
+    if (pool.tips) {
+      html += `<div style="margin-top:6px;font-size:10px;color:var(--g500);line-height:1.5">📌 ${pool.tips}</div>`;
+    }
+    html += `</div></div>`;
+  });
+
+  container.innerHTML = html;
 }
 
 // ===== Auto-save page edits to localStorage =====
