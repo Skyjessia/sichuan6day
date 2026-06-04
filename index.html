@@ -1,190 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <style>
-/* 全局页面美化 */
-body {
-    max-width: 1000px;
-    margin: 0 auto !important;
-    padding: 20px 15px !important;
-    background: #f5f7fa;
-    line-height: 1.65 !important;
-    font-size: 15px !important;
-}
-
-/* 标题美化 */
-h1, h2, h3, h4, h5 {
-    color: #222 !important;
-    margin-top: 25px !important;
-    margin-bottom: 12px !important;
-}
-
-/* 每日行程 → 卡片化（核心提升） */
-h2 {
-    background: white;
-    padding: 14px 18px !important;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    border-left: 5px solid #4285F4;
-}
-
-/* 内容区块包裹成卡片 */
-p, ul, ol, table {
-    background: white;
-    padding: 14px 18px !important;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    margin-bottom: 12px !important;
-}
-
-/* 表格优化 */
-table {
-    width: 100% !important;
-    border-collapse: collapse;
-}
-table td, table th {
-    padding: 8px 10px !important;
-    border: 1px solid #eee !important;
-}
-
-/* 顶部固定导航栏 */
-.top-nav {
-    position: sticky;
-    top: 0;
-    background: white;
-    padding: 10px 12px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    z-index: 999;
-    margin-bottom: 20px;
-}
-.top-nav a {
-    padding: 6px 10px;
-    background: #f0f4ff;
-    border-radius: 6px;
-    text-decoration: none;
-    color: #4285F4;
-    font-weight: bold;
-}
-.top-nav a:hover {
-    background: #4285F4;
-    color: white;
-}
-
-/* 状态标签自动上色 */
-span:contains('已付'), b:contains('已付'), div:contains('已付') {
-    color: #00a850 !important;
-    font-weight: bold;
-}
-span:contains('待抢'), b:contains('待抢'), div:contains('待抢') {
-    color: #ff6b00 !important;
-    font-weight: bold;
-}
-span:contains('提醒'), b:contains('提醒'), div:contains('提醒') {
-    color: #ff3030 !important;
-    font-weight: bold;
-}
-</style>
-<style>
-/* 全局页面美化 */
-body <div class="top-nav">
-    <a href="#d1">D1</a>
-    <a href="#d2">D2</a>
-    <a href="#d3">D3</a>
-    <a href="#d4">D4</a>
-    <a href="#d5">D5</a>
-    <a href="#d6">D6</a>
-    <a href="#账单">账单</a>
-    <a href="#美食">美食</a>
-</div>
-    {
-    max-width: 1000px;
-    margin: 0 auto !important;
-    padding: 20px 15px !important;
-    background: #f5f7fa;
-    line-height: 1.65 !important;
-    font-size: 15px !important;
-}
-
-/* 标题美化 */
-h1, h2, h3, h4, h5 {
-    color: #222 !important;
-    margin-top: 25px !important;
-    margin-bottom: 12px !important;
-}
-
-/* 每日行程 → 卡片化（核心提升） */
-h2 {
-    background: white;
-    padding: 14px 18px !important;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    border-left: 5px solid #4285F4;
-}
-
-/* 内容区块包裹成卡片 */
-p, ul, ol, table {
-    background: white;
-    padding: 14px 18px !important;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    margin-bottom: 12px !important;
-}
-
-/* 表格优化 */
-table {
-    width: 100% !important;
-    border-collapse: collapse;
-}
-table td, table th {
-    padding: 8px 10px !important;
-    border: 1px solid #eee !important;
-}
-
-/* 顶部固定导航栏 */
-.top-nav {
-    position: sticky;
-    top: 0;
-    background: white;
-    padding: 10px 12px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    z-index: 999;
-    margin-bottom: 20px;
-}
-.top-nav a {
-    padding: 6px 10px;
-    background: #f0f4ff;
-    border-radius: 6px;
-    text-decoration: none;
-    color: #4285F4;
-    font-weight: bold;
-}
-.top-nav a:hover {
-    background: #4285F4;
-    color: white;
-}
-
-/* 状态标签自动上色 */
-span:contains('已付'), b:contains('已付'), div:contains('已付') {
-    color: #00a850 !important;
-    font-weight: bold;
-}
-span:contains('待抢'), b:contains('待抢'), div:contains('待抢') {
-    color: #ff6b00 !important;
-    font-weight: bold;
-}
-span:contains('提醒'), b:contains('提醒'), div:contains('提醒') {
-    color: #ff3030 !important;
-    font-weight: bold;
-}
-</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -232,6 +48,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .dht{font-size:10px;color:var(--g500);background:var(--g50);padding:2px 7px;border-radius:5px;white-space:nowrap}
 .darr{font-size:14px;color:var(--g500);transition:transform .2s}.dc.open .darr{transform:rotate(180deg)}
 .tl{padding:0 14px 12px;display:none}.dc.open .tl{display:block}
+
+/* Day tabs - horizontal D1-D6 */
+.day-tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:2px 0;scrollbar-width:none}
+.day-tabs::-webkit-scrollbar{display:none}
+.day-tab{flex-shrink:0;padding:8px 16px;border-radius:12px;border:1.5px solid var(--g200);background:#fff;font-size:12px;font-weight:600;color:var(--g700);cursor:pointer;transition:all .2s;box-shadow:0 1px 3px rgba(0,0,0,.04);display:flex;align-items:center;gap:5px;white-space:nowrap}
+.day-tab:hover{border-color:var(--p);color:var(--p)}
+.day-tab.on{color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.day-tab.on.d1{background:linear-gradient(135deg,#C4553A,#E07050)}.day-tab.on.d2{background:linear-gradient(135deg,#2D8B5F,#4CAF7D)}.day-tab.on.d3{background:linear-gradient(135deg,#E8A838,#F0C060)}.day-tab.on.d4{background:linear-gradient(135deg,#4A90D9,#6AAFE8)}.day-tab.on.d5{background:linear-gradient(135deg,#9C5AB5,#B87DD0)}.day-tab.on.d6{background:linear-gradient(135deg,#5B7FA5,#7DA0C4)}
+.day-tab .dt-date{font-size:10px;opacity:.7;font-weight:400}
 
 /* Timeline item */
 .ti{display:flex;gap:10px;padding:8px 0;position:relative;transition:opacity .2s,transform .2s}
@@ -432,7 +257,7 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 
 <div class="nav" id="topNav">
 <div class="nav-row"><button class="on" onclick="sh('it')">📋 行程</button><button onclick="sh('bu')">💰 预算</button><button data-share="hide" onclick="sh('ex')">📝 记账</button><button data-share="hide" onclick="sh('fo')">🍜 美食</button></div>
-<div class="nav-row"><button data-share="hide" onclick="sh('eg')">🎁 彩蛋</button><button data-share="hide" onclick="sh('ti')">📌 贴士</button><button data-share="hide" onclick="sh('ho')">🚗🏨 交宿</button><button onclick="sh('ab')">📖 关于</button></div>
+<div class="nav-row"><button data-share="hide" onclick="sh('eg')">🎁 彩蛋</button><button data-share="hide" onclick="sh('ti')">📌 贴士</button><button data-share="hide" onclick="sh('ho')">🚗🏨 交酒</button><button onclick="sh('ab')">📖 关于</button></div>
 </div>
 <div id="ab" class="s">
 <div style="max-width:520px;margin:0 auto">
@@ -1016,12 +841,40 @@ function renderDay(day) {
 function renderItinerary(data) {
   const container = document.getElementById('itineraryContainer');
   if (!container) return;
-  let html = '';
-  (data.days||[]).forEach(day => { html += renderDay(day); });
+  const days = data.days || [];
+  const dayDates = {D1:'6/13',D2:'6/14',D3:'6/15',D4:'6/16',D5:'6/17',D6:'6/18'};
+  const dayColors = {D1:'d1',D2:'d2',D3:'d3',D4:'d4',D5:'d5',D6:'d6'};
+  // Day tabs bar
+  let html = '<div class="day-tabs">';
+  days.forEach(day => {
+    const cls = dayColors[day.day] || 'd1';
+    const date = dayDates[day.day] || day.date || '';
+    html += `<div class="day-tab ${cls}" onclick="switchDay('${day.day}')">${day.day} <span class="dt-date">${date}</span></div>`;
+  });
+  html += '</div>';
+  // Day cards
+  days.forEach(day => { html += renderDay(day); });
   container.innerHTML = html;
   // Update subtitle
   const sub = document.getElementById('tripSub');
   if (sub && data.tripSub) sub.textContent = data.tripSub;
+}
+
+function switchDay(dayId) {
+  // Update tab highlight
+  document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('on'));
+  const tab = document.querySelector(`.day-tab[onclick*="'${dayId}'"]`);
+  if (tab) tab.classList.add('on');
+  // Expand target day, collapse others
+  document.querySelectorAll('.dc').forEach(dc => {
+    const dayLabel = dc.querySelector('.db .n');
+    if (dayLabel && dayLabel.textContent.trim() === dayId) {
+      dc.classList.add('open');
+      dc.scrollIntoView({behavior:'smooth', block:'start'});
+    } else {
+      dc.classList.remove('open');
+    }
+  });
 }
 
 // ===== Load data.json =====
