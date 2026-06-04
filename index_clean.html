@@ -1413,6 +1413,9 @@ loadTripData().then(() => {
   switchDay('D1'); // Default show D1 after itinerary is rendered
   const bkDate = document.getElementById('bkDate');
   if (bkDate && !bkDate.value) bkDate.value = new Date().toISOString().slice(0,10);
+}).catch(err => {
+  console.warn('loadTripData failed, but todos still render:', err);
+  renderTodos(); // Ensure todos render even if data.json fails
 });
 // Set default date
 const bkDate = document.getElementById('bkDate');
@@ -1790,6 +1793,7 @@ if(new URLSearchParams(location.search).get('share')==='1'){
 
 loadEdits();
 sh('it'); // Show itinerary by default
+renderTodos(); // Render todos immediately (don't depend on loadTripData)
 renderDayTabs();renderExpenses();
 renderBookList(); // Show saved bookkeeping entries immediately
 syncTodoFromItinerary();
