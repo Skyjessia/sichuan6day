@@ -1639,6 +1639,7 @@ if(new URLSearchParams(location.search).get('share')==='1'){
 loadEdits();
 sh('it'); // Show itinerary by default
 renderDayTabs();renderExpenses();
+renderBookList(); // Show saved bookkeeping entries immediately
 syncTodoFromItinerary();
 renderSplit();
 
