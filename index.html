@@ -162,21 +162,22 @@ body.share-mode .drag-handle,
 body.share-mode .ti-del,
 body.share-mode .quick-add,
 body.share-mode .data-bar,
-body.share-mode .expense-list,
 body.share-mode #dailySummary,
 body.share-mode [contenteditable]{pointer-events:none;background:transparent!important;box-shadow:none!important}
 body.share-mode #shareBtn{display:none!important}
 body.share-mode .copy-link-hint{display:block!important}
-body.share-mode .nav button:nth-child(5),  /* 交通 */
-body.share-mode .nav button:nth-child(6),  /* 美食 */
-body.share-mode .nav button:nth-child(7),  /* 门票 */
-body.share-mode .nav button:nth-child(8),  /* 住宿 */
-body.share-mode .nav button:nth-child(9),  /* 彩蛋 */
-body.share-mode .bottom-bar button:nth-child(5), /* 彩蛋 */
-body.share-mode .bottom-bar button:nth-child(6)  /* 贴士 */
-{display:none}
+/* Share mode: only show 行程+预算+关于, hide rest */
+body.share-mode .nav button[data-share="hide"],
+body.share-mode .bottom-bar button[data-share="hide"]{display:none!important}
 body.share-mode #ex,body.share-mode #tr,body.share-mode #tk,body.share-mode #fo,body.share-mode #ho,body.share-mode #eg,body.share-mode #ti{display:none!important}
 body.share-mode .al{display:none}
+body.share-mode .bu-row .bu-diff{display:none}
+body.share-mode #budgetChart{display:none}
+body.share-mode #bookList{display:none}
+body.share-mode #settleCard{display:none}
+body.share-mode .exp-item .exp-del{display:none!important}
+body.share-mode .exp-item .exp-cat,
+body.share-mode .exp-item .exp-amt{pointer-events:none}
 /* Todo date group */
 .todo-date{font-size:11px;font-weight:700;color:var(--b);padding:4px 10px;background:var(--bl);border-radius:8px;margin:10px 0 4px;display:inline-block;letter-spacing:.3px}
 .todo-date:first-child{margin-top:0}
@@ -240,8 +241,8 @@ body.share-mode .al{display:none}
 
 
 <div class="nav" id="topNav">
-<div class="nav-row"><button class="on" onclick="sh('it')">📋 行程</button><button onclick="sh('bu')">💰 预算</button><button onclick="sh('ex')">📝 记账</button><button onclick="sh('fo')">🍜 美食</button></div>
-<div class="nav-row"><button onclick="sh('eg')">🎁 彩蛋</button><button onclick="sh('ti')">📌 贴士</button><button onclick="sh('ho')">🚗🏨 交酒</button><button onclick="sh('ab')">📖 关于</button></div>
+<div class="nav-row"><button class="on" onclick="sh('it')">📋 行程</button><button onclick="sh('bu')">💰 预算</button><button data-share="hide" onclick="sh('ex')">📝 记账</button><button data-share="hide" onclick="sh('fo')">🍜 美食</button></div>
+<div class="nav-row"><button data-share="hide" onclick="sh('eg')">🎁 彩蛋</button><button data-share="hide" onclick="sh('ti')">📌 贴士</button><button data-share="hide" onclick="sh('ho')">🚗🏨 交酒</button><button onclick="sh('ab')">📖 关于</button></div>
 </div>
 <div id="ab" class="s">
 <div style="max-width:520px;margin:0 auto">
@@ -598,8 +599,8 @@ body.share-mode .al{display:none}
 <div class="bottom-bar">
 <button onclick="sh('ab');setBottom(this)"><span class="bi">📖</span>关于</button>
 <button class="on" onclick="sh('it');setBottom(this)"><span class="bi">📋</span>行程</button>
-<button onclick="sh('fo');setBottom(this)"><span class="bi">🍜</span>美食</button>
-<button onclick="sh('ti');setBottom(this)"><span class="bi">📌</span>贴士</button>
+<button data-share="hide" onclick="sh('fo');setBottom(this)"><span class="bi">🍜</span>美食</button>
+<button data-share="hide" onclick="sh('ti');setBottom(this)"><span class="bi">📌</span>贴士</button>
 </div>
 <script>
 // Format money: 2 decimals + thousands separator
