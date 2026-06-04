@@ -606,9 +606,20 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 // Format money: 2 decimals + thousands separator
 function fmt(n){return n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}
 
-// ===== Expense data =====
-const BUDGET = {flight:1960,train:300,local:350,ticket:822,hotel:684,food:600,entertain:300,shop:400,other:200}; // Will be overridden by data.json
-const BUDGET_TOTAL = Object.values(BUDGET).reduce((a,b)=>a+b,0);
+// ===== Expense data ===== (all per-person amounts)
+const BUDGET = {flight:1960,train:375,local:400,ticket:757,hotel:683.5,food:600,entertain:0,shop:500,other:224.5}; // Per-person, overridden by data.json
+const BUDGET_TOTAL = Object.values(BUDGET).reduce((a,b)=>a+b,0); // 5500
+const BUDGET_NOTES = {
+  flight:'上海↔成都往返',
+  train:'成都东↔松潘、成都东↔广汉北、犀浦↔都江堰',
+  local:'地铁、包车（九寨→黄龙）、直通车、打车',
+  ticket:'九寨沟、黄龙、三星堆、都江堰、武侯祠、梨园会馆（不含青城山）',
+  hotel:'青禾和院2晚 + 汉庭3晚',
+  food:'正餐、小吃、茶馆、干粮',
+  entertain:'',
+  shop:'伴手礼',
+  other:'青城山备选（门票+交通约¥125）+ 临时支出'
+};
 const CAT_MAP = {'✈️':'flight','🚄':'train','🚌':'local','🎫':'ticket','🏨':'hotel','🍜':'food','🎭':'entertain','🛒':'shop','📦':'other'};
 
 let expenses = JSON.parse(localStorage.getItem('sc_expenses')||'[]');
@@ -1260,8 +1271,8 @@ const CAT_NAMES = {
 };
 
 function renderBudget(){
+  // Calculate actual spending (per-person amounts)
   const actual={flight:0,train:0,local:0,ticket:0,hotel:0,food:0,entertain:0,shop:0,other:0};
-  // Include both old expenses and new bookkeeping entries
   const bkExpenses = getExpenses();
   bkExpenses.forEach(e => {
     const k = CAT_MAP[e.cat] || 'other';
@@ -1277,15 +1288,13 @@ function renderBudget(){
   fill.style.width=Math.min(pct,100)+'%';
   fill.className='prog-fill '+(pct<70?'green':pct<90?'yellow':'red');
 
-  // Update budget total display from data.json
-  if(tripData && tripData.budgetPerPerson){
-    document.getElementById('budgetTotal').textContent='¥'+tripData.budgetPerPerson.toLocaleString();
-  }
+  // Update budget total display
+  document.getElementById('budgetTotal').textContent='¥'+BUDGET_TOTAL.toLocaleString();
 
   // ===== Render visual chart =====
   const chartEl = document.getElementById('budgetChart');
   if(chartEl){
-    const keys = Object.keys(CAT_NAMES);
+    const keys = Object.keys(CAT_NAMES).filter(k=>BUDGET[k]>0); // Skip zero-budget categories
     const maxBudget = Math.max(...keys.map(k=>BUDGET[k]||0));
     const colors = {
       flight:'#4A8FD9', train:'#5BA3E6', local:'#7CB9E8',
@@ -1302,23 +1311,25 @@ function renderBudget(){
       const diff = b-a;
       const ico = CAT_NAMES[k].split(' ')[0];
       const name = CAT_NAMES[k].split(' ').slice(1).join(' ');
+      const note = BUDGET_NOTES[k]||'';
       const barColor = colors[k]||'#8C8A80';
-      const diffStr = diff>=0?`剩余¥${fmt(diff)}`:`超¥${fmt(Math.abs(diff))}`;
-      const diffColor = diff>=0?'var(--g)':'var(--danger)';
+      const diffStr = a>0 ? (diff>=0?`剩余¥${fmt(diff)}`:`超¥${fmt(Math.abs(diff))}`) : '待花费';
+      const diffColor = a===0?'var(--g500)':(diff>=0?'var(--g)':'var(--danger)');
       chartHtml += `
       <div style="margin-bottom:10px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1px">
           <span style="font-size:11px;font-weight:600">${ico} ${name}</span>
           <span style="font-size:10px;color:${diffColor};font-weight:600">${diffStr}</span>
         </div>
-        <div style="position:relative;height:20px;background:var(--g100);border-radius:4px;overflow:hidden">
+        ${note?`<div style="font-size:9px;color:var(--g500);margin-bottom:2px">${note}</div>`:''}
+        <div style="position:relative;height:18px;background:var(--g100);border-radius:4px;overflow:hidden">
           <div style="position:absolute;top:0;left:0;height:100%;width:${budgetW}%;background:${barColor}22;border-radius:4px"></div>
-          <div style="position:absolute;top:0;left:0;height:100%;width:${Math.min(actualW,budgetW)}%;background:${barColor};border-radius:4px;transition:width .4s ease;opacity:.85"></div>
+          ${a>0?`<div style="position:absolute;top:0;left:0;height:100%;width:${Math.min(actualW,budgetW)}%;background:${barColor};border-radius:4px;transition:width .4s ease;opacity:.85"></div>`:''}
           ${a>b?`<div style="position:absolute;top:0;left:${budgetW-1}px;height:100%;width:${Math.min(actualW-budgetW,20)}%;background:var(--danger);border-radius:0 4px 4px 0;opacity:.7"></div>`:''}
         </div>
         <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--g500);margin-top:1px">
-          <span>实际 ¥${fmt(a)}</span>
-          <span>预算 ¥${fmt(b)} · ${pctCat}%</span>
+          <span>${a>0?'实际 ¥'+fmt(a):'—'}</span>
+          <span>预算 ¥${fmt(b)}</span>
         </div>
       </div>`;
     });
@@ -1331,17 +1342,19 @@ function renderBudget(){
     chartEl.innerHTML = chartHtml;
   }
 
+  // ===== Detail rows =====
   const br=document.getElementById('budgetRows');
-  br.innerHTML=Object.keys(CAT_NAMES).map(k=>{
+  br.innerHTML=Object.keys(CAT_NAMES).filter(k=>BUDGET[k]>0).map(k=>{
     const a=actual[k],b=BUDGET[k]||0;
     const diff=b-a;
     const pctCat=b>0?Math.round(a/b*100):0;
-    const diffStr=diff>=0?`剩余¥${fmt(diff)}`:`超¥${fmt(Math.abs(diff))}`;
-    const diffCls=diff>=0?'pos':'neg';
-    const fillColor=diff>=0?(pctCat<70?'var(--g)':pctCat<90?'var(--a)':'var(--danger)'):'var(--danger)';
+    const diffStr=a>0?(diff>=0?`剩余¥${fmt(diff)}`:`超¥${fmt(Math.abs(diff))}`):'待花费';
+    const diffCls=a===0?'pos':(diff>=0?'pos':'neg');
+    const fillColor=a===0?'var(--g200)':(diff>=0?(pctCat<70?'var(--g)':pctCat<90?'var(--a)':'var(--danger)'):'var(--danger)');
     const ico=CAT_NAMES[k].split(' ')[0];
     const name=CAT_NAMES[k].split(' ').slice(1).join(' ');
-    return`<div class="bu-row"><div class="bu-top"><div class="bu-ico">${ico}</div><div class="bu-name">${name}</div><div class="bu-actual">¥${fmt(a)}</div><div class="bu-diff ${diffCls}">${diffStr}</div></div><div class="bu-bar"><div class="bu-fill" style="width:${Math.min(pctCat,100)}%;background:${fillColor}"></div></div><div class="bu-labels"><span>实际 ¥${fmt(a)}</span><span>预算 ¥${fmt(b)}</span></div></div>`;
+    const note=BUDGET_NOTES[k]||'';
+    return`<div class="bu-row"><div class="bu-top"><div class="bu-ico">${ico}</div><div class="bu-name">${name}</div><div class="bu-actual">¥${fmt(a)}</div><div class="bu-diff ${diffCls}">${diffStr}</div></div>${note?`<div style="font-size:9px;color:var(--g500);padding:0 0 0 30px;line-height:1.4">${note}</div>`:''}<div class="bu-bar"><div class="bu-fill" style="width:${a>0?Math.min(pctCat,100):0}%;background:${fillColor}"></div></div><div class="bu-labels"><span>${a>0?'实际 ¥'+fmt(a):'—'}</span><span>预算 ¥${fmt(b)}</span></div></div>`;
   }).join('');
 }
 
