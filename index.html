@@ -886,7 +886,7 @@ function renderItinerary(data) {
   container.innerHTML = html;
   // Update subtitle
   const sub = document.getElementById('tripSub');
-  if (sub && data.tripSub) sub.textContent = data.tripSub;
+  if (sub && data.tripSub) { sub.textContent = data.tripSub; sub.style.fontSize='11px'; }
 }
 
 function switchDay(dayId) {
@@ -930,6 +930,7 @@ async function loadTripData(retryCount = 0) {
       localStorage.removeItem('sc_itinerary_edits');
       localStorage.removeItem('sc_expenses');
       localStorage.removeItem('sc_version');
+      localStorage.removeItem('todos');
       localStorage.setItem('sc_data_version', tripData.version);
     }
   } catch(e) {
@@ -1132,8 +1133,21 @@ const DEFAULT_TODOS = [
 
 function getTodos() {
   const raw = localStorage.getItem('todos');
-  if (raw) try { return JSON.parse(raw); } catch(e) {}
-  return JSON.parse(JSON.stringify(DEFAULT_TODOS));
+  let stored = null;
+  if (raw) try { stored = JSON.parse(raw); } catch(e) {}
+  if (!stored || stored.length === 0) return JSON.parse(JSON.stringify(DEFAULT_TODOS));
+  // Merge: add level/date from DEFAULT_TODOS for items that lack them
+  const defMap = {};
+  DEFAULT_TODOS.forEach(d => { defMap[d.text] = d; });
+  stored.forEach(t => {
+    const def = defMap[t.text];
+    if (def) {
+      if (!t.level) t.level = def.level;
+      if (!t.date) t.date = def.date;
+    }
+    if (!t.level) t.level = 'C';
+  });
+  return stored;
 }
 function saveTodos(todos) { localStorage.setItem('todos', JSON.stringify(todos)); }
 
