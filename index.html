@@ -800,6 +800,8 @@ function sh(id){
   if(botBtn) botBtn.classList.add('on');
   // Render budget when switching to budget tab
   if(id==='bu' && typeof renderBudget==='function') renderBudget();
+  // Render bookkeeping when switching to bookkeeping tab
+  if(id==='ex' && typeof renderBookList==='function') renderBookList();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function setBottom(btn){
@@ -1166,24 +1168,36 @@ function renderBookList() {
     const d = new Date(date);
     const dayStr = '周' + weekDays[d.getDay()];
 
-    // Daily calc (all items for display)
+    // Daily calc
     let dayTotal = 0;
     items.forEach(e => { dayTotal += e.amount; });
 
-    html += '<div style="background:#fff;border-radius:var(--r);padding:12px;margin-bottom:10px;box-shadow:var(--sh)">';
-    html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">';
-    html += '<div style="font-size:13px;font-weight:700">📅 ' + date + ' (' + dayStr + ')</div>';
-    html += '<span style="font-size:11px;color:var(--g500)">本日 ¥' + dayTotal.toFixed(0) + '</span></div>';
+    // Count settled/unsettled
+    const settledCount = items.filter(e => e.settled).length;
+    const unsettledCount = items.length - settledCount;
 
+    html += '<div style="background:#fff;border-radius:var(--r);margin-bottom:8px;box-shadow:var(--sh);overflow:hidden">';
+    // Header - always visible, clickable to expand
+    html += '<div onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display===\'none\'?\'block\':\'none\';this.querySelector(\'.arrow\').textContent=this.nextElementSibling.style.display===\'none\'?\'▶\':\'▼\'" style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;cursor:pointer">';
+    html += '<div><span style="font-size:13px;font-weight:700">📅 ' + date + ' (' + dayStr + ')</span>';
+    html += '<span style="font-size:11px;color:var(--g500);margin-left:8px">¥' + dayTotal.toFixed(0) + '</span></div>';
+    html += '<div style="display:flex;align-items:center;gap:6px">';
+    if (unsettledCount > 0) html += '<span style="font-size:10px;color:var(--p);background:var(--pl);padding:1px 6px;border-radius:4px">' + unsettledCount + '笔待收</span>';
+    if (settledCount > 0) html += '<span style="font-size:10px;color:var(--g);background:var(--gl);padding:1px 6px;border-radius:4px">' + settledCount + '笔已收</span>';
+    html += '<span class="arrow" style="font-size:10px;color:var(--g500)">▶</span>';
+    html += '</div></div>';
+
+    // Detail items - collapsed by default
+    html += '<div style="display:none;padding:0 12px 10px">';
     items.forEach(e => {
       const share = (e.amount / e.participants.length).toFixed(0);
       const isSettled = e.settled === true;
       const rowStyle = isSettled
-        ? 'display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--g100);font-size:12px;opacity:.55'
+        ? 'display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--g100);font-size:12px;opacity:.5'
         : 'display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--g100);font-size:12px';
       const settleBtn = isSettled
-        ? '<span style="font-size:11px;color:var(--g);font-weight:600;cursor:pointer" onclick="toggleSettled(' + e.id + ')">✅已收</span>'
-        : '<span style="font-size:11px;color:var(--p);font-weight:600;cursor:pointer;padding:2px 6px;background:var(--pl);border-radius:4px" onclick="toggleSettled(' + e.id + ')">💰待收</span>';
+        ? '<span style="font-size:11px;color:var(--g);font-weight:600;cursor:pointer" onclick="event.stopPropagation();toggleSettled(' + e.id + ')">✅已收</span>'
+        : '<span style="font-size:11px;color:var(--p);font-weight:600;cursor:pointer;padding:2px 6px;background:var(--pl);border-radius:4px" onclick="event.stopPropagation();toggleSettled(' + e.id + ')">💰待收</span>';
 
       html += '<div style="' + rowStyle + '">';
       html += '<div style="flex:1;min-width:0">';
@@ -1192,11 +1206,10 @@ function renderBookList() {
       html += '</div>';
       html += '<div style="display:flex;align-items:center;gap:6px;flex-shrink:0">';
       html += settleBtn;
-      html += '<button onclick="delBookEntry(' + e.id + ')" style="border:none;background:none;color:var(--danger);cursor:pointer;font-size:13px;opacity:.5">✕</button>';
+      html += '<button onclick="event.stopPropagation();delBookEntry(' + e.id + ')" style="border:none;background:none;color:var(--danger);cursor:pointer;font-size:12px;opacity:.4">✕</button>';
       html += '</div></div>';
     });
-
-    html += '</div>';
+    html += '</div></div>';
   });
 
   if (expenses.length === 0) {
