@@ -38,10 +38,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .st{font-size:17px;font-weight:700;color:var(--g900);margin-bottom:14px;padding:6px 0 6px 12px;border-left:4px solid var(--p);letter-spacing:.3px;background:linear-gradient(90deg,var(--pl) 0%,transparent 100%);border-radius:0 var(--r) var(--r) 0}
 
 /* Day card */
-#itineraryContainer{display:flex;gap:12px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:4px 2px 12px;scroll-snap-type:x mandatory;scrollbar-width:none}
-#itineraryContainer::-webkit-scrollbar{display:none}
-.dc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;border:1px solid rgba(0,0,0,.04);flex:0 0 85vw;max-width:420px;min-width:280px;scroll-snap-align:start;display:flex;flex-direction:column}
-.dh{padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:background .2s;flex-shrink:0}
+#itineraryContainer{display:block}
+.dc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);margin-bottom:14px;overflow:hidden;border:1px solid rgba(0,0,0,.04)}
+.dh{padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:background .2s}
 .dh:hover{background:var(--g50)}
 .db{width:40px;height:40px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:11px;color:#fff;flex-shrink:0}
 .db.d1{background:linear-gradient(135deg,#C4553A,#E07050)}.db.d2{background:linear-gradient(135deg,#2D8B5F,#4CAF7D)}.db.d3{background:linear-gradient(135deg,#E8A838,#F0C060)}.db.d4{background:linear-gradient(135deg,#4A90D9,#6AAFE8)}.db.d5{background:linear-gradient(135deg,#9C5AB5,#B87DD0)}.db.d6{background:linear-gradient(135deg,#5B7FA5,#7DA0C4)}
@@ -49,7 +48,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .di{flex:1;min-width:0}.di h3{font-size:14px;font-weight:600;margin-bottom:1px}.di .ds{font-size:11px;color:var(--g500)}
 .dht{font-size:10px;color:var(--g500);background:var(--g50);padding:2px 7px;border-radius:5px;white-space:nowrap}
 .darr{font-size:14px;color:var(--g500);transition:transform .2s}.dc.open .darr{transform:rotate(180deg)}
-.tl{padding:0 14px 12px;display:none;flex:1;overflow-y:auto;max-height:60vh}.dc.open .tl{display:block}
+.tl{padding:0 14px 12px;display:none}.dc.open .tl{display:block}
 
 /* Day tabs - horizontal D1-D6 */
 .day-tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:2px 0;scrollbar-width:none}
@@ -59,6 +58,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .day-tab.on{color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(0,0,0,.12)}
 .day-tab.on.d1{background:linear-gradient(135deg,#C4553A,#E07050)}.day-tab.on.d2{background:linear-gradient(135deg,#2D8B5F,#4CAF7D)}.day-tab.on.d3{background:linear-gradient(135deg,#E8A838,#F0C060)}.day-tab.on.d4{background:linear-gradient(135deg,#4A90D9,#6AAFE8)}.day-tab.on.d5{background:linear-gradient(135deg,#9C5AB5,#B87DD0)}.day-tab.on.d6{background:linear-gradient(135deg,#5B7FA5,#7DA0C4)}
 .day-tab .dt-date{font-size:10px;opacity:.7;font-weight:400}
+
+/* PC: tab mode - show only selected day */
+@media(min-width:769px){
+.day-tabs{flex-wrap:nowrap;justify-content:center}
+.dc{display:none}
+.dc.day-active{display:block}
+.dc.day-active .tl{display:block}
+.dc.day-active .darr{display:none}
+.dc.day-active .dh{cursor:default}
+}
 
 /* Timeline item */
 .ti{display:flex;gap:10px;padding:8px 0;position:relative;transition:opacity .2s,transform .2s}
@@ -867,14 +876,21 @@ function switchDay(dayId) {
   document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('on'));
   const tab = document.querySelector(`.day-tab[onclick*="'${dayId}'"]`);
   if (tab) tab.classList.add('on');
-  // Expand target day, collapse others, scroll to it
+  const isPC = window.innerWidth >= 769;
   document.querySelectorAll('.dc').forEach(dc => {
     const dayLabel = dc.querySelector('.db .n');
-    if (dayLabel && dayLabel.textContent.trim() === dayId) {
-      dc.classList.add('open');
-      dc.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+    const match = dayLabel && dayLabel.textContent.trim() === dayId;
+    if (isPC) {
+      // PC: show only selected day via day-active class
+      dc.classList.toggle('day-active', match);
     } else {
-      dc.classList.remove('open');
+      // Mobile: expand/collapse
+      if (match) {
+        dc.classList.add('open');
+        dc.scrollIntoView({behavior:'smooth', block:'start'});
+      } else {
+        dc.classList.remove('open');
+      }
     }
   });
 }
@@ -1700,6 +1716,7 @@ if(new URLSearchParams(location.search).get('share')==='1'){
 
 loadEdits();
 sh('it'); // Show itinerary by default
+switchDay('D1'); // Default show D1
 renderDayTabs();renderExpenses();
 renderBookList(); // Show saved bookkeeping entries immediately
 syncTodoFromItinerary();
