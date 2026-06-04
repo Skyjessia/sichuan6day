@@ -1206,9 +1206,7 @@ function renderTodos() {
       const dl = t.deadline || '';
       const dlShort = dl.replace(/^2026-/,'').replace(/-/,'/');
       html += '<span style="font-size:10px;color:var(--g500);white-space:nowrap">⏰ ' + dlShort + '</span>';
-      if (t.keyword === null) {
-        html += '<button onclick="completeTodo(\''+t.id+'\')" style="padding:2px 8px;border:1px solid var(--g300);border-radius:6px;background:#fff;color:var(--g700);font-size:11px;cursor:pointer">✅</button>';
-      }
+      html += '<button onclick="completeTodo(\''+t.id+'\')" style="padding:2px 8px;border:1px solid var(--g300);border-radius:6px;background:#fff;color:var(--g700);font-size:11px;cursor:pointer">✅</button>';
       html += '</div>';
     });
     html += '</div>';
