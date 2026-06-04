@@ -260,7 +260,7 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 
 
 <div id="todoBanner" style="background:#FFF0F0;border:1.5px solid #E05040;border-radius:var(--r);padding:12px;margin-bottom:10px">
-<div style="font-size:13px;font-weight:700;color:#C03020;margin-bottom:8px">🔴 待办提醒 · 按日期查看</div>
+<div style="font-size:13px;font-weight:700;color:#C03020;margin-bottom:8px">📋 待办提醒 · 按优先级排列</div>
 <div id="todoList" style="font-size:12px;line-height:1.8;color:var(--g900)"></div>
 </div>
 
@@ -985,9 +985,19 @@ function renderTicketTimeline(data) {
 function renderTips(data) {
   const container = document.getElementById('tipsContainer');
   if (!container || !data.tips) return;
-  container.innerHTML = data.tips.map(t =>
+  let html = data.tips.map(t =>
     `<div class="tc2"><h4>${t.icon} ${t.title}</h4><p>${t.desc.replace(/\n/g,'<br>')}</p></div>`
   ).join('');
+  // Add task level guide
+  html += `<div class="tc2" style="border-left:3px solid var(--p);margin-top:12px">
+    <h4>🎯 任务分级指南</h4>
+    <div style="font-size:11px;color:var(--g700);line-height:1.6">
+      <div style="margin-bottom:6px"><span style="font-weight:700;color:#C03020">🔴【A】关键任务</span><br>务必准时完成，直接影响行程体验。<br>例：抢三星堆门票、预约博物馆、购买川剧票</div>
+      <div style="margin-bottom:6px"><span style="font-weight:700;color:#B8860B">🟡【B】重要任务</span><br>需提前1-2天或当天处理，不影响核心行程但建议完成。<br>例：购买黄龙门票、城际高铁票、都江堰门票</div>
+      <div><span style="font-weight:700;color:#2E8B57">🟢【C】备选/机动</span><br>行程变更时才需关注。<br>例：青城山备选方案</div>
+    </div>
+  </div>`;
+  container.innerHTML = html;
 }
 
 function renderAllExtras(data) {
@@ -1110,12 +1120,14 @@ function tg(el){el.closest('.dc').classList.toggle('open')}
 
 // ===== Todo + Bookkeeping =====
 const DEFAULT_TODOS = [
-  {id:"1",text:"抢三星堆门票",deadline:"6/11 20:00",keyword:"三星堆",completed:false},
-  {id:"2",text:"预约成都博物馆（雨天备选）",deadline:"6/10",keyword:null,completed:false},
-  {id:"3",text:"买梨园会馆川剧票",deadline:"提前1-3天",keyword:"梨园会馆",completed:false},
-  {id:"4",text:"黄龙门票+索道",deadline:"提前1-2天",keyword:"黄龙",completed:false},
-  {id:"5",text:"都江堰门票（带身份证）",deadline:"当天现场",keyword:"都江堰",completed:false},
-  {id:"6",text:"备选：青城山（如去）",deadline:"提前规划",keyword:"青城山",completed:false}
+  {id:"1",text:"抢三星堆门票",deadline:"6/11 20:00",keyword:"三星堆",date:"2026-06-16",level:"A",completed:false},
+  {id:"2",text:"预约成都博物馆（雨天备选）",deadline:"6/10",keyword:null,date:"2026-06-17",level:"A",completed:false},
+  {id:"3",text:"买梨园会馆川剧票",deadline:"提前1-3天",keyword:"梨园会馆",date:"2026-06-17",level:"A",completed:false},
+  {id:"4",text:"黄龙门票+索道",deadline:"提前1-2天",keyword:"黄龙",date:"2026-06-15",level:"B",completed:false},
+  {id:"5",text:"都江堰门票（带身份证）",deadline:"当天现场",keyword:"都江堰",date:"2026-06-17",level:"B",completed:false},
+  {id:"6",text:"购买成都东→广汉北高铁票",deadline:"当天购买",keyword:"广汉北",date:"2026-06-16",level:"B",completed:false},
+  {id:"7",text:"购买犀浦→都江堰高铁票",deadline:"当天购买",keyword:"都江堰高铁",date:"2026-06-17",level:"B",completed:false},
+  {id:"8",text:"备选：青城山（如改去）",deadline:"提前规划",keyword:"青城山",date:"2026-06-17",level:"C",completed:false}
 ];
 
 function getTodos() {
@@ -1132,13 +1144,20 @@ function renderTodos() {
   if (!banner || !list) return;
   if (todos.length === 0) { banner.style.display = 'none'; return; }
   banner.style.display = 'block';
+  const levelBadge = {A:'🔴',B:'🟡',C:'🟢'};
+  const levelColor = {A:'#C03020',B:'#B8860B',C:'#2E8B57'};
+  const levelBg = {A:'#FFF0F0',B:'#FFF8EC',C:'#F0FFF0'};
+  // Sort by level A > B > C
+  const order = {A:0,B:1,C:2};
+  todos.sort((a,b) => (order[a.level||'C']||2) - (order[b.level||'C']||2));
   list.innerHTML = todos.map(t => {
-    let html = '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">';
-    html += '<span style="color:var(--p)">🔴</span>';
-    html += '<span>' + t.text + '</span>';
-    html += '<span style="font-size:10px;color:var(--g500)">' + t.deadline + '</span>';
+    const lv = t.level || 'C';
+    let html = '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;padding:3px 6px;border-radius:6px;background:'+levelBg[lv]+'">';
+    html += '<span style="font-size:11px;font-weight:700;color:'+levelColor[lv]+'">'+levelBadge[lv]+'【'+lv+'】</span>';
+    html += '<span style="flex:1">' + t.text + '</span>';
+    html += '<span style="font-size:10px;color:var(--g500);white-space:nowrap">' + t.deadline + '</span>';
     if (t.keyword === null) {
-      html += '<button onclick="completeTodo(\''+t.id+'\')" style="margin-left:auto;padding:2px 8px;border:1px solid var(--g);border-radius:6px;background:#fff;color:var(--g);font-size:11px;cursor:pointer">✅</button>';
+      html += '<button onclick="completeTodo(\''+t.id+'\')" style="margin-left:4px;padding:2px 8px;border:1px solid var(--g);border-radius:6px;background:#fff;color:var(--g);font-size:11px;cursor:pointer">✅</button>';
     }
     html += '</div>';
     return html;
@@ -1766,7 +1785,7 @@ function syncTodoFromItinerary(){
       if(!tEl)return;
       const text=tEl.textContent;
       // Find matching todo item
-      TODO_ITEMS.forEach(todo=>{
+      getTodos().forEach(todo=>{
         const keywords=todo.keyword.split('|');
         if(keywords.some(kw=>text.includes(kw))){
           todo.day=day;
