@@ -1168,11 +1168,6 @@ function renderTodos() {
   const levelDot = {A:'🔴',B:'🟡',C:'🟢'};
   const levelColor = {A:'#C03020',B:'#B8860B',C:'#2E8B57'};
   const levelBorder = {A:'#E85040',B:'#E8A838',C:'#4CAF7D'};
-  const dayColors = {D1:'#C4553A',D2:'#2D8B5F',D3:'#E8A838',D4:'#4A90D9',D5:'#9C5AB5',D6:'#5B7FA5'};
-  const dayLabels = {D1:'6/13',D2:'6/14',D3:'6/15',D4:'6/16',D5:'6/17',D6:'6/18'};
-  const dayNames = {D1:'D1',D2:'D2',D3:'D3',D4:'D4',D5:'D5',D6:'D6'};
-  // Map date to day
-  const dateToDay = {'2026-06-13':'D1','2026-06-14':'D2','2026-06-15':'D3','2026-06-16':'D4','2026-06-17':'D5','2026-06-18':'D6'};
   // Sort: by deadline first, then by level
   const levelOrder = {A:0,B:1,C:2};
   todos.sort((a,b) => {
@@ -1181,24 +1176,26 @@ function renderTodos() {
     if (da !== db) return da.localeCompare(db);
     return (levelOrder[a.level||'C']||2) - (levelOrder[b.level||'C']||2);
   });
-  // Group by day
+  // Group by deadline date
   const groups = {};
   todos.forEach(t => {
-    const day = dateToDay[t.date] || 'D?';
-    if (!groups[day]) groups[day] = [];
-    groups[day].push(t);
+    const dl = (t.deadline || '待定').replace(/\s.*/,''); // "2026-06-11 20:00" → "2026-06-11"
+    if (!groups[dl]) groups[dl] = [];
+    groups[dl].push(t);
   });
-  const sortedDays = Object.keys(groups).sort();
+  const sortedDeadlines = Object.keys(groups).sort();
+  const deadlineColors = ['#C4553A','#2D8B5F','#E8A838','#4A90D9','#9C5AB5','#5B7FA5','#D4583A','#2E8B57'];
   let html = '';
-  sortedDays.forEach(day => {
-    const color = dayColors[day] || '#888';
+  sortedDeadlines.forEach((dl,idx) => {
+    const color = deadlineColors[idx % deadlineColors.length];
+    const dlShort = dl.replace(/^2026-/,'').replace(/-/,'/');
+    const label = dl.startsWith('20') ? '⏰ '+dlShort+' 前完成' : dl;
     html += '<div style="background:#fff;border-radius:var(--r);box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:8px;overflow:hidden;border:1px solid rgba(0,0,0,.04)">';
     html += '<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:linear-gradient(135deg,'+color+','+color+'cc);color:#fff">';
-    html += '<span style="font-size:12px;font-weight:700">📅 '+dayNames[day]+'</span>';
-    html += '<span style="font-size:11px;opacity:.85">'+dayLabels[day]+'</span>';
-    html += '<span style="margin-left:auto;font-size:10px;opacity:.7">'+groups[day].length+'项</span>';
+    html += '<span style="font-size:12px;font-weight:700">'+label+'</span>';
+    html += '<span style="margin-left:auto;font-size:10px;opacity:.7">'+groups[dl].length+'项</span>';
     html += '</div>';
-    groups[day].forEach(t => {
+    groups[dl].forEach(t => {
       const lv = t.level || 'C';
       html += '<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--g100)">';
       html += '<span style="font-size:10px;font-weight:700;color:'+levelColor[lv]+';border:1.5px solid '+levelBorder[lv]+';border-radius:4px;padding:1px 4px;line-height:1.2">'+levelDot[lv]+lv+'</span>';
