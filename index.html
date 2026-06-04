@@ -1524,17 +1524,21 @@ function importData(event){
   const reader=new FileReader();
   reader.onload=function(e){
     try{
-      const data=JSON.parse(e.target.result);
+      const raw=e.target.result;
+      console.log('Import raw length:',raw.length,'first 100:',raw.substring(0,100));
+      const data=JSON.parse(raw);
+      console.log('Import parsed keys:',Object.keys(data));
       if(data.expenses){expenses=data.expenses;localStorage.setItem('sc_expenses',JSON.stringify(expenses))}
       if(data.bookkeeping){localStorage.setItem('expenses',JSON.stringify(data.bookkeeping))}
-      if(data.edits){localStorage.setItem('sc_edits',data.edits);loadEdits()}
+      if(data.edits&&data.edits!=='null'){try{localStorage.setItem('sc_edits',data.edits);loadEdits()}catch(e2){console.warn('edits import skip:',e2)}}
       renderExpenses();
       if(typeof renderBookList==='function') renderBookList();
       if(typeof renderBudget==='function') renderBudget();
       toast('📥 已导入同步');
-    }catch(err){toast('导入失败：文件格式错误')}
+    }catch(err){console.error('Import error:',err);toast('导入失败：'+err.message)}
   };
-  reader.readAsText(file);
+  reader.onerror=function(){toast('文件读取失败')};
+  reader.readAsText(file,'UTF-8');
   event.target.value='';
 }
 
