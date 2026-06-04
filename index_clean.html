@@ -353,7 +353,7 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 <div id="budgetChart" style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:var(--sh)"></div>
 <div style="display:flex;gap:8px;margin-bottom:12px">
   <button onclick="exportData()" style="flex:1;padding:10px;border:1.5px solid var(--p);border-radius:8px;background:#fff;color:var(--p);font-size:12px;font-weight:600;cursor:pointer">📤 导出数据</button>
-  <label style="flex:1;padding:10px;border:1.5px solid var(--g300);border-radius:8px;background:#fff;color:var(--g700);font-size:12px;font-weight:600;cursor:pointer;text-align:center">📥 导入同步<input type="file" accept=".json" onchange="importData(event)" style="display:none"></label>
+  <label style="flex:1;padding:10px;border:1.5px solid var(--g300);border-radius:8px;background:#fff;color:var(--g700);font-size:12px;font-weight:600;cursor:pointer;text-align:center">📥 导入同步<input type="file" accept=".json,application/json" onchange="importData(event)" style="display:none"></label>
 </div>
 </div>
 
@@ -1134,21 +1134,30 @@ const DEFAULT_TODOS = [
 ];
 
 function getTodos() {
+  const TODO_VER = 2;
+  const savedVer = parseInt(localStorage.getItem('sc_todo_ver') || '0');
   const raw = localStorage.getItem('todos');
   let stored = null;
   if (raw) try { stored = JSON.parse(raw); } catch(e) {}
-  if (!stored || stored.length === 0) return JSON.parse(JSON.stringify(DEFAULT_TODOS));
-  // Merge: add level/date from DEFAULT_TODOS for items that lack them
+  // Force reset if version outdated or data missing level field
+  if (!stored || stored.length === 0 || savedVer < TODO_VER || (stored.length > 0 && !stored[0].level)) {
+    stored = JSON.parse(JSON.stringify(DEFAULT_TODOS));
+    localStorage.setItem('todos', JSON.stringify(stored));
+    localStorage.setItem('sc_todo_ver', String(TODO_VER));
+    return stored;
+  }
+  // Merge: add level/date from DEFAULT_TODOS, add new items
   const defMap = {};
   DEFAULT_TODOS.forEach(d => { defMap[d.text] = d; });
+  const storedTexts = new Set(stored.map(t => t.text));
+  DEFAULT_TODOS.forEach(d => { if (!storedTexts.has(d.text)) stored.push({...d}); });
   stored.forEach(t => {
     const def = defMap[t.text];
-    if (def) {
-      if (!t.level) t.level = def.level;
-      if (!t.date) t.date = def.date;
-    }
+    if (def) { if (!t.level) t.level = def.level; if (!t.date) t.date = def.date; }
     if (!t.level) t.level = 'C';
   });
+  localStorage.setItem('todos', JSON.stringify(stored));
+  localStorage.setItem('sc_todo_ver', String(TODO_VER));
   return stored;
 }
 function saveTodos(todos) { localStorage.setItem('todos', JSON.stringify(todos)); }
@@ -1427,13 +1436,14 @@ function renderBudget(){
   const actualTotal=Object.values(actual).reduce((a,b)=>a+b,0);
   const pct=BUDGET_TOTAL>0?Math.round(actualTotal/BUDGET_TOTAL*100):0;
 
-  document.getElementById('progPct').textContent=pct+'%';
+  const progPctEl=document.getElementById('progPct');
+  if(progPctEl) progPctEl.textContent=pct+'%';
   const fill=document.getElementById('progFill');
-  fill.style.width=Math.min(pct,100)+'%';
-  fill.className='prog-fill '+(pct<70?'green':pct<90?'yellow':'red');
+  if(fill){fill.style.width=Math.min(pct,100)+'%';fill.className='prog-fill '+(pct<70?'green':pct<90?'yellow':'red')}
 
   // Update budget total display
-  document.getElementById('budgetTotal').textContent='¥'+BUDGET_TOTAL.toLocaleString();
+  const budgetTotalEl=document.getElementById('budgetTotal');
+  if(budgetTotalEl) budgetTotalEl.textContent='¥'+BUDGET_TOTAL.toLocaleString();
   const actualEl = document.getElementById('actualTotal');
   if(actualEl) actualEl.textContent='¥'+fmt(actualTotal);
   const actualPctEl = document.getElementById('actualPct');
