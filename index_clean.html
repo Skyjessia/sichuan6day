@@ -259,9 +259,9 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 <div class="al alg">✏️ 所有文字可直接点击编辑，费用可修改，数据自动保存到浏览器</div>
 
 
-<div id="todoBanner" style="background:#FFF0F0;border:1.5px solid #E05040;border-radius:var(--r);padding:12px;margin-bottom:10px">
-<div style="font-size:13px;font-weight:700;color:#C03020;margin-bottom:8px">📋 待办提醒 · 按优先级排列</div>
-<div id="todoList" style="font-size:12px;line-height:1.8;color:var(--g900)"></div>
+<div id="todoBanner" style="margin-bottom:10px">
+<div style="font-size:13px;font-weight:700;color:var(--g900);margin-bottom:8px">📋 待办提醒</div>
+<div id="todoList"></div>
 </div>
 
 
@@ -1169,24 +1169,53 @@ function renderTodos() {
   if (!banner || !list) return;
   if (todos.length === 0) { banner.style.display = 'none'; return; }
   banner.style.display = 'block';
-  const levelBadge = {A:'🔴',B:'🟡',C:'🟢'};
+  const levelDot = {A:'🔴',B:'🟡',C:'🟢'};
   const levelColor = {A:'#C03020',B:'#B8860B',C:'#2E8B57'};
-  const levelBg = {A:'#FFF0F0',B:'#FFF8EC',C:'#F0FFF0'};
-  // Sort by level A > B > C
-  const order = {A:0,B:1,C:2};
-  todos.sort((a,b) => (order[a.level||'C']||2) - (order[b.level||'C']||2));
-  list.innerHTML = todos.map(t => {
-    const lv = t.level || 'C';
-    let html = '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;padding:3px 6px;border-radius:6px;background:'+levelBg[lv]+'">';
-    html += '<span style="font-size:11px;font-weight:700;color:'+levelColor[lv]+'">'+levelBadge[lv]+'【'+lv+'】</span>';
-    html += '<span style="flex:1">' + t.text + '</span>';
-    html += '<span style="font-size:10px;color:var(--g500);white-space:nowrap">' + t.deadline + '</span>';
-    if (t.keyword === null) {
-      html += '<button onclick="completeTodo(\''+t.id+'\')" style="margin-left:4px;padding:2px 8px;border:1px solid var(--g);border-radius:6px;background:#fff;color:var(--g);font-size:11px;cursor:pointer">✅</button>';
-    }
+  const levelBorder = {A:'#E85040',B:'#E8A838',C:'#4CAF7D'};
+  const dayColors = {D1:'#C4553A',D2:'#2D8B5F',D3:'#E8A838',D4:'#4A90D9',D5:'#9C5AB5',D6:'#5B7FA5'};
+  const dayLabels = {D1:'6/13',D2:'6/14',D3:'6/15',D4:'6/16',D5:'6/17',D6:'6/18'};
+  const dayNames = {D1:'D1',D2:'D2',D3:'D3',D4:'D4',D5:'D5',D6:'D6'};
+  // Map date to day
+  const dateToDay = {'2026-06-13':'D1','2026-06-14':'D2','2026-06-15':'D3','2026-06-16':'D4','2026-06-17':'D5','2026-06-18':'D6'};
+  // Sort: by date first, then by level
+  const levelOrder = {A:0,B:1,C:2};
+  todos.sort((a,b) => {
+    const da = a.date || '9999-12-31';
+    const db = b.date || '9999-12-31';
+    if (da !== db) return da.localeCompare(db);
+    return (levelOrder[a.level||'C']||2) - (levelOrder[b.level||'C']||2);
+  });
+  // Group by day
+  const groups = {};
+  todos.forEach(t => {
+    const day = dateToDay[t.date] || 'D?';
+    if (!groups[day]) groups[day] = [];
+    groups[day].push(t);
+  });
+  const sortedDays = Object.keys(groups).sort();
+  let html = '';
+  sortedDays.forEach(day => {
+    const color = dayColors[day] || '#888';
+    html += '<div style="background:#fff;border-radius:var(--r);box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:8px;overflow:hidden;border:1px solid rgba(0,0,0,.04)">';
+    html += '<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:linear-gradient(135deg,'+color+','+color+'cc);color:#fff">';
+    html += '<span style="font-size:12px;font-weight:700">📅 '+dayNames[day]+'</span>';
+    html += '<span style="font-size:11px;opacity:.85">'+dayLabels[day]+'</span>';
+    html += '<span style="margin-left:auto;font-size:10px;opacity:.7">'+groups[day].length+'项</span>';
     html += '</div>';
-    return html;
-  }).join('');
+    groups[day].forEach(t => {
+      const lv = t.level || 'C';
+      html += '<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--g100)">';
+      html += '<span style="font-size:10px;font-weight:700;color:'+levelColor[lv]+';border:1.5px solid '+levelBorder[lv]+';border-radius:4px;padding:1px 4px;line-height:1.2">'+levelDot[lv]+lv+'</span>';
+      html += '<span style="flex:1;font-size:12px;color:var(--g900)">' + t.text + '</span>';
+      html += '<span style="font-size:10px;color:var(--g500);white-space:nowrap">' + t.deadline + '</span>';
+      if (t.keyword === null) {
+        html += '<button onclick="completeTodo(\''+t.id+'\')" style="padding:2px 8px;border:1px solid var(--g300);border-radius:6px;background:#fff;color:var(--g700);font-size:11px;cursor:pointer">✅</button>';
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+  });
+  list.innerHTML = html;
 }
 
 function completeTodo(id) {
