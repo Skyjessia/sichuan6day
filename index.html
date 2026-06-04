@@ -597,6 +597,8 @@ const BUDGET_NOTES = {
 const CAT_MAP = {'✈️':'flight','🚄':'train','🚌':'local','🎫':'ticket','🏨':'hotel','🍜':'food','🎭':'entertain','🛒':'shop','📦':'other'};
 
 let expenses = JSON.parse(localStorage.getItem('sc_expenses')||'[]');
+let expDayFilter='all';
+let spDayFilter='all';
 
 // Pre-fill: only on first visit (empty). Version bumps NEVER overwrite user data.
 const DATA_VERSION = 4;
@@ -1595,8 +1597,8 @@ document.addEventListener('input',function(e){
 });
 
 // ===== Enter key for quick add =====
-document.getElementById('expAmt').addEventListener('keydown',e=>{if(e.key==='Enter')addExpense()});
-document.getElementById('expDesc').addEventListener('keydown',e=>{if(e.key==='Enter')addExpense()});
+const _ea=document.getElementById('expAmt');if(_ea)_ea.addEventListener('keydown',e=>{if(e.key==='Enter')addExpense()});
+const _ed=document.getElementById('expDesc');if(_ed)_ed.addEventListener('keydown',e=>{if(e.key==='Enter')addExpense()});
 
 // ===== Todo & Status Sync =====
 // TODO_ITEMS moved to DEFAULT_TODOS
@@ -1725,9 +1727,6 @@ setTimeout(()=>{
 
 
 // ===== Day filter tabs =====
-let expDayFilter='all';
-let spDayFilter='all';
-
 function setExpDayFilter(day){
   expDayFilter=day;
   renderExpenses();
