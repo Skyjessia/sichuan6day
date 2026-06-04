@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>四川6日 · v10</title>
+<title>四川6日 · v11</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--p:#D4583A;--pl:#FDF0EC;--a:#F0A030;--al:#FFF8EC;--b:#4A8FD9;--bl:#EDF4FC;--g:#2E8B57;--gl:#EAF5EE;--g50:#FBFAF8;--g100:#F5F4F0;--g200:#E8E6E0;--g500:#8C8A80;--g700:#525048;--g900:#2C2A28;--sh:0 2px 16px rgba(0,0,0,.07);--r:14px;--danger:#E05040;--accent:#7C5CFC;--accent-l:#F0ECFF}
@@ -1257,6 +1257,7 @@ loadTripData().then(() => {
   setupAutoSave();
   renderTodos();
   renderBookList();
+  renderBudget(); // Ensure budget renders after data.json loads
   const bkDate = document.getElementById('bkDate');
   if (bkDate && !bkDate.value) bkDate.value = new Date().toISOString().slice(0,10);
 });
@@ -1311,7 +1312,6 @@ function renderBudget(){
       const diff = b-a;
       const ico = CAT_NAMES[k].split(' ')[0];
       const name = CAT_NAMES[k].split(' ').slice(1).join(' ');
-      const note = BUDGET_NOTES[k]||'';
       const barColor = colors[k]||'#8C8A80';
       const diffStr = a>0 ? (diff>=0?`剩余¥${fmt(diff)}`:`超¥${fmt(Math.abs(diff))}`) : '待花费';
       const diffColor = a===0?'var(--g500)':(diff>=0?'var(--g)':'var(--danger)');
@@ -1321,7 +1321,6 @@ function renderBudget(){
           <span style="font-size:11px;font-weight:600">${ico} ${name}</span>
           <span style="font-size:10px;color:${diffColor};font-weight:600">${diffStr}</span>
         </div>
-        ${note?`<div style="font-size:9px;color:var(--g500);margin-bottom:2px">${note}</div>`:''}
         <div style="position:relative;height:18px;background:var(--g100);border-radius:4px;overflow:hidden">
           <div style="position:absolute;top:0;left:0;height:100%;width:${budgetW}%;background:${barColor}22;border-radius:4px"></div>
           ${a>0?`<div style="position:absolute;top:0;left:0;height:100%;width:${Math.min(actualW,budgetW)}%;background:${barColor};border-radius:4px;transition:width .4s ease;opacity:.85"></div>`:''}
@@ -1353,8 +1352,7 @@ function renderBudget(){
     const fillColor=a===0?'var(--g200)':(diff>=0?(pctCat<70?'var(--g)':pctCat<90?'var(--a)':'var(--danger)'):'var(--danger)');
     const ico=CAT_NAMES[k].split(' ')[0];
     const name=CAT_NAMES[k].split(' ').slice(1).join(' ');
-    const note=BUDGET_NOTES[k]||'';
-    return`<div class="bu-row"><div class="bu-top"><div class="bu-ico">${ico}</div><div class="bu-name">${name}</div><div class="bu-actual">¥${fmt(a)}</div><div class="bu-diff ${diffCls}">${diffStr}</div></div>${note?`<div style="font-size:9px;color:var(--g500);padding:0 0 0 30px;line-height:1.4">${note}</div>`:''}<div class="bu-bar"><div class="bu-fill" style="width:${a>0?Math.min(pctCat,100):0}%;background:${fillColor}"></div></div><div class="bu-labels"><span>${a>0?'实际 ¥'+fmt(a):'—'}</span><span>预算 ¥${fmt(b)}</span></div></div>`;
+    return`<div class="bu-row"><div class="bu-top"><div class="bu-ico">${ico}</div><div class="bu-name">${name}</div><div class="bu-actual">¥${fmt(a)}</div><div class="bu-diff ${diffCls}">${diffStr}</div></div><div class="bu-bar"><div class="bu-fill" style="width:${a>0?Math.min(pctCat,100):0}%;background:${fillColor}"></div></div><div class="bu-labels"><span>${a>0?'实际 ¥'+fmt(a):'—'}</span><span>预算 ¥${fmt(b)}</span></div></div>`;
   }).join('');
 }
 

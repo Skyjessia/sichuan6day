@@ -1,5 +1,5 @@
 {
-  "version": 10,
+  "version": 11,
   "tripTitle": "四川6日深度游",
   "tripSub": "6/13-6/18 · 上海✈️成都🚄九寨沟🏔️黄龙🏛️三星堆🌊都江堰🎭川剧",
   "budget": {
@@ -7,11 +7,11 @@
     "train": 375,
     "local": 400,
     "ticket": 757,
-    "hotel": 684,
+    "hotel": 683.5,
     "food": 600,
-    "entertain": 150,
+    "entertain": 0,
     "shop": 500,
-    "other": 449
+    "other": 224.5
   },
   "budgetTotal2p": 11000,
   "budgetPerPerson": 5500,
