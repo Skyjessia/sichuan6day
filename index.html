@@ -1,6 +1,93 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+<style>
+/* 全局页面美化 */
+body {
+    max-width: 1000px;
+    margin: 0 auto !important;
+    padding: 20px 15px !important;
+    background: #f5f7fa;
+    line-height: 1.65 !important;
+    font-size: 15px !important;
+}
+
+/* 标题美化 */
+h1, h2, h3, h4, h5 {
+    color: #222 !important;
+    margin-top: 25px !important;
+    margin-bottom: 12px !important;
+}
+
+/* 每日行程 → 卡片化（核心提升） */
+h2 {
+    background: white;
+    padding: 14px 18px !important;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-left: 5px solid #4285F4;
+}
+
+/* 内容区块包裹成卡片 */
+p, ul, ol, table {
+    background: white;
+    padding: 14px 18px !important;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    margin-bottom: 12px !important;
+}
+
+/* 表格优化 */
+table {
+    width: 100% !important;
+    border-collapse: collapse;
+}
+table td, table th {
+    padding: 8px 10px !important;
+    border: 1px solid #eee !important;
+}
+
+/* 顶部固定导航栏 */
+.top-nav {
+    position: sticky;
+    top: 0;
+    background: white;
+    padding: 10px 12px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    z-index: 999;
+    margin-bottom: 20px;
+}
+.top-nav a {
+    padding: 6px 10px;
+    background: #f0f4ff;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #4285F4;
+    font-weight: bold;
+}
+.top-nav a:hover {
+    background: #4285F4;
+    color: white;
+}
+
+/* 状态标签自动上色 */
+span:contains('已付'), b:contains('已付'), div:contains('已付') {
+    color: #00a850 !important;
+    font-weight: bold;
+}
+span:contains('待抢'), b:contains('待抢'), div:contains('待抢') {
+    color: #ff6b00 !important;
+    font-weight: bold;
+}
+span:contains('提醒'), b:contains('提醒'), div:contains('提醒') {
+    color: #ff3030 !important;
+    font-weight: bold;
+}
+</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
