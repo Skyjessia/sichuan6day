@@ -120,7 +120,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 /* Budget unified view */
 .bu-head{background:#fff;color:var(--g900);text-align:center;padding:20px 18px;border-radius:var(--r);margin-bottom:14px;box-shadow:0 2px 12px rgba(44,42,40,.08);border:1px solid rgba(0,0,0,.04)}
 .bu-head .bl{font-size:12px;color:var(--g500);margin-bottom:2px;letter-spacing:.5px}.bu-head .ba{font-size:32px;font-weight:700;color:var(--g900)}
-.bu-row{background:#fff;border-radius:var(--r);padding:10px 12px;margin-bottom:6px;box-shadow:var(--sh);transition:transform .15s,box-shadow .15s}
+.bu-row{background:#fff;border-radius:var(--r);padding:10px 12px;margin-bottom:6px;box-shadow:0 2px 12px rgba(44,42,40,.08);border:1px solid rgba(0,0,0,.04);transition:transform .15s,box-shadow .15s}
 .bu-row .bu-top{display:flex;align-items:center;gap:8px}
 .bu-row .bu-ico{font-size:16px;flex-shrink:0;width:22px;text-align:center}
 .bu-row .bu-name{font-size:12px;font-weight:600;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -151,17 +151,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .bottom-bar button:hover{color:var(--p)}
 
 /* Table */
-.dt2{width:100%;border-collapse:collapse;font-size:11px;background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:12px}
+.dt2{width:100%;border-collapse:collapse;font-size:11px;background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 2px 12px rgba(44,42,40,.08);margin-bottom:12px;border:1px solid rgba(0,0,0,.04)}
 .dt2 th{background:var(--g100);padding:6px 8px;text-align:left;font-weight:600;font-size:10px;color:var(--g700);border-bottom:2px solid var(--g200)}
 .dt2 td{padding:6px 8px;border-bottom:1px solid var(--g100);vertical-align:top;line-height:1.4}
 .dt2 tr:last-child td{border-bottom:none}.dt2 tr:hover td{background:var(--g50)}
 
 /* Egg card */
-.ec{background:#fff;border-radius:var(--r);padding:10px 14px;box-shadow:var(--sh);margin-bottom:6px;display:flex;align-items:flex-start;gap:8px}
+.ec{background:#fff;border-radius:var(--r);padding:10px 14px;box-shadow:0 2px 12px rgba(44,42,40,.08);margin-bottom:6px;border:1px solid rgba(0,0,0,.04);display:flex;align-items:flex-start;gap:8px}
 .ec .ei{font-size:18px;flex-shrink:0}.ec .et{font-size:11px;line-height:1.4}.ec .ed{font-size:10px;color:var(--g500);margin-top:2px}
 
 /* Tip card */
-.tc2{background:#fff;border-radius:var(--r);padding:10px 14px;box-shadow:var(--sh);margin-bottom:6px}
+.tc2{background:#fff;border-radius:var(--r);padding:10px 14px;box-shadow:0 2px 12px rgba(44,42,40,.08);margin-bottom:6px;border:1px solid rgba(0,0,0,.04)}
 .tc2 h4{font-size:12px;font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:5px}
 .tc2 p{font-size:11px;color:var(--g700);white-space:pre-line;line-height:1.4}
 
@@ -281,11 +281,11 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 <div style="font-size:14px;color:var(--g500);margin-bottom:16px;text-align:center;font-style:italic">这个轻应用，不复杂，但有点温柔：</div>
 
 <div style="display:grid;gap:8px;margin-bottom:24px">
-<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:var(--sh)"><div style="font-size:18px;flex-shrink:0">✏️</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">想改就改</div><div style="font-size:11px;color:var(--g500)">点一下任意文字，直接编辑，不用下载</div></div></div>
-<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:var(--sh)"><div style="font-size:18px;flex-shrink:0">💰</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">自动记账</div><div style="font-size:11px;color:var(--g500)">花了多少、还剩多少，它替你记着</div></div></div>
-<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:var(--sh)"><div style="font-size:18px;flex-shrink:0">📶</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">没网也能用</div><div style="font-size:11px;color:var(--g500)">山里、地铁、飞机上，行程不慌</div></div></div>
-<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:var(--sh)"><div style="font-size:18px;flex-shrink:0">📤</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">一发共享</div><div style="font-size:11px;color:var(--g500)">链接给朋友，同个版本，不用反复传</div></div></div>
-<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:var(--sh)"><div style="font-size:18px;flex-shrink:0">📱</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">秒变App</div><div style="font-size:11px;color:var(--g500)">添加到主屏幕，一点就进，像老朋友</div></div></div>
+<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:0 2px 12px rgba(44,42,40,.08)"><div style="font-size:18px;flex-shrink:0">✏️</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">想改就改</div><div style="font-size:11px;color:var(--g500)">点一下任意文字，直接编辑，不用下载</div></div></div>
+<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:0 2px 12px rgba(44,42,40,.08)"><div style="font-size:18px;flex-shrink:0">💰</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">自动记账</div><div style="font-size:11px;color:var(--g500)">花了多少、还剩多少，它替你记着</div></div></div>
+<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:0 2px 12px rgba(44,42,40,.08)"><div style="font-size:18px;flex-shrink:0">📶</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">没网也能用</div><div style="font-size:11px;color:var(--g500)">山里、地铁、飞机上，行程不慌</div></div></div>
+<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:0 2px 12px rgba(44,42,40,.08)"><div style="font-size:18px;flex-shrink:0">📤</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">一发共享</div><div style="font-size:11px;color:var(--g500)">链接给朋友，同个版本，不用反复传</div></div></div>
+<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:0 2px 12px rgba(44,42,40,.08)"><div style="font-size:18px;flex-shrink:0">📱</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">秒变App</div><div style="font-size:11px;color:var(--g500)">添加到主屏幕，一点就进，像老朋友</div></div></div>
 </div>
 
 <div style="background:linear-gradient(135deg,var(--pl),var(--accent-l));border-radius:14px;padding:16px 18px;margin-bottom:20px">
@@ -343,7 +343,7 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 </div>
 
 <!-- Budget Chart -->
-<div id="budgetChart" style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:var(--sh)"></div>
+<div id="budgetChart" style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:0 2px 12px rgba(44,42,40,.08)"></div>
 <div style="display:flex;gap:8px;margin-bottom:12px">
   <button onclick="exportData()" style="flex:1;padding:10px;border:1.5px solid var(--p);border-radius:8px;background:#fff;color:var(--p);font-size:12px;font-weight:600;cursor:pointer">📤 导出数据</button>
   <label style="flex:1;padding:10px;border:1.5px solid var(--g300);border-radius:8px;background:#fff;color:var(--g700);font-size:12px;font-weight:600;cursor:pointer;text-align:center">📥 导入同步<input type="file" accept=".json,application/json" onchange="importData(event)" style="display:none"></label>
@@ -356,7 +356,7 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 <div class="st">🧾 账本 · 记账+分账+平账</div>
 <div class="al ali">💡 记一笔自动算分账，待办联动自动打钩</div>
 
-<div style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:var(--sh)">
+<div style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:0 2px 12px rgba(44,42,40,.08)">
 <div style="font-size:13px;font-weight:600;margin-bottom:10px">➕ 添加消费</div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
 <select id="bkCat" style="padding:8px;border:1.5px solid var(--g200);border-radius:8px;font-size:12px">
@@ -463,7 +463,7 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 
 <div style="font-size:13px;font-weight:600;margin:16px 0 8px;color:var(--p)">🏨 住宿详情</div>
 
-<div style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:var(--sh);border-left:4px solid var(--g)">
+<div style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:0 2px 12px rgba(44,42,40,.08);border-left:4px solid var(--g)">
 <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
 <div>
 <div style="font-size:15px;font-weight:700;color:var(--g)">🏔️ 青禾和院</div>
@@ -482,7 +482,7 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 </div>
 </div>
 
-<div style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:var(--sh);border-left:4px solid var(--b)">
+<div style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:0 2px 12px rgba(44,42,40,.08);border-left:4px solid var(--b)">
 <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
 <div>
 <div style="font-size:15px;font-weight:700;color:var(--b)">🏙️ 汉庭宽窄巷子中心店</div>
@@ -505,12 +505,12 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 <div class="st">💳 分账收款 · 谁付了谁欠谁</div>
 <div class="al ali">💡 记账时选👥2人的项目，系统自动算出对方该给你多少</div>
 
-<div id="splitSummary" style="background:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--sh)">
+<div id="splitSummary" style="background:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:0 2px 12px rgba(44,42,40,.08)">
 <div style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--p)">📊 收款总览</div>
 <div id="splitOverview"></div>
 </div>
 
-<div style="background:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--sh)">
+<div style="background:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:0 2px 12px rgba(44,42,40,.08)">
 <div style="font-size:13px;font-weight:600;margin-bottom:10px">📋 逐笔明细</div>
 <div style="display:flex;font-size:11px;color:var(--g500);padding:6px 0;border-bottom:1px solid var(--g100);font-weight:600">
 <div style="width:10%">日期</div>
@@ -1020,7 +1020,7 @@ function renderFoodPools(data) {
   let html = '';
   pools.forEach((pool, idx) => {
     const color = poolColors[idx % poolColors.length];
-    html += `<div style="background:#fff;border-radius:var(--r);margin-bottom:10px;box-shadow:var(--sh);overflow:hidden">`;
+    html += `<div style="background:#fff;border-radius:var(--r);margin-bottom:10px;box-shadow:0 2px 12px rgba(44,42,40,.08);overflow:hidden">`;
     // Header - clickable to expand
     html += `<div onclick="var d=this.nextElementSibling;d.style.display=d.style.display==='none'?'block':'none';this.querySelector('.fp-arrow').textContent=d.style.display==='none'?'▶':'▼'" style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;cursor:pointer;border-left:4px solid ${color}">`;
     html += `<div><span style="font-size:16px;margin-right:6px">${pool.icon}</span><span style="font-size:14px;font-weight:700">${pool.title}</span>`;
@@ -1329,7 +1329,7 @@ function renderBookList() {
     const settledCount = items.filter(e => e.settled).length;
     const unsettledCount = items.length - settledCount;
 
-    html += '<div style="background:#fff;border-radius:var(--r);margin-bottom:8px;box-shadow:var(--sh);overflow:hidden">';
+    html += '<div style="background:#fff;border-radius:var(--r);margin-bottom:8px;box-shadow:0 2px 12px rgba(44,42,40,.08);overflow:hidden">';
     // Header - always visible, clickable to expand
     html += '<div onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display===\'none\'?\'block\':\'none\';this.querySelector(\'.arrow\').textContent=this.nextElementSibling.style.display===\'none\'?\'▶\':\'▼\'" style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;cursor:pointer">';
     html += '<div><span style="font-size:13px;font-weight:700">📅 ' + date + ' (' + dayStr + ')</span>';
