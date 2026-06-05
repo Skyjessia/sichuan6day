@@ -360,7 +360,7 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 <div style="font-size:13px;font-weight:600;margin-bottom:10px">➕ 添加消费</div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
 <select id="bkCat" style="padding:8px;border:1.5px solid var(--g200);border-radius:8px;font-size:12px">
-<option value="✈️">✈️ 机票</option><option value="🚄">🚄 高铁</option><option value="🚌">🚌 交通</option><option value="🎫">🎫 门票</option><option value="🏨">🏨 住宿</option><option value="🍜" selected>🍜 餐饮</option><option value="🎭">🎭 娱乐</option><option value="🛒">🛒 购物</option><option value="📦">📦 其他</option>
+<option value="✈️">✈️ 机票</option><option value="🚄">🚄 高铁</option><option value="🚌">🚌 交通</option><option value="🎫">🎫 门票</option><option value="🏨">🏨 住宿</option><option value="🍜" selected>🍜 餐饮</option><option value="🎭">🎭 娱乐</option><option value="🛒">🛒 购物</option>
 </select>
 <input type="number" id="bkAmt" placeholder="总金额" inputmode="decimal" style="padding:8px;border:1.5px solid var(--g200);border-radius:8px;font-size:12px;font-weight:600">
 </div>
@@ -574,7 +574,7 @@ body.share-mode .exp-item .exp-amt{pointer-events:none}
 function fmt(n){return n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}
 
 // ===== Expense data ===== (all per-person amounts)
-const BUDGET = {flight:1960,train:375,local:400,ticket:757,hotel:683.5,food:600,entertain:0,shop:500,other:224.5}; // Per-person, overridden by data.json
+const BUDGET = {flight:1960,train:375,local:400,ticket:757,hotel:683.5,food:600,entertain:280,shop:500}; // Per-person, overridden by data.json
 const BUDGET_TOTAL = Object.values(BUDGET).reduce((a,b)=>a+b,0); // 5500
 const BUDGET_NOTES = {
   flight:'上海↔成都往返',
@@ -583,11 +583,10 @@ const BUDGET_NOTES = {
   ticket:'九寨沟、黄龙、三星堆、都江堰、武侯祠、梨园会馆（不含青城山）',
   hotel:'青禾和院2晚 + 汉庭3晚',
   food:'正餐、小吃、茶馆、干粮',
-  entertain:'',
-  shop:'伴手礼',
-  other:'青城山备选（门票+交通约¥125）+ 临时支出'
+  entertain:'蜀风雅韵川剧、清吧',
+  shop:'伴手礼'
 };
-const CAT_MAP = {'✈️':'flight','🚄':'train','🚌':'local','🎫':'ticket','🏨':'hotel','🍜':'food','🎭':'entertain','🛒':'shop','📦':'other'};
+const CAT_MAP = {'✈️':'flight','🚄':'train','🚌':'local','🎫':'ticket','🏨':'hotel','🍜':'food','🎭':'entertain','🛒':'shop'};
 
 let expenses = JSON.parse(localStorage.getItem('sc_expenses')||'[]');
 let expDayFilter='all';
@@ -749,7 +748,7 @@ function editExpense(id,field){
     if(!v.trim()){toast('描述不能为空');return}
     e.desc=v.trim();
   }else if(field==='cat'){
-    const v=prompt('修改分类 (✈️🚄🚌🎫🏨🍜🎭🛒📦):',e.cat);
+    const v=prompt('修改分类 (✈️🚄🚌🎫🏨🍜🎭🛒):',e.cat);
     if(v===null)return;
     e.cat=v;
   }
@@ -1450,15 +1449,15 @@ if (bkDate && !bkDate.value) bkDate.value = new Date().toISOString().slice(0,10)
 const CAT_NAMES = {
   flight:'✈️ 机票', train:'🚄 高铁/火车', local:'🚌 市内交通',
   ticket:'🎫 门票', hotel:'🏨 住宿', food:'🍜 餐饮',
-  entertain:'🎭 娱乐', shop:'🛒 购物', other:'📦 其他(机动)'
+  entertain:'🎭 娱乐', shop:'🛒 购物'
 };
 
 function renderBudget(){
   // Calculate actual spending from bookkeeping only (per-person amounts)
-  const actual={flight:0,train:0,local:0,ticket:0,hotel:0,food:0,entertain:0,shop:0,other:0};
+  const actual={flight:0,train:0,local:0,ticket:0,hotel:0,food:0,entertain:0,shop:0};
   const bkExpenses = getExpenses();
   bkExpenses.forEach(e => {
-    const k = CAT_MAP[e.cat] || 'other';
+    const k = CAT_MAP[e.cat] || 'entertain';
     const perPerson = e.amount / e.participants.length;
     actual[k] += perPerson;
   });
@@ -1486,7 +1485,7 @@ function renderBudget(){
     const colors = {
       flight:'#4A8FD9', train:'#5BA3E6', local:'#7CB9E8',
       ticket:'#D4583A', hotel:'#F0A030', food:'#E87050',
-      entertain:'#7C5CFC', shop:'#2E8B57', other:'#8C8A80'
+      entertain:'#7C5CFC', shop:'#2E8B57'
     };
     let chartHtml = '<div style="font-size:13px;font-weight:700;margin-bottom:12px">📊 预算 vs 实际</div>';
     keys.forEach(k=>{
