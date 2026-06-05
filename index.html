@@ -922,7 +922,7 @@ function switchDay(dayId) {
 async function loadTripData(retryCount = 0) {
   try {
     const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 5000);
+    const timer = setTimeout(() => ctrl.abort(), 10000);
     const resp = await fetch('data.json?v=' + Date.now(), {signal: ctrl.signal});
     clearTimeout(timer);
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
