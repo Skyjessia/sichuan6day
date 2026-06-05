@@ -857,6 +857,10 @@ function renderDay(day) {
     (day.items||[]).forEach(item => { html += renderItem(item, true); });
   }
 
+  if (day.dayNote) {
+    html += '<div style="margin:10px 12px 6px;padding:12px 14px;background:var(--al);border-radius:10px;border-left:3px solid var(--a);font-size:12px;line-height:1.7;color:var(--g700);white-space:pre-line">' + day.dayNote + '</div>';
+  }
+
   html += '</div></div>';
   return html;
 }
