@@ -6,15 +6,12 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>四川6日深度游</title>
+<title>四川6日 · v10</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--p:#C4553A;--pl:#FBF0EC;--a:#E8A838;--al:#FFF8EC;--b:#4A8FD9;--bl:#EDF4FC;--g:#2D8B5F;--gl:#EAF5EE;--g50:#F8F9FB;--g100:#F0F2F5;--g200:#E0E3E8;--g500:#9C9A90;--g700:#525048;--g900:#2C2A28;--sh:0 2px 8px rgba(44,42,40,.06);--r:12px;--danger:#E05040;--accent:#7C5CFC;--accent-l:#F0ECFF}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--g50);color:var(--g900);line-height:1.7;-webkit-font-smoothing:antialiased;padding-bottom:72px}
-.c{max-width:960px;margin:0 auto;padding:12px 14px 20px}
-
-/* Status text colors */
-.st-paid{color:#00a850;font-weight:600}.st-wait{color:#ff6b00;font-weight:600}.st-alert{color:#ff3030;font-weight:600}
+:root{--p:#D4583A;--pl:#FDF0EC;--a:#F0A030;--al:#FFF8EC;--b:#4A8FD9;--bl:#EDF4FC;--g:#2E8B57;--gl:#EAF5EE;--g50:#FBFAF8;--g100:#F5F4F0;--g200:#E8E6E0;--g500:#8C8A80;--g700:#525048;--g900:#2C2A28;--sh:0 2px 16px rgba(0,0,0,.07);--r:14px;--danger:#E05040;--accent:#7C5CFC;--accent-l:#F0ECFF}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--g50);color:var(--g900);line-height:1.7;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+.c{max-width:900px;margin:0 auto;padding:16px 12px 20px}
 
 /* Hero */
 .hero{text-align:center;padding:36px 16px 28px;background:linear-gradient(135deg,var(--pl),#FFF5F0 40%,var(--al),var(--accent-l));border-radius:18px;margin-bottom:20px;position:relative;overflow:hidden}
@@ -28,18 +25,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .alw{background:#FFF3E0;border-left:4px solid var(--a)}.ali{background:var(--bl);border-left:4px solid var(--b)}.alg{background:var(--gl);border-left:4px solid var(--g)}
 
 /* Nav */
-.nav{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;position:sticky;top:0;background:rgba(248,249,251,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);z-index:100;padding:10px 0 6px}
-.nav-row{display:flex;gap:6px;justify-content:center}
-.nav button{padding:7px 14px;border:1.5px solid var(--g200);border-radius:20px;background:#fff;font-size:12px;color:var(--g700);cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,.04);font-weight:500}
-.nav button:hover{border-color:var(--p);color:var(--p);box-shadow:0 2px 8px rgba(196,85,58,.12)}.nav button.on{background:var(--p);color:#fff;border-color:var(--p);box-shadow:0 2px 10px rgba(196,85,58,.2);font-weight:600}
+.nav{display:flex;flex-direction:column;gap:4px;margin-bottom:16px;position:sticky;top:0;background:var(--g50);z-index:100;padding-top:8px}
+.nav-row{display:flex;gap:5px;justify-content:center}
+.nav button{padding:6px 12px;border:1.5px solid var(--g200);border-radius:16px;background:#fff;font-size:12px;color:var(--g700);cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0}
+.nav button:hover{border-color:var(--p);color:var(--p)}.nav button.on{background:var(--p);color:#fff;border-color:var(--p)}
 .s{display:none}.s.on{display:block}
 
 /* Section title */
 .st{font-size:17px;font-weight:700;color:var(--g900);margin-bottom:14px;padding:6px 0 6px 12px;border-left:4px solid var(--p);letter-spacing:.3px;background:linear-gradient(90deg,var(--pl) 0%,transparent 100%);border-radius:0 var(--r) var(--r) 0}
 
 /* Day card */
-#itineraryContainer{display:block}
-.dc{background:#fff;border-radius:var(--r);box-shadow:0 1px 6px rgba(44,42,40,.06);margin-bottom:14px;overflow:hidden;border:1px solid rgba(0,0,0,.04)}
+.dc{background:#fff;border-radius:var(--r);box-shadow:var(--sh);margin-bottom:14px;overflow:hidden}
 .dh{padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:background .2s}
 .dh:hover{background:var(--g50)}
 .db{width:40px;height:40px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:11px;color:#fff;flex-shrink:0}
@@ -49,25 +45,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .dht{font-size:10px;color:var(--g500);background:var(--g50);padding:2px 7px;border-radius:5px;white-space:nowrap}
 .darr{font-size:14px;color:var(--g500);transition:transform .2s}.dc.open .darr{transform:rotate(180deg)}
 .tl{padding:0 14px 12px;display:none}.dc.open .tl{display:block}
-
-/* Day tabs - horizontal D1-D6 */
-.day-tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:2px 0;scrollbar-width:none}
-.day-tabs::-webkit-scrollbar{display:none}
-.day-tab{flex-shrink:0;padding:8px 16px;border-radius:12px;border:1.5px solid var(--g200);background:#fff;font-size:12px;font-weight:600;color:var(--g700);cursor:pointer;transition:all .2s;box-shadow:0 1px 3px rgba(0,0,0,.04);display:flex;align-items:center;gap:5px;white-space:nowrap}
-.day-tab:hover{border-color:var(--p);color:var(--p)}
-.day-tab.on{color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(0,0,0,.12)}
-.day-tab.on.d1{background:linear-gradient(135deg,#C4553A,#E07050)}.day-tab.on.d2{background:linear-gradient(135deg,#2D8B5F,#4CAF7D)}.day-tab.on.d3{background:linear-gradient(135deg,#E8A838,#F0C060)}.day-tab.on.d4{background:linear-gradient(135deg,#4A90D9,#6AAFE8)}.day-tab.on.d5{background:linear-gradient(135deg,#9C5AB5,#B87DD0)}.day-tab.on.d6{background:linear-gradient(135deg,#5B7FA5,#7DA0C4)}
-.day-tab .dt-date{font-size:10px;opacity:.7;font-weight:400}
-
-/* PC: tab mode - show only selected day */
-@media(min-width:769px){
-.day-tabs{flex-wrap:nowrap;justify-content:center}
-.dc{display:none}
-.dc.day-active{display:block}
-.dc.day-active .tl{display:block}
-.dc.day-active .darr{display:none}
-.dc.day-active .dh{cursor:default}
-}
 
 /* Timeline item */
 .ti{display:flex;gap:10px;padding:8px 0;position:relative;transition:opacity .2s,transform .2s}
@@ -118,9 +95,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .exp-item .exp-del:hover{color:var(--danger)}
 
 /* Budget unified view */
-.bu-head{background:#fff;color:var(--g900);text-align:center;padding:20px 18px;border-radius:var(--r);margin-bottom:14px;box-shadow:0 2px 12px rgba(44,42,40,.08);border:1px solid rgba(0,0,0,.04)}
-.bu-head .bl{font-size:12px;color:var(--g500);margin-bottom:2px;letter-spacing:.5px}.bu-head .ba{font-size:32px;font-weight:700;color:var(--g900)}
-.bu-row{background:#fff;border-radius:var(--r);padding:10px 12px;margin-bottom:6px;box-shadow:0 2px 12px rgba(44,42,40,.08);border:1px solid rgba(0,0,0,.04);transition:transform .15s,box-shadow .15s}
+.bu-head{background:linear-gradient(135deg,var(--p),#E87050,var(--a));color:#fff;text-align:center;padding:18px;border-radius:var(--r);margin-bottom:14px;box-shadow:0 4px 16px rgba(212,88,58,.2)}
+.bu-head .bl{font-size:12px;opacity:.85;margin-bottom:2px}.bu-head .ba{font-size:28px;font-weight:700}
+.bu-row{background:#fff;border-radius:var(--r);padding:10px 12px;margin-bottom:6px;box-shadow:var(--sh);transition:transform .15s,box-shadow .15s}
 .bu-row .bu-top{display:flex;align-items:center;gap:8px}
 .bu-row .bu-ico{font-size:16px;flex-shrink:0;width:22px;text-align:center}
 .bu-row .bu-name{font-size:12px;font-weight:600;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -144,24 +121,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .toast.show{opacity:1}
 
 /* Bottom bar */
-.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(0,0,0,.06);display:flex;z-index:200;padding:4px 0 env(safe-area-inset-bottom);box-shadow:0 -1px 8px rgba(0,0,0,.04)}
-.bottom-bar button{flex:1;border:none;background:none;padding:6px 4px;font-size:10px;color:var(--g500);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;transition:color .15s;font-weight:500}
-.bottom-bar button .bi{font-size:17px}
-.bottom-bar button.on{color:var(--p);font-weight:600}
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--g200);display:flex;z-index:200;padding:6px 0 env(safe-area-inset-bottom)}
+.bottom-bar button{flex:1;border:none;background:none;padding:8px 4px;font-size:10px;color:var(--g500);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:color .15s}
+.bottom-bar button .bi{font-size:18px}
+.bottom-bar button.on{color:var(--p)}
 .bottom-bar button:hover{color:var(--p)}
 
 /* Table */
-.dt2{width:100%;border-collapse:collapse;font-size:11px;background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 2px 12px rgba(44,42,40,.08);margin-bottom:12px;border:1px solid rgba(0,0,0,.04)}
+.dt2{width:100%;border-collapse:collapse;font-size:11px;background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:12px}
 .dt2 th{background:var(--g100);padding:6px 8px;text-align:left;font-weight:600;font-size:10px;color:var(--g700);border-bottom:2px solid var(--g200)}
 .dt2 td{padding:6px 8px;border-bottom:1px solid var(--g100);vertical-align:top;line-height:1.4}
 .dt2 tr:last-child td{border-bottom:none}.dt2 tr:hover td{background:var(--g50)}
 
 /* Egg card */
-.ec{background:#fff;border-radius:var(--r);padding:10px 14px;box-shadow:0 2px 12px rgba(44,42,40,.08);margin-bottom:6px;border:1px solid rgba(0,0,0,.04);display:flex;align-items:flex-start;gap:8px}
+.ec{background:#fff;border-radius:var(--r);padding:10px 14px;box-shadow:var(--sh);margin-bottom:6px;display:flex;align-items:flex-start;gap:8px}
 .ec .ei{font-size:18px;flex-shrink:0}.ec .et{font-size:11px;line-height:1.4}.ec .ed{font-size:10px;color:var(--g500);margin-top:2px}
 
 /* Tip card */
-.tc2{background:#fff;border-radius:var(--r);padding:10px 14px;box-shadow:0 2px 12px rgba(44,42,40,.08);margin-bottom:6px;border:1px solid rgba(0,0,0,.04)}
+.tc2{background:#fff;border-radius:var(--r);padding:10px 14px;box-shadow:var(--sh);margin-bottom:6px}
 .tc2 h4{font-size:12px;font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:5px}
 .tc2 p{font-size:11px;color:var(--g700);white-space:pre-line;line-height:1.4}
 
@@ -176,9 +153,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .hero h1{font-size:18px}.hero{padding:20px 12px 16px}
 .bg{grid-template-columns:1fr 1fr}.bt .ba{font-size:22px}
 .quick-add{flex-direction:column}.quick-add .amt,.quick-add .cat,.quick-add .desc{width:100%}
-.nav button{padding:6px 10px;font-size:11px;border-radius:16px}
-.c{padding:10px 8px 20px}
-.dc{border-radius:10px}
 }
 
 /* Share mode - hide private sections */
@@ -188,28 +162,21 @@ body.share-mode .drag-handle,
 body.share-mode .ti-del,
 body.share-mode .quick-add,
 body.share-mode .data-bar,
+body.share-mode .expense-list,
 body.share-mode #dailySummary,
 body.share-mode [contenteditable]{pointer-events:none;background:transparent!important;box-shadow:none!important}
 body.share-mode #shareBtn{display:none!important}
 body.share-mode .copy-link-hint{display:block!important}
-/* Share mode: only show 行程+预算+关于, hide rest */
-body.share-mode .nav button[data-share="hide"],
-body.share-mode .bottom-bar button[data-share="hide"]{display:none!important}
+body.share-mode .nav button:nth-child(5),  /* 交通 */
+body.share-mode .nav button:nth-child(6),  /* 美食 */
+body.share-mode .nav button:nth-child(7),  /* 门票 */
+body.share-mode .nav button:nth-child(8),  /* 住宿 */
+body.share-mode .nav button:nth-child(9),  /* 彩蛋 */
+body.share-mode .bottom-bar button:nth-child(5), /* 彩蛋 */
+body.share-mode .bottom-bar button:nth-child(6)  /* 贴士 */
+{display:none}
 body.share-mode #ex,body.share-mode #tr,body.share-mode #tk,body.share-mode #fo,body.share-mode #ho,body.share-mode #eg,body.share-mode #ti{display:none!important}
 body.share-mode .al{display:none}
-body.share-mode .bu-row .bu-diff{display:none}
-body.share-mode #budgetChart{display:none}
-body.share-mode #bookList{display:none}
-body.share-mode #settleCard{display:none}
-body.share-mode .exp-item .exp-del{display:none!important}
-body.share-mode .exp-item .exp-cat,
-body.share-mode .exp-item .exp-amt{pointer-events:none}
-/* Share mode: hide ALL content */
-body.share-mode .s{display:none!important}
-body.share-mode .hero{display:none!important}
-body.share-mode .day-tabs{display:none!important}
-body.share-mode .dc{display:none!important}
-body.share-mode #todoSection{display:none!important}
 /* Todo date group */
 .todo-date{font-size:11px;font-weight:700;color:var(--b);padding:4px 10px;background:var(--bl);border-radius:8px;margin:10px 0 4px;display:inline-block;letter-spacing:.3px}
 .todo-date:first-child{margin-top:0}
@@ -252,22 +219,29 @@ body.share-mode #todoSection{display:none!important}
 </head>
 <body>
 <div class="c">
-<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 4px 8px">
-<div style="font-size:15px;font-weight:700;color:var(--p)">🏔️ 四川6日深度游</div>
-<button onclick="copyLink()" style="padding:5px 14px;border:1.5px solid var(--p);border-radius:16px;background:rgba(255,255,255,.7);font-size:11px;color:var(--p);cursor:pointer;font-weight:600">🔗 分享</button>
+<div class="hero">
+<h1>🏔️ 四川6日深度游</h1>
+<div class="sub">实时编辑版 · 旅途中的活攻略</div>
+<div class="meta"><span>📅 2026.6.13-6.18</span><span>👥 2人</span><span>✈️ 上海↔成都</span></div>
+<div style="margin-top:10px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+<button onclick="copyLink()" style="padding:8px 20px;border:2px solid var(--p);border-radius:20px;background:rgba(255,255,255,.7);font-size:13px;color:var(--p);cursor:pointer;font-weight:600;backdrop-filter:blur(4px)">🔗 复制链接</button>
+<button id="shareBtn" onclick="toggleShareMode()" style="padding:8px 20px;border:2px solid var(--b);border-radius:20px;background:rgba(255,255,255,.7);font-size:13px;color:var(--b);cursor:pointer;font-weight:600;backdrop-filter:blur(4px)">👁 分享模式</button>
+</div>
 </div>
 
+<div class="al alg">✏️ 所有文字可直接点击编辑，费用可修改，数据自动保存到浏览器</div>
 
-<div id="todoBanner" style="margin-bottom:10px">
-<div style="font-size:13px;font-weight:700;color:var(--g900);margin-bottom:8px">📋 待办提醒</div>
-<div id="todoList"></div>
+
+<div id="todoBanner" style="background:#FFF0F0;border:1.5px solid #E05040;border-radius:var(--r);padding:12px;margin-bottom:10px">
+<div style="font-size:13px;font-weight:700;color:#C03020;margin-bottom:8px">🔴 待办提醒 · 按日期查看</div>
+<div id="todoList" style="font-size:12px;line-height:1.8;color:var(--g900)"></div>
 </div>
 
 
 
 <div class="nav" id="topNav">
-<div class="nav-row"><button class="on" onclick="sh('it')">📅 行程</button><button onclick="sh('bu')">💵 总账单</button><button data-share="hide" onclick="sh('ex')">👥 AA记账</button><button data-share="hide" onclick="sh('fo')">🍲 美食指南</button></div>
-<div class="nav-row"><button data-share="hide" onclick="sh('eg')">🎈 行程彩蛋</button><button data-share="hide" onclick="sh('ti')">⚠ 出行提醒</button><button data-share="hide" onclick="sh('ho')">🚗 住宿交通</button><button onclick="sh('ab')">📖 简介</button></div>
+<div class="nav-row"><button class="on" onclick="sh('it')">📋 行程</button><button onclick="sh('bu')">💰 预算</button><button onclick="sh('ex')">📝 记账</button><button onclick="sh('fo')">🍜 美食</button></div>
+<div class="nav-row"><button onclick="sh('eg')">🎁 彩蛋</button><button onclick="sh('ti')">📌 贴士</button><button onclick="sh('ho')">🚗🏨 交酒</button><button onclick="sh('ab')">📖 关于</button></div>
 </div>
 <div id="ab" class="s">
 <div style="max-width:520px;margin:0 auto">
@@ -287,11 +261,11 @@ body.share-mode #todoSection{display:none!important}
 <div style="font-size:14px;color:var(--g500);margin-bottom:16px;text-align:center;font-style:italic">这个轻应用，不复杂，但有点温柔：</div>
 
 <div style="display:grid;gap:8px;margin-bottom:24px">
-<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:0 2px 12px rgba(44,42,40,.08)"><div style="font-size:18px;flex-shrink:0">✏️</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">想改就改</div><div style="font-size:11px;color:var(--g500)">点一下任意文字，直接编辑，不用下载</div></div></div>
-<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:0 2px 12px rgba(44,42,40,.08)"><div style="font-size:18px;flex-shrink:0">💰</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">自动记账</div><div style="font-size:11px;color:var(--g500)">花了多少、还剩多少，它替你记着</div></div></div>
-<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:0 2px 12px rgba(44,42,40,.08)"><div style="font-size:18px;flex-shrink:0">📶</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">没网也能用</div><div style="font-size:11px;color:var(--g500)">山里、地铁、飞机上，行程不慌</div></div></div>
-<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:0 2px 12px rgba(44,42,40,.08)"><div style="font-size:18px;flex-shrink:0">📤</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">一发共享</div><div style="font-size:11px;color:var(--g500)">链接给朋友，同个版本，不用反复传</div></div></div>
-<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:0 2px 12px rgba(44,42,40,.08)"><div style="font-size:18px;flex-shrink:0">📱</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">秒变App</div><div style="font-size:11px;color:var(--g500)">添加到主屏幕，一点就进，像老朋友</div></div></div>
+<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:var(--sh)"><div style="font-size:18px;flex-shrink:0">✏️</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">想改就改</div><div style="font-size:11px;color:var(--g500)">点一下任意文字，直接编辑，不用下载</div></div></div>
+<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:var(--sh)"><div style="font-size:18px;flex-shrink:0">💰</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">自动记账</div><div style="font-size:11px;color:var(--g500)">花了多少、还剩多少，它替你记着</div></div></div>
+<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:var(--sh)"><div style="font-size:18px;flex-shrink:0">📶</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">没网也能用</div><div style="font-size:11px;color:var(--g500)">山里、地铁、飞机上，行程不慌</div></div></div>
+<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:var(--sh)"><div style="font-size:18px;flex-shrink:0">📤</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">一发共享</div><div style="font-size:11px;color:var(--g500)">链接给朋友，同个版本，不用反复传</div></div></div>
+<div style="display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,.8);border-radius:12px;box-shadow:var(--sh)"><div style="font-size:18px;flex-shrink:0">📱</div><div><div style="font-size:13px;font-weight:600;color:var(--g900)">秒变App</div><div style="font-size:11px;color:var(--g500)">添加到主屏幕，一点就进，像老朋友</div></div></div>
 </div>
 
 <div style="background:linear-gradient(135deg,var(--pl),var(--accent-l));border-radius:14px;padding:16px 18px;margin-bottom:20px">
@@ -336,11 +310,7 @@ body.share-mode #todoSection{display:none!important}
 <div class="bu-head">
 <div class="bl">人均预算</div>
 <div class="ba" id="budgetTotal">¥5,500</div>
-<div style="font-size:11px;color:var(--g500);margin-top:3px">2人总计 ¥11,000</div>
-<div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-  <div style="font-size:12px;color:var(--g700)">已花费 <span id="actualTotal" style="font-weight:700;color:var(--p)">¥0</span></div>
-  <div style="font-size:12px;color:var(--g700)">花费率 <span id="actualPct" style="font-weight:700;color:var(--p)">0%</span></div>
-</div>
+<div style="font-size:11px;opacity:.7;margin-top:3px">2人总计 ¥11,000</div>
 </div>
 
 <div class="prog-wrap">
@@ -349,11 +319,9 @@ body.share-mode #todoSection{display:none!important}
 </div>
 
 <!-- Budget Chart -->
-<div id="budgetChart" style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:0 2px 12px rgba(44,42,40,.08)"></div>
-<div style="display:flex;gap:8px;margin-bottom:12px">
-  <button onclick="exportData()" style="flex:1;padding:10px;border:1.5px solid var(--p);border-radius:8px;background:#fff;color:var(--p);font-size:12px;font-weight:600;cursor:pointer">📤 导出数据</button>
-  <label style="flex:1;padding:10px;border:1.5px solid var(--g300);border-radius:8px;background:#fff;color:var(--g700);font-size:12px;font-weight:600;cursor:pointer;text-align:center">📥 导入同步<input type="file" accept=".json,application/json" onchange="importData(event)" style="display:none"></label>
-</div>
+<div id="budgetChart" style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:var(--sh)"></div>
+
+<div id="budgetRows"></div>
 </div>
 
 
@@ -362,11 +330,11 @@ body.share-mode #todoSection{display:none!important}
 <div class="st">🧾 账本 · 记账+分账+平账</div>
 <div class="al ali">💡 记一笔自动算分账，待办联动自动打钩</div>
 
-<div style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:0 2px 12px rgba(44,42,40,.08)">
+<div style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:var(--sh)">
 <div style="font-size:13px;font-weight:600;margin-bottom:10px">➕ 添加消费</div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
 <select id="bkCat" style="padding:8px;border:1.5px solid var(--g200);border-radius:8px;font-size:12px">
-<option value="✈️">✈️ 机票</option><option value="🚄">🚄 高铁</option><option value="🚌">🚌 交通</option><option value="🎫">🎫 门票</option><option value="🏨">🏨 住宿</option><option value="🍜" selected>🍜 餐饮</option><option value="🎭">🎭 娱乐</option><option value="🛒">🛒 购物</option>
+<option value="✈️">✈️ 机票</option><option value="🚄">🚄 高铁</option><option value="🚌">🚌 交通</option><option value="🎫">🎫 门票</option><option value="🏨">🏨 住宿</option><option value="🍜" selected>🍜 餐饮</option><option value="🎭">🎭 娱乐</option><option value="🛒">🛒 购物</option><option value="📦">📦 其他</option>
 </select>
 <input type="number" id="bkAmt" placeholder="总金额" inputmode="decimal" style="padding:8px;border:1.5px solid var(--g200);border-radius:8px;font-size:12px;font-weight:600">
 </div>
@@ -388,10 +356,10 @@ body.share-mode #todoSection{display:none!important}
 
 <div id="bookList"></div>
 
-<div id="settleCard" style="position:sticky;bottom:56px;background:#fff;color:var(--g900);border-radius:var(--r);padding:14px;margin-top:12px;box-shadow:0 2px 12px rgba(44,42,40,.08);border:1px solid rgba(0,0,0,.04)">
+<div id="settleCard" style="position:sticky;bottom:56px;background:linear-gradient(135deg,var(--p),#E87050);color:#fff;border-radius:var(--r);padding:14px;margin-top:12px;box-shadow:0 4px 16px rgba(212,88,58,.25)">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-<div style="font-size:13px;font-weight:700;color:var(--g900)">📊 全局结算</div>
-<div style="font-size:11px;color:var(--g500)" id="settleTotal"></div>
+<div style="font-size:13px;font-weight:700">📊 全局结算</div>
+<div style="font-size:11px;opacity:.8" id="settleTotal"></div>
 </div>
 <div id="settleInfo" style="font-size:12px;line-height:1.8"></div>
 <div id="settleAction" style="margin-top:10px;display:none"></div>
@@ -431,29 +399,87 @@ body.share-mode #todoSection{display:none!important}
 
 <!-- ========== 美食 ========== -->
 <div id="fo" class="s">
-<div class="st">🍲 美食指南宝藏地图</div>
+<div class="st">🍜 美食宝藏地图</div>
 
 <div style="background:linear-gradient(135deg,var(--al),#FFF5F0);border-radius:var(--r);padding:14px 16px;margin-bottom:14px">
 <div style="font-size:14px;font-weight:700;color:var(--g900);margin-bottom:8px">📅 每日餐食安排</div>
-<div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
-<table style="width:100%;border-collapse:collapse;font-size:12px;min-width:320px">
-<thead><tr style="border-bottom:2px solid var(--g200);text-align:left"><th style="padding:6px 8px;font-weight:600">天</th><th style="padding:6px 8px;font-weight:600">早餐</th><th style="padding:6px 8px;font-weight:600">午餐</th><th style="padding:6px 8px;font-weight:600">晚餐</th></tr></thead>
-<tbody>
-<tr style="border-bottom:1px solid var(--g100)"><td style="padding:6px 8px;font-weight:600">D1</td><td style="padding:6px 8px">✈️ 飞机上</td><td style="padding:6px 8px">青禾和院附近</td><td style="padding:6px 8px">牦牛汤锅 🔥</td></tr>
-<tr style="border-bottom:1px solid var(--g100)"><td style="padding:6px 8px;font-weight:600">D2</td><td style="padding:6px 8px">青禾和院含早</td><td style="padding:6px 8px">九寨沟内自带干粮</td><td style="padding:6px 8px">卡万金藏餐 🔥</td></tr>
-<tr style="border-bottom:1px solid var(--g100)"><td style="padding:6px 8px;font-weight:600">D3</td><td style="padding:6px 8px">青禾和院含早</td><td style="padding:6px 8px">黄龙景区自带干粮</td><td style="padding:6px 8px">百年蹄花馆 🔥</td></tr>
-<tr style="border-bottom:1px solid var(--g100)"><td style="padding:6px 8px;font-weight:600">D4</td><td style="padding:6px 8px">梁记肥肠粉</td><td style="padding:6px 8px">三星堆自带干粮</td><td style="padding:6px 8px">冒椒火辣 🔥</td></tr>
-<tr style="border-bottom:1px solid var(--g100)"><td style="padding:6px 8px;font-weight:600">D5</td><td style="padding:6px 8px">西月城谭豆花</td><td style="padding:6px 8px">青城山/都江堰解决</td><td style="padding:6px 8px">巴蜀大宅门/飘香火锅 🔥</td></tr>
-<tr><td style="padding:6px 8px;font-weight:600">D6</td><td style="padding:6px 8px">陆老爹猪蹄面</td><td style="padding:6px 8px">轩轩小院/洞子口张老二</td><td style="padding:6px 8px">✈️ 回家</td></tr>
-</tbody></table></div>
+<table class="dt2"><thead><tr><th>天</th><th>早餐</th><th>午餐</th><th>晚餐</th></tr></thead><tbody>
+<tr><td>D3</td><td>青禾和院含早</td><td>黄龙景区自带干粮</td><td>百年蹄花馆 🔥</td></tr>
+<tr><td>D4</td><td>梁记肥肠粉</td><td>三星堆自带干粮</td><td>冒椒火辣 🔥</td></tr>
+<tr><td>D5</td><td>西月城谭豆花</td><td>青城山/都江堰解决</td><td>巴蜀大宅门/飘香火锅 🔥</td></tr>
+<tr><td>D6</td><td>陆老爹猪蹄面</td><td>轩轩小院/洞子口张老二</td><td>✈️ 回家</td></tr>
+</tbody></table>
 <div style="margin-top:8px;font-size:11px;color:var(--g500);line-height:1.6">🥤 每天配 <b style="color:var(--p)">唯怡豆奶</b> 解辣 — 成都人吃火锅标配<br>🥮 蛋烘糕、甜水面、糖油果子穿插在宽窄巷子/锦里游玩间隙，不占正餐</div>
 </div>
 
-<div id="foodPoolsContainer"></div>
+<div style="background:#fff;border-radius:var(--r);padding:14px 16px;margin-bottom:12px;box-shadow:var(--sh)">
+<div style="font-size:14px;font-weight:700;color:var(--p);margin-bottom:10px">🔥 火锅苍蝇馆子推荐 <span style="font-size:11px;color:var(--g500);font-weight:400">2026第十五届成都苍蝇馆子50强</span></div>
+<div style="display:grid;gap:8px">
+
+<div style="padding:10px 12px;background:var(--g100);border-radius:10px;border-left:3px solid var(--p)">
+<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:13px;font-weight:700;color:var(--g900)">百年蹄花馆</div><div style="font-size:11px;color:var(--g500)">宽窄巷子支巷 · 约¥50-70</div></div>
+<div style="font-size:11px;color:var(--g700);margin-top:4px">112年非遗老店，蹄花汤熬6小时，奶白色汤底</div>
+<div style="font-size:11px;color:var(--p);margin-top:2px">必点：蹄花汤、秘制青椒酱</div>
 </div>
 
+<div style="padding:10px 12px;background:var(--g100);border-radius:10px;border-left:3px solid var(--a)">
+<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:13px;font-weight:700;color:var(--g900)">冒椒火辣（冷锅串串）</div><div style="font-size:11px;color:var(--g500)">奎星楼街33号 · 约¥60-80</div></div>
+<div style="font-size:11px;color:var(--g700);margin-top:4px">排队王，冷锅串串配老鹰茶</div>
+<div style="font-size:11px;color:var(--p);margin-top:2px">必点：小郡肝、兔腰、绵绵冰、老卤鹌鹑蛋</div>
+</div>
+
+<div style="padding:10px 12px;background:var(--g100);border-radius:10px;border-left:3px solid var(--danger)">
+<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:13px;font-weight:700;color:var(--g900)">飘香火锅</div><div style="font-size:11px;color:var(--g500)">玉林路 · 约¥80-100</div></div>
+<div style="font-size:11px;color:var(--g700);margin-top:4px">20年老店，牛油现炒，环境简朴</div>
+<div style="font-size:11px;color:var(--p);margin-top:2px">必点：火锅牛排、猪天堂、鞭炮笋</div>
+</div>
+
+<div style="padding:10px 12px;background:var(--g100);border-radius:10px;border-left:3px solid var(--b)">
+<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:13px;font-weight:700;color:var(--g900)">巴蜀大宅门</div><div style="font-size:11px;color:var(--g500)">高升桥店 · 约¥80-100</div></div>
+<div style="font-size:11px;color:var(--g700);margin-top:4px">本地人也爱的火锅，锅底有小泡泡代表地道</div>
+<div style="font-size:11px;color:var(--p);margin-top:2px">必点：千层肚、鸭肠、耗儿鱼</div>
+</div>
+
+<div style="padding:10px 12px;background:var(--g100);border-radius:10px;border-left:3px solid var(--g)">
+<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:13px;font-weight:700;color:var(--g900)">玉林串串香</div><div style="font-size:11px;color:var(--g500)">玉林路 · 约¥50-70</div></div>
+<div style="font-size:11px;color:var(--g700);margin-top:4px">1995年创立，400+家分店的串串鼻祖</div>
+<div style="font-size:11px;color:var(--p);margin-top:2px">必点：牛肉串串、鱿鱼串，配唯怡豆奶</div>
+</div>
+
+</div>
+</div>
+
+<div style="background:#fff;border-radius:var(--r);padding:14px 16px;margin-bottom:12px;box-shadow:var(--sh)">
+<div style="font-size:14px;font-weight:700;color:var(--a);margin-bottom:10px">🥣 宽窄巷子周边美食补充</div>
+<div style="display:grid;gap:8px">
+
+<div style="padding:10px 12px;background:var(--al);border-radius:10px">
+<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:13px;font-weight:700;color:var(--g900)">无名蛋烘糕</div><div style="font-size:11px;color:var(--g500)">小吃 · ¥3-5</div></div>
+<div style="font-size:11px;color:var(--g700);margin-top:4px">窄巷支巷小推车，限量300个/天，现烤焦糖脆边</div>
+<div style="font-size:11px;color:var(--p);margin-top:2px">必点：奶油肉松、芝麻花生馅</div>
+</div>
+
+<div style="padding:10px 12px;background:var(--al);border-radius:10px">
+<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:13px;font-weight:700;color:var(--g900)">轩轩小院</div><div style="font-size:11px;color:var(--g500)">川菜 · ¥110左右</div></div>
+<div style="font-size:11px;color:var(--g700);margin-top:4px">宽窄巷子最正宗川菜，黑珍珠主厨出品</div>
+<div style="font-size:11px;color:var(--p);margin-top:2px">必点：宫保鸡丁、麻婆豆腐、豆瓣鱼</div>
+</div>
+
+<div style="padding:10px 12px;background:var(--al);border-radius:10px">
+<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:13px;font-weight:700;color:var(--g900)">洞子口张老二</div><div style="font-size:11px;color:var(--g500)">小吃 · ¥15-20</div></div>
+<div style="font-size:11px;color:var(--g700);margin-top:4px">本地人从小吃到大的甜水面</div>
+<div style="font-size:11px;color:var(--p);margin-top:2px">必点：甜水面、白凉粉、老鹰茶</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+
+<!-- ========== 住宿 ========== -->
 <div id="ho" class="s">
-<div class="st">🚗 住宿交通</div>
+<div class="st">🚗🏨 交通+住宿</div>
 
 <div style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--p)">🚗 交通明细</div>
 <table class="dt2"><thead><tr><th>天</th><th>类别</th><th>路段</th><th>方式</th><th>费用/人</th><th>状态</th></tr></thead><tbody>
@@ -469,7 +495,7 @@ body.share-mode #todoSection{display:none!important}
 
 <div style="font-size:13px;font-weight:600;margin:16px 0 8px;color:var(--p)">🏨 住宿详情</div>
 
-<div style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:0 2px 12px rgba(44,42,40,.08);border-left:4px solid var(--g)">
+<div style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:var(--sh);border-left:4px solid var(--g)">
 <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
 <div>
 <div style="font-size:15px;font-weight:700;color:var(--g)">🏔️ 青禾和院</div>
@@ -488,7 +514,7 @@ body.share-mode #todoSection{display:none!important}
 </div>
 </div>
 
-<div style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:0 2px 12px rgba(44,42,40,.08);border-left:4px solid var(--b)">
+<div style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:var(--sh);border-left:4px solid var(--b)">
 <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
 <div>
 <div style="font-size:15px;font-weight:700;color:var(--b)">🏙️ 汉庭宽窄巷子中心店</div>
@@ -511,12 +537,12 @@ body.share-mode #todoSection{display:none!important}
 <div class="st">💳 分账收款 · 谁付了谁欠谁</div>
 <div class="al ali">💡 记账时选👥2人的项目，系统自动算出对方该给你多少</div>
 
-<div id="splitSummary" style="background:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:0 2px 12px rgba(44,42,40,.08)">
+<div id="splitSummary" style="background:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--sh)">
 <div style="font-size:14px;font-weight:700;margin-bottom:12px;color:var(--p)">📊 收款总览</div>
 <div id="splitOverview"></div>
 </div>
 
-<div style="background:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:0 2px 12px rgba(44,42,40,.08)">
+<div style="background:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--sh)">
 <div style="font-size:13px;font-weight:600;margin-bottom:10px">📋 逐笔明细</div>
 <div style="display:flex;font-size:11px;color:var(--g500);padding:6px 0;border-bottom:1px solid var(--g100);font-weight:600">
 <div style="width:10%">日期</div>
@@ -540,14 +566,14 @@ body.share-mode #todoSection{display:none!important}
 
 <!-- ========== 彩蛋 ========== -->
 <div id="eg" class="s">
-<div class="st">🎈 行程彩蛋清单</div>
+<div class="st">🎁 彩蛋清单</div>
 <div id="eggsContainer"></div>
 </div>
 
 <div id="ti" class="s">
 <div class="st">🎫 抢票时间轴</div>
 <table class="dt2"><thead><tr><th>优先级</th><th>事项</th><th>时间</th></tr></thead><tbody id="ticketTimeline"></tbody></table>
-<div class="st" style="margin-top:16px">⚠ 出行提醒</div>
+<div class="st" style="margin-top:16px">📌 重要注意事项</div>
 <div id="tipsContainer"></div>
 </div>
 </div><!-- end .c -->
@@ -568,35 +594,23 @@ body.share-mode #todoSection{display:none!important}
 <button class="a2hs-later" onclick="dismissA2HS()">稍后</button>
 </div>
 
-<button id="aboutFab" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="position:fixed;bottom:72px;right:12px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--pl),var(--accent-l));border:2px solid rgba(0,0,0,.06);box-shadow:0 2px 12px rgba(0,0,0,.12);font-size:18px;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:transform .2s" title="回到顶部">⬆</button>
+<button id="aboutFab" onclick="sh('ab')" style="position:fixed;bottom:72px;right:12px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--pl),var(--accent-l));border:2px solid rgba(0,0,0,.06);box-shadow:0 2px 12px rgba(0,0,0,.12);font-size:18px;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;transition:transform .2s" title="小序 · 介绍">📖</button>
 <div class="bottom-bar">
-<button onclick="sh('ab');setBottom(this)"><span class="bi">📖</span>简介</button>
-<button class="on" onclick="sh('it');setBottom(this)"><span class="bi">📅</span>行程</button>
-<button data-share="hide" onclick="sh('fo');setBottom(this)"><span class="bi">🍲</span>美食</button>
-<button data-share="hide" onclick="sh('ti');setBottom(this)"><span class="bi">⚠</span>提醒</button>
+<button onclick="sh('ab');setBottom(this)"><span class="bi">📖</span>关于</button>
+<button class="on" onclick="sh('it');setBottom(this)"><span class="bi">📋</span>行程</button>
+<button onclick="sh('fo');setBottom(this)"><span class="bi">🍜</span>美食</button>
+<button onclick="sh('ti');setBottom(this)"><span class="bi">📌</span>贴士</button>
 </div>
 <script>
 // Format money: 2 decimals + thousands separator
 function fmt(n){return n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}
 
-// ===== Expense data ===== (all per-person amounts)
-const BUDGET = {flight:1960,train:375,local:400,ticket:757,hotel:683.5,food:600,entertain:280,shop:500}; // Per-person, overridden by data.json
-const BUDGET_TOTAL = Object.values(BUDGET).reduce((a,b)=>a+b,0); // 5500
-const BUDGET_NOTES = {
-  flight:'上海↔成都往返',
-  train:'成都东↔松潘、成都东↔广汉北、犀浦↔都江堰',
-  local:'地铁、包车（九寨→黄龙）、直通车、打车',
-  ticket:'九寨沟、黄龙、三星堆、都江堰、武侯祠、梨园会馆（不含青城山）',
-  hotel:'青禾和院2晚 + 汉庭3晚',
-  food:'正餐、小吃、茶馆、干粮',
-  entertain:'蜀风雅韵川剧、清吧',
-  shop:'伴手礼'
-};
-const CAT_MAP = {'✈️':'flight','🚄':'train','🚌':'local','🎫':'ticket','🏨':'hotel','🍜':'food','🎭':'entertain','🛒':'shop'};
+// ===== Expense data =====
+const BUDGET = {flight:1960,train:300,local:350,ticket:822,hotel:684,food:600,entertain:300,shop:400,other:200}; // Will be overridden by data.json
+const BUDGET_TOTAL = Object.values(BUDGET).reduce((a,b)=>a+b,0);
+const CAT_MAP = {'✈️':'flight','🚄':'train','🚌':'local','🎫':'ticket','🏨':'hotel','🍜':'food','🎭':'entertain','🛒':'shop','📦':'other'};
 
 let expenses = JSON.parse(localStorage.getItem('sc_expenses')||'[]');
-let expDayFilter='all';
-let spDayFilter='all';
 
 // Pre-fill: only on first visit (empty). Version bumps NEVER overwrite user data.
 const DATA_VERSION = 4;
@@ -682,7 +696,6 @@ function clearExpenses(){
 
 function renderExpenses(){
   const list=document.getElementById('expenseList');
-  if(!list)return;
   if(expenses.length===0){list.innerHTML='<div style="text-align:center;padding:20px;color:var(--g500);font-size:13px">还没有记录，花一笔记一笔 ✏️</div>';renderBudget();return}
   const totalAll=expenses.reduce((s,e)=>s+e.amt,0);
   const totalPpl1=expenses.filter(e=>e.ppl===1).reduce((s,e)=>s+e.amt,0);
@@ -754,7 +767,7 @@ function editExpense(id,field){
     if(!v.trim()){toast('描述不能为空');return}
     e.desc=v.trim();
   }else if(field==='cat'){
-    const v=prompt('修改分类 (✈️🚄🚌🎫🏨🍜🎭🛒):',e.cat);
+    const v=prompt('修改分类 (✈️🚄🚌🎫🏨🍜🎭🛒📦):',e.cat);
     if(v===null)return;
     e.cat=v;
   }
@@ -775,10 +788,6 @@ function sh(id){
   document.querySelectorAll('.bottom-bar button').forEach(b=>b.classList.remove('on'));
   const botBtn=document.querySelector('.bottom-bar button[onclick*="'+id+'"]');
   if(botBtn) botBtn.classList.add('on');
-  // Render budget when switching to budget tab
-  if(id==='bu' && typeof renderBudget==='function') renderBudget();
-  // Render bookkeeping when switching to bookkeeping tab
-  if(id==='ex' && typeof renderBookList==='function') renderBookList();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function setBottom(btn){
@@ -798,14 +807,6 @@ function renderTime(timeStr) {
   return `<div class="tt">${timeStr}</div>`;
 }
 
-// Color status text: 已买/已付/已订→green, 待买/待约/待抢→orange, 提醒/注意/务必→red
-function colorStatus(text) {
-  return text
-    .replace(/(已买|已付|已订|已购|✅)/g, '<span class="st-paid">$1</span>')
-    .replace(/(待买|待约|待抢|待定|⏳)/g, '<span class="st-wait">$1</span>')
-    .replace(/(提醒|注意|务必|⚠️|❗)/g, '<span class="st-alert">$1</span>');
-}
-
 function renderItem(item, showDrag) {
   let html = '<div class="ti">';
   if (showDrag) {
@@ -814,18 +815,18 @@ function renderItem(item, showDrag) {
   html += renderTime(item.time);
   html += `<div class="td ${item.dot||''}"></div>`;
   html += '<div class="tc">';
-  html += `<div class="t" contenteditable="true">${colorStatus(item.title)}</div>`;
+  html += `<div class="t" contenteditable="true">${item.title}</div>`;
   if (item.tag) {
     html += `<span class="tg ${item.tag}">${item.tagText}</span>`;
   }
   if (item.desc) {
-    html += `<div class="d" contenteditable="true">${colorStatus(item.desc.replace(/\n/g,'<br>'))}</div>`;
+    html += `<div class="d" contenteditable="true">${item.desc.replace(/\n/g,'<br>')}</div>`;
   }
   if (item.note) {
-    html += `<div class="note" contenteditable="true">${colorStatus(item.note)}</div>`;
+    html += `<div class="note" contenteditable="true">${item.note}</div>`;
   }
   if (item.cost) {
-    html += `<div class="cost" contenteditable="true">${colorStatus(item.cost)}</div>`;
+    html += `<div class="cost" contenteditable="true">${item.cost}</div>`;
   }
   if (item.egg) {
     html += `<div class="egg" contenteditable="true">${item.egg.replace(/\n/g,'<br>')}</div>`;
@@ -835,7 +836,7 @@ function renderItem(item, showDrag) {
 }
 
 function renderDay(day) {
-  let html = `<div class="dc">`;
+  let html = `<div class="dc${day.open?' open':''}">`;
   html += `<div class="dh" onclick="tg(this)">`;
   html += `<div class="db ${day.color}"><span class="n">${day.day}</span><span class="l">${day.date}</span></div>`;
   html += `<div class="di"><h3 contenteditable="true">${day.title}</h3><div class="ds" contenteditable="true">${day.sub}</div></div>`;
@@ -844,26 +845,14 @@ function renderDay(day) {
   html += '<div class="tl">';
 
   if (day.hasWeatherSplit) {
-    // Sunny - collapsible
-    html += '<div style="margin-bottom:8px">';
-    html += '<div onclick="var c=this.nextElementSibling;c.style.display=c.style.display===\'none\'?\'block\':\'none\';this.querySelector(\'.ws-arrow\').textContent=c.style.display===\'none\'?\'▶\':\'▼\'" style="display:flex;align-items:center;gap:6px;padding:8px 10px;background:linear-gradient(90deg,#FFF8EC,#FFF);border-radius:8px;cursor:pointer;margin-bottom:6px;border-left:3px solid var(--a)">';
-    html += '<span style="font-size:13px;font-weight:700">☀️ 晴天方案</span><span class="ws-arrow" style="font-size:10px;color:var(--g500)">▶</span></div>';
-    html += '<div style="display:none">';
+    // Sunny
+    html += '<div class="ti"><div class="tt"></div><div class="td" style="background:var(--a)"></div><div class="tc"><div class="t">☀️ 晴天方案</div></div></div>';
     (day.sunny||[]).forEach(item => { html += renderItem(item, true); });
-    html += '</div></div>';
-    // Rainy - collapsible
-    html += '<div style="margin-bottom:8px">';
-    html += '<div onclick="var c=this.nextElementSibling;c.style.display=c.style.display===\'none\'?\'block\':\'none\';this.querySelector(\'.ws-arrow\').textContent=c.style.display===\'none\'?\'▶\':\'▼\'" style="display:flex;align-items:center;gap:6px;padding:8px 10px;background:linear-gradient(90deg,var(--bl),#fff);border-radius:8px;cursor:pointer;margin-bottom:6px;border-left:3px solid var(--b)">';
-    html += '<span style="font-size:13px;font-weight:700">🌧️ 雨天方案</span><span class="ws-arrow" style="font-size:10px;color:var(--g500)">▶</span></div>';
-    html += '<div style="display:none">';
+    // Rainy
+    html += '<div class="ti"><div class="tt" style="margin-top:10px"></div><div class="td" style="background:var(--b)"></div><div class="tc"><div class="t">🌧️ 雨天方案</div></div></div>';
     (day.rainy||[]).forEach(item => { html += renderItem(item, true); });
-    html += '</div></div>';
   } else {
     (day.items||[]).forEach(item => { html += renderItem(item, true); });
-  }
-
-  if (day.dayNote) {
-    html += '<div style="margin:10px 12px 6px;padding:12px 14px;background:var(--al);border-radius:10px;border-left:3px solid var(--a);font-size:12px;line-height:1.7;color:var(--g700);white-space:pre-line">' + day.dayNote + '</div>';
   }
 
   html += '</div></div>';
@@ -873,57 +862,20 @@ function renderDay(day) {
 function renderItinerary(data) {
   const container = document.getElementById('itineraryContainer');
   if (!container) return;
-  const days = data.days || [];
-  const dayDates = {D1:'6/13',D2:'6/14',D3:'6/15',D4:'6/16',D5:'6/17',D6:'6/18'};
-  const dayLabels = {D1:'飞渡入川栖沟',D2:'漫游九寨观水',D3:'黄龙瑶池夜归',D4:'古蜀三星听戏',D5:'问道拜水市井',D6:'文殊禅茶归途'};
-  const dayColors = {D1:'d1',D2:'d2',D3:'d3',D4:'d4',D5:'d5',D6:'d6'};
-  // Day tabs bar
-  let html = '<div class="day-tabs">';
-  days.forEach(day => {
-    const cls = dayColors[day.day] || 'd1';
-    const date = dayDates[day.day] || day.date || '';
-    const label = dayLabels[day.day] || day.day;
-    html += `<div class="day-tab ${cls}" onclick="switchDay('${day.day}')">${label} <span class="dt-date">${date}</span></div>`;
-  });
-  html += '</div>';
-  // Day cards
-  days.forEach(day => { html += renderDay(day); });
+  let html = '';
+  (data.days||[]).forEach(day => { html += renderDay(day); });
   container.innerHTML = html;
   // Update subtitle
   const sub = document.getElementById('tripSub');
-  if (sub && data.tripSub) { sub.textContent = data.tripSub; sub.style.fontSize='11px'; }
-}
-
-function switchDay(dayId) {
-  // Update tab highlight
-  document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('on'));
-  const tab = document.querySelector(`.day-tab[onclick*="'${dayId}'"]`);
-  if (tab) tab.classList.add('on');
-  const isPC = window.innerWidth >= 769;
-  document.querySelectorAll('.dc').forEach(dc => {
-    const dayLabel = dc.querySelector('.db .n');
-    const match = dayLabel && dayLabel.textContent.trim() === dayId;
-    if (isPC) {
-      // PC: show only selected day via day-active class
-      dc.classList.toggle('day-active', match);
-    } else {
-      // Mobile: expand/collapse
-      if (match) {
-        dc.classList.add('open');
-        dc.scrollIntoView({behavior:'smooth', block:'start'});
-      } else {
-        dc.classList.remove('open');
-      }
-    }
-  });
+  if (sub && data.tripSub) sub.textContent = data.tripSub;
 }
 
 // ===== Load data.json =====
 async function loadTripData(retryCount = 0) {
   try {
     const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 10000);
-    const resp = await fetch('data.json?v=' + Date.now(), {signal: ctrl.signal});
+    const timer = setTimeout(() => ctrl.abort(), 5000);
+    const resp = await fetch('data.json', {signal: ctrl.signal});
     clearTimeout(timer);
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     tripData = await resp.json();
@@ -935,7 +887,6 @@ async function loadTripData(retryCount = 0) {
       localStorage.removeItem('sc_itinerary_edits');
       localStorage.removeItem('sc_expenses');
       localStorage.removeItem('sc_version');
-      localStorage.removeItem('todos');
       localStorage.setItem('sc_data_version', tripData.version);
     }
   } catch(e) {
@@ -975,7 +926,6 @@ async function loadTripData(retryCount = 0) {
 function renderEggs(data) {
   const container = document.getElementById('eggsContainer');
   if (!container || !data.eggs) return;
-  if(!container)return;
   container.innerHTML = data.eggs.map(e =>
     `<div class="ec"><div class="ei">${e.icon}</div><div><div class="et"><b>${e.title}</b>：${e.desc}</div><div class="ed">${e.day}</div></div></div>`
   ).join('');
@@ -984,7 +934,6 @@ function renderEggs(data) {
 function renderTicketTimeline(data) {
   const tbody = document.getElementById('ticketTimeline');
   if (!tbody || !data.ticketTimeline) return;
-  if(!tbody)return;
   tbody.innerHTML = data.ticketTimeline.map(t =>
     `<tr><td>${t.priority} ${t.level}</td><td>${t.item}</td><td>${t.time}</td></tr>`
   ).join('');
@@ -993,79 +942,15 @@ function renderTicketTimeline(data) {
 function renderTips(data) {
   const container = document.getElementById('tipsContainer');
   if (!container || !data.tips) return;
-  let html = data.tips.map(t =>
+  container.innerHTML = data.tips.map(t =>
     `<div class="tc2"><h4>${t.icon} ${t.title}</h4><p>${t.desc.replace(/\n/g,'<br>')}</p></div>`
   ).join('');
-  // Add task level guide
-  html += `<div class="tc2" style="border-left:3px solid var(--p);margin-top:12px">
-    <h4>🎯 任务分级指南</h4>
-    <div style="font-size:11px;color:var(--g700);line-height:1.6">
-      <div style="margin-bottom:6px"><span style="font-weight:700;color:#C03020">🔴【A】关键任务</span><br>务必准时完成，直接影响行程体验。<br>例：抢三星堆门票、预约博物馆、购买川剧票</div>
-      <div style="margin-bottom:6px"><span style="font-weight:700;color:#B8860B">🟡【B】重要任务</span><br>需提前1-2天或当天处理，不影响核心行程但建议完成。<br>例：购买黄龙门票、城际高铁票、都江堰门票</div>
-      <div><span style="font-weight:700;color:#2E8B57">🟢【C】备选/机动</span><br>行程变更时才需关注。<br>例：青城山备选方案</div>
-    </div>
-  </div>`;
-  container.innerHTML = html;
 }
 
 function renderAllExtras(data) {
   renderEggs(data);
   renderTicketTimeline(data);
   renderTips(data);
-  renderFoodPools(data);
-}
-
-// ===== Render food pools from data.json =====
-function renderFoodPools(data) {
-  const container = document.getElementById('foodPoolsContainer');
-  if (!container || !data.foodPools) return;
-  const pools = data.foodPools;
-  const poolColors = ['#4A8FD9','#F0A030','#D4583A','#2E8B57'];
-
-  let html = '';
-  pools.forEach((pool, idx) => {
-    const color = poolColors[idx % poolColors.length];
-    html += `<div style="background:#fff;border-radius:var(--r);margin-bottom:10px;box-shadow:0 2px 12px rgba(44,42,40,.08);overflow:hidden">`;
-    // Header - clickable to expand
-    html += `<div onclick="var d=this.nextElementSibling;d.style.display=d.style.display==='none'?'block':'none';this.querySelector('.fp-arrow').textContent=d.style.display==='none'?'▶':'▼'" style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;cursor:pointer;border-left:4px solid ${color}">`;
-    html += `<div><span style="font-size:16px;margin-right:6px">${pool.icon}</span><span style="font-size:14px;font-weight:700">${pool.title}</span>`;
-    if (pool.subtitle) html += `<span style="font-size:11px;color:var(--g500);margin-left:6px">${pool.subtitle}</span>`;
-    html += `</div>`;
-    html += `<span class="fp-arrow" style="font-size:10px;color:var(--g500)">▶</span>`;
-    html += `</div>`;
-    // Content - collapsed by default
-    html += `<div style="display:none;padding:0 14px 14px">`;
-    // Principle
-    if (pool.principle) {
-      html += `<div style="font-size:11px;color:var(--g700);background:var(--g100);border-radius:8px;padding:8px 10px;margin-bottom:10px;line-height:1.6">💡 ${pool.principle}</div>`;
-    }
-    // Sections
-    pool.sections.forEach(sec => {
-      html += `<div style="font-size:12px;font-weight:700;color:${color};margin:10px 0 6px">${sec.heading}</div>`;
-      html += `<div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table style="width:100%;border-collapse:collapse;font-size:11px;min-width:320px">`;
-      html += `<thead><tr style="border-bottom:2px solid var(--g200);text-align:left"><th style="padding:4px 6px;font-weight:600">店名</th><th style="padding:4px 6px;font-weight:600">特色</th><th style="padding:4px 6px;font-weight:600;width:60px">人均</th><th style="padding:4px 6px;font-weight:600">位置</th></tr></thead><tbody>`;
-      sec.rows.forEach(row => {
-        html += `<tr style="border-bottom:1px solid var(--g100)">`;
-        html += `<td style="padding:5px 6px;font-weight:600;white-space:nowrap">${row.name}</td>`;
-        html += `<td style="padding:5px 6px">${row.specialty}</td>`;
-        html += `<td style="padding:5px 6px;color:var(--p);font-weight:600;white-space:nowrap">${row.price}</td>`;
-        html += `<td style="padding:5px 6px;color:var(--g500)">${row.location}</td>`;
-        html += `</tr>`;
-      });
-      html += `</tbody></table></div>`;
-    });
-    // Must try
-    if (pool.mustTry) {
-      html += `<div style="margin-top:10px;padding:8px 10px;background:linear-gradient(135deg,var(--pl),var(--al));border-radius:8px;font-size:11px;line-height:1.6"><b style="color:var(--p)">🔥 必点：</b>${pool.mustTry}</div>`;
-    }
-    // Tips
-    if (pool.tips) {
-      html += `<div style="margin-top:6px;font-size:10px;color:var(--g500);line-height:1.5">📌 ${pool.tips}</div>`;
-    }
-    html += `</div></div>`;
-  });
-
-  container.innerHTML = html;
 }
 
 // ===== Auto-save page edits to localStorage =====
@@ -1128,42 +1013,18 @@ function tg(el){el.closest('.dc').classList.toggle('open')}
 
 // ===== Todo + Bookkeeping =====
 const DEFAULT_TODOS = [
-  {id:"2",text:"预约成都博物馆（雨天备选）",deadline:"2026-06-10",keyword:null,date:"2026-06-17",level:"A",completed:false},
-  {id:"1",text:"抢三星堆门票",deadline:"2026-06-11 20:00",keyword:"三星堆",date:"2026-06-16",level:"A",completed:false},
-  {id:"4",text:"黄龙门票+索道",deadline:"2026-06-13",keyword:"黄龙",date:"2026-06-15",level:"B",completed:false},
-  {id:"3",text:"买梨园会馆川剧票",deadline:"2026-06-14",keyword:"梨园会馆",date:"2026-06-17",level:"A",completed:false},
-  {id:"6",text:"购买成都东→广汉北高铁票",deadline:"2026-06-16",keyword:"广汉北",date:"2026-06-16",level:"B",completed:false},
-  {id:"8",text:"备选：青城山（如改去）",deadline:"2026-06-16",keyword:"青城山",date:"2026-06-17",level:"C",completed:false},
-  {id:"5",text:"都江堰门票（带身份证）",deadline:"2026-06-17",keyword:"都江堰",date:"2026-06-17",level:"B",completed:false},
-  {id:"7",text:"购买犀浦→都江堰高铁票",deadline:"2026-06-17",keyword:"都江堰",date:"2026-06-17",level:"B",completed:false}
+  {id:"1",text:"抢三星堆门票",deadline:"6/11 20:00",keyword:"三星堆",completed:false},
+  {id:"2",text:"预约成都博物馆（雨天备选）",deadline:"6/10",keyword:null,completed:false},
+  {id:"3",text:"买梨园会馆川剧票",deadline:"提前1-3天",keyword:"梨园会馆",completed:false},
+  {id:"4",text:"黄龙门票+索道",deadline:"提前1-2天",keyword:"黄龙",completed:false},
+  {id:"5",text:"都江堰门票（带身份证）",deadline:"当天现场",keyword:"都江堰",completed:false},
+  {id:"6",text:"备选：青城山（如去）",deadline:"提前规划",keyword:"青城山",completed:false}
 ];
 
 function getTodos() {
-  const TODO_VER = 3;
-  const savedVer = parseInt(localStorage.getItem('sc_todo_ver') || '0');
   const raw = localStorage.getItem('todos');
-  let stored = null;
-  if (raw) try { stored = JSON.parse(raw); } catch(e) {}
-  // Force reset if version outdated or data missing level field
-  if (!stored || stored.length === 0 || savedVer < TODO_VER || (stored.length > 0 && !stored[0].level)) {
-    stored = JSON.parse(JSON.stringify(DEFAULT_TODOS));
-    localStorage.setItem('todos', JSON.stringify(stored));
-    localStorage.setItem('sc_todo_ver', String(TODO_VER));
-    return stored;
-  }
-  // Merge: add level/date from DEFAULT_TODOS, add new items
-  const defMap = {};
-  DEFAULT_TODOS.forEach(d => { defMap[d.text] = d; });
-  const storedTexts = new Set(stored.map(t => t.text));
-  DEFAULT_TODOS.forEach(d => { if (!storedTexts.has(d.text)) stored.push({...d}); });
-  stored.forEach(t => {
-    const def = defMap[t.text];
-    if (def) { if (!t.level) t.level = def.level; if (!t.date) t.date = def.date; }
-    if (!t.level) t.level = 'C';
-  });
-  localStorage.setItem('todos', JSON.stringify(stored));
-  localStorage.setItem('sc_todo_ver', String(TODO_VER));
-  return stored;
+  if (raw) try { return JSON.parse(raw); } catch(e) {}
+  return JSON.parse(JSON.stringify(DEFAULT_TODOS));
 }
 function saveTodos(todos) { localStorage.setItem('todos', JSON.stringify(todos)); }
 
@@ -1174,50 +1035,17 @@ function renderTodos() {
   if (!banner || !list) return;
   if (todos.length === 0) { banner.style.display = 'none'; return; }
   banner.style.display = 'block';
-  const levelDot = {A:'🔴',B:'🟡',C:'🟢'};
-  const levelColor = {A:'#C03020',B:'#B8860B',C:'#2E8B57'};
-  const levelBorder = {A:'#E85040',B:'#E8A838',C:'#4CAF7D'};
-  // Sort: by deadline first, then by level
-  const levelOrder = {A:0,B:1,C:2};
-  todos.sort((a,b) => {
-    const da = a.deadline || '9999-12-31';
-    const db = b.deadline || '9999-12-31';
-    if (da !== db) return da.localeCompare(db);
-    return (levelOrder[a.level||'C']||2) - (levelOrder[b.level||'C']||2);
-  });
-  // Group by deadline date
-  const groups = {};
-  todos.forEach(t => {
-    const dl = (t.deadline || '待定').replace(/\s.*/,''); // "2026-06-11 20:00" → "2026-06-11"
-    if (!groups[dl]) groups[dl] = [];
-    groups[dl].push(t);
-  });
-  const sortedDeadlines = Object.keys(groups).sort();
-  const deadlineColors = ['#C4553A','#2D8B5F','#E8A838','#4A90D9','#9C5AB5','#5B7FA5','#D4583A','#2E8B57'];
-  let html = '';
-  sortedDeadlines.forEach((dl,idx) => {
-    const color = deadlineColors[idx % deadlineColors.length];
-    const dlShort = dl.replace(/^2026-/,'').replace(/-/,'/');
-    const label = dl.startsWith('20') ? '⏰ '+dlShort+' 前完成' : dl;
-    html += '<div style="background:#fff;border-radius:var(--r);box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:8px;overflow:hidden;border:1px solid rgba(0,0,0,.04)">';
-    html += '<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:linear-gradient(135deg,'+color+','+color+'cc);color:#fff">';
-    html += '<span style="font-size:12px;font-weight:700">'+label+'</span>';
-    html += '<span style="margin-left:auto;font-size:10px;opacity:.7">'+groups[dl].length+'项</span>';
+  list.innerHTML = todos.map(t => {
+    let html = '<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">';
+    html += '<span style="color:var(--p)">🔴</span>';
+    html += '<span>' + t.text + '</span>';
+    html += '<span style="font-size:10px;color:var(--g500)">' + t.deadline + '</span>';
+    if (t.keyword === null) {
+      html += '<button onclick="completeTodo(\''+t.id+'\')" style="margin-left:auto;padding:2px 8px;border:1px solid var(--g);border-radius:6px;background:#fff;color:var(--g);font-size:11px;cursor:pointer">✅</button>';
+    }
     html += '</div>';
-    groups[dl].forEach(t => {
-      const lv = t.level || 'C';
-      html += '<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--g100)">';
-      html += '<span style="font-size:10px;font-weight:700;color:'+levelColor[lv]+';border:1.5px solid '+levelBorder[lv]+';border-radius:4px;padding:1px 4px;line-height:1.2">'+levelDot[lv]+lv+'</span>';
-      html += '<span style="flex:1;font-size:12px;color:var(--g900)">' + t.text + '</span>';
-      const dl = t.deadline || '';
-      const dlShort = dl.replace(/^2026-/,'').replace(/-/,'/');
-      html += '<span style="font-size:10px;color:var(--g500);white-space:nowrap">⏰ ' + dlShort + '</span>';
-      html += '<button onclick="completeTodo(\''+t.id+'\')" style="padding:2px 8px;border:1px solid var(--g300);border-radius:6px;background:#fff;color:var(--g700);font-size:11px;cursor:pointer">✅</button>';
-      html += '</div>';
-    });
-    html += '</div>';
-  });
-  list.innerHTML = html;
+    return html;
+  }).join('');
 }
 
 function completeTodo(id) {
@@ -1276,26 +1104,14 @@ function addBookEntry() {
   expenses.push({
     id: Date.now() + Math.random(),
     date: date || new Date().toISOString().slice(0,10),
-    cat, desc, amount: amt, payer, participants,
-    settled: false // New: default unsettled
+    cat, desc, amount: amt, payer, participants
   });
   saveExpenses(expenses);
   document.getElementById('bkAmt').value = '';
   document.getElementById('bkDesc').value = '';
   renderBookList();
   checkTodoLinkage(desc);
-  toast('已记录 📝');
-}
-
-function toggleSettled(id) {
-  let expenses = getExpenses();
-  const e = expenses.find(x => x.id === id);
-  if (e) {
-    e.settled = !e.settled;
-    saveExpenses(expenses);
-    renderBookList();
-    toast(e.settled ? '已确认收款 ✅' : '已取消确认');
-  }
+  toast('已记录 ✅');
 }
 
 function delBookEntry(id) {
@@ -1304,6 +1120,33 @@ function delBookEntry(id) {
   saveExpenses(expenses);
   renderBookList();
   uncheckTodoLinkage();
+}
+
+function editBookEntry(id, field) {
+  let expenses = getExpenses();
+  const e = expenses.find(x => x.id === id);
+  if (!e) return;
+  if (field === 'amt') {
+    const v = prompt('修改金额:', e.amount);
+    if (v === null) return;
+    const n = parseFloat(v);
+    if (isNaN(n) || n <= 0) { toast('请输入有效金额'); return; }
+    e.amount = n;
+  } else if (field === 'desc') {
+    const v = prompt('修改描述:', e.desc);
+    if (v === null) return;
+    if (!v.trim()) { toast('描述不能为空'); return; }
+    e.desc = v.trim();
+  } else if (field === 'payer') {
+    const v = prompt('修改付款人 (甲/乙):', e.payer);
+    if (v === null) return;
+    if (v.trim() !== '甲' && v.trim() !== '乙') { toast('请输入甲或乙'); return; }
+    e.payer = v.trim();
+  }
+  saveExpenses(expenses);
+  renderBookList();
+  renderBudget();
+  toast('✅ 已更新');
 }
 
 function renderBookList() {
@@ -1320,6 +1163,7 @@ function renderBookList() {
   const weekDays = ['日','一','二','三','四','五','六'];
 
   let html = '';
+  let totalPaid = {甲:0, 乙:0}, totalOwed = {甲:0, 乙:0}, grandTotal = 0;
 
   sortedDates.forEach(date => {
     const items = groups[date];
@@ -1327,47 +1171,40 @@ function renderBookList() {
     const dayStr = '周' + weekDays[d.getDay()];
 
     // Daily calc
-    let dayTotal = 0;
-    items.forEach(e => { dayTotal += e.amount; });
-
-    // Count settled/unsettled
-    const settledCount = items.filter(e => e.settled).length;
-    const unsettledCount = items.length - settledCount;
-
-    html += '<div style="background:#fff;border-radius:var(--r);margin-bottom:8px;box-shadow:0 2px 12px rgba(44,42,40,.08);overflow:hidden">';
-    // Header - always visible, clickable to expand
-    html += '<div onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display===\'none\'?\'block\':\'none\';this.querySelector(\'.arrow\').textContent=this.nextElementSibling.style.display===\'none\'?\'▶\':\'▼\'" style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;cursor:pointer">';
-    html += '<div><span style="font-size:13px;font-weight:700">📅 ' + date + ' (' + dayStr + ')</span>';
-    html += '<span style="font-size:11px;color:var(--g500);margin-left:8px">¥' + dayTotal.toFixed(0) + '</span></div>';
-    html += '<div style="display:flex;align-items:center;gap:6px">';
-    if (unsettledCount > 0) html += '<span style="font-size:10px;color:var(--p);background:var(--pl);padding:1px 6px;border-radius:4px">' + unsettledCount + '笔待收</span>';
-    if (settledCount > 0) html += '<span style="font-size:10px;color:var(--g);background:var(--gl);padding:1px 6px;border-radius:4px">' + settledCount + '笔已收</span>';
-    html += '<span class="arrow" style="font-size:10px;color:var(--g500)">▶</span>';
-    html += '</div></div>';
-
-    // Detail items - collapsed by default
-    html += '<div style="display:none;padding:0 12px 10px">';
+    let dayPaid = {甲:0, 乙:0}, dayOwed = {甲:0, 乙:0}, dayTotal = 0;
     items.forEach(e => {
-      const share = (e.amount / e.participants.length).toFixed(0);
-      const isSettled = e.settled === true;
-      const rowStyle = isSettled
-        ? 'display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--g100);font-size:12px;opacity:.5'
-        : 'display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--g100);font-size:12px';
-      const settleBtn = isSettled
-        ? '<span style="font-size:11px;color:var(--g);font-weight:600;cursor:pointer" onclick="event.stopPropagation();toggleSettled(' + e.id + ')">✅已收</span>'
-        : '<span style="font-size:11px;color:var(--p);font-weight:600;cursor:pointer;padding:2px 6px;background:var(--pl);border-radius:4px" onclick="event.stopPropagation();toggleSettled(' + e.id + ')">💰待收</span>';
-
-      html += '<div style="' + rowStyle + '">';
-      html += '<div style="flex:1;min-width:0">';
-      html += '<div>' + (e.cat||'') + ' <b>' + e.desc + '</b> ¥' + e.amount.toFixed(0) + ' <span style="color:var(--g500)">(' + e.payer + '付)</span></div>';
-      html += '<div style="font-size:10px;color:var(--g500)">每人¥' + share + '</div>';
-      html += '</div>';
-      html += '<div style="display:flex;align-items:center;gap:6px;flex-shrink:0">';
-      html += settleBtn;
-      html += '<button onclick="event.stopPropagation();delBookEntry(' + e.id + ')" style="border:none;background:none;color:var(--danger);cursor:pointer;font-size:12px;opacity:.4">✕</button>';
-      html += '</div></div>';
+      dayPaid[e.payer] = (dayPaid[e.payer]||0) + e.amount;
+      const share = e.amount / e.participants.length;
+      e.participants.forEach(p => { dayOwed[p] = (dayOwed[p]||0) + share; });
+      dayTotal += e.amount;
     });
+
+    const dayBalanced = Math.abs((dayPaid['甲']||0) - (dayOwed['甲']||0)) < 0.01 &&
+                        Math.abs((dayPaid['乙']||0) - (dayOwed['乙']||0)) < 0.01;
+    const balanceIcon = dayBalanced ? '✅' : '❗';
+
+    html += '<div style="background:#fff;border-radius:var(--r);padding:12px;margin-bottom:10px;box-shadow:var(--sh)">';
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">';
+    html += '<div style="font-size:13px;font-weight:700">📅 ' + date + ' (' + dayStr + ')</div>';
+    html += '<span style="font-size:14px">' + balanceIcon + '</span></div>';
+
+    items.forEach(e => {
+      const share = (e.amount / e.participants.length).toFixed(2);
+      html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--g100);font-size:12px">';
+      html += '<div>' + (e.cat||'') + ' <b onclick="editBookEntry('+e.id+',\'desc\')" style="cursor:pointer" title="点击修改描述">' + e.desc + '</b> <span onclick="editBookEntry('+e.id+',\'amt\')" style="cursor:pointer;font-weight:700;color:var(--p)" title="点击修改金额">¥' + e.amount.toFixed(0) + '</span> <span onclick="editBookEntry('+e.id+',\'payer\')" style="cursor:pointer;color:var(--g500)" title="点击修改付款人">(' + e.payer + '付)</span> 每人¥' + share + '</div>';
+      html += '<button onclick="delBookEntry(' + e.id + ')" style="border:none;background:none;color:var(--danger);cursor:pointer;font-size:14px">🗑️</button>';
+      html += '</div>';
+    });
+
+    html += '<div style="margin-top:8px;font-size:11px;color:var(--g700);line-height:1.6">';
+    html += '本日总支出：¥' + dayTotal.toFixed(0) + '<br>';
+    html += '甲：已付 ¥' + (dayPaid['甲']||0).toFixed(0) + '，应付 ¥' + (dayOwed['甲']||0).toFixed(0) + '<br>';
+    html += '乙：已付 ¥' + (dayPaid['乙']||0).toFixed(0) + '，应付 ¥' + (dayOwed['乙']||0).toFixed(0);
     html += '</div></div>';
+
+    totalPaid['甲'] += dayPaid['甲']||0; totalPaid['乙'] += dayPaid['乙']||0;
+    totalOwed['甲'] += dayOwed['甲']||0; totalOwed['乙'] += dayOwed['乙']||0;
+    grandTotal += dayTotal;
   });
 
   if (expenses.length === 0) {
@@ -1376,63 +1213,58 @@ function renderBookList() {
 
   container.innerHTML = html;
 
-  // ===== Settlement card: only count settled records =====
-  const settledExpenses = expenses.filter(e => e.settled === true);
-  const unsettledExpenses = expenses.filter(e => e.settled !== true);
-
-  let totalPaid = {甲:0, 乙:0}, totalOwed = {甲:0, 乙:0}, settledTotal = 0;
-  settledExpenses.forEach(e => {
-    totalPaid[e.payer] = (totalPaid[e.payer]||0) + e.amount;
-    const share = e.amount / e.participants.length;
-    e.participants.forEach(p => { totalOwed[p] = (totalOwed[p]||0) + share; });
-    settledTotal += e.amount;
-  });
-
-  let unsettledPaid = {甲:0, 乙:0}, unsettledOwed = {甲:0, 乙:0}, unsettledTotal = 0;
-  unsettledExpenses.forEach(e => {
-    unsettledPaid[e.payer] = (unsettledPaid[e.payer]||0) + e.amount;
-    const share = e.amount / e.participants.length;
-    e.participants.forEach(p => { unsettledOwed[p] = (unsettledOwed[p]||0) + share; });
-    unsettledTotal += e.amount;
-  });
-
+  // Settlement card
   if (settleInfo) {
     const diff = totalPaid['甲'] - totalOwed['甲'];
     const absDiff = Math.abs(diff);
     const who = diff > 0 ? '乙' : '甲';
     const toWho = diff > 0 ? '甲' : '乙';
 
+    // Total display
     const settleTotal = document.getElementById('settleTotal');
-    if (settleTotal) settleTotal.textContent = '已结算 ¥' + settledTotal.toFixed(0) + (unsettledTotal > 0 ? ' · 待结算 ¥' + unsettledTotal.toFixed(0) : '');
+    if (settleTotal) settleTotal.textContent = '总支出 ¥' + grandTotal.toFixed(0) + ' · 人均 ¥' + (grandTotal/2).toFixed(0);
 
+    // Per person breakdown
     let html = '';
-    // Settled breakdown
-    html += '<div style="margin-bottom:6px;font-size:11px;font-weight:700;color:var(--g700)">✅ 已结算</div>';
-    html += '<div style="display:flex;justify-content:space-between;margin-bottom:2px"><span>甲已付 ¥' + (totalPaid['甲']||0).toFixed(0) + '</span><span>应付 ¥' + (totalOwed['甲']||0).toFixed(0) + '</span></div>';
-    html += '<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>乙已付 ¥' + (totalPaid['乙']||0).toFixed(0) + '</span><span>应付 ¥' + (totalOwed['乙']||0).toFixed(0) + '</span></div>';
+    html += '<div style="display:flex;justify-content:space-between;margin-bottom:4px"><span>甲已付 ¥' + totalPaid['甲'].toFixed(0) + '</span><span>应付 ¥' + totalOwed['甲'].toFixed(0) + '</span></div>';
+    html += '<div style="display:flex;justify-content:space-between;margin-bottom:8px"><span>乙已付 ¥' + totalPaid['乙'].toFixed(0) + '</span><span>应付 ¥' + totalOwed['乙'].toFixed(0) + '</span></div>';
 
     if (Math.abs(diff) < 0.01) {
-      html += '<div style="text-align:center;font-size:13px;font-weight:700">🎉 已结算部分账目已平！</div>';
+      html += '<div style="text-align:center;font-size:14px;font-weight:700">🎉 账目已平！</div>';
     } else {
-      html += '<div style="margin-bottom:4px;font-size:12px">💰 ' + who + ' → ' + toWho + ' ¥' + absDiff.toFixed(0) + '</div>';
-    }
+      // Transfer progress bar
+      const settled = parseFloat(localStorage.getItem('settledAmount') || '0');
+      const remaining = Math.max(0, absDiff - settled);
+      const pct = absDiff > 0 ? Math.min(100, Math.round(settled / absDiff * 100)) : 0;
 
-    // Unsettled section
-    if (unsettledTotal > 0) {
-      html += '<div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--g200)">';
-      html += '<div style="margin-bottom:4px;font-size:11px;font-weight:700;color:var(--g700)">⏳ 待结算</div>';
-      html += '<div style="display:flex;justify-content:space-between;margin-bottom:2px;font-size:11px;color:var(--g700)"><span>甲已付 ¥' + (unsettledPaid['甲']||0).toFixed(0) + '</span><span>应付 ¥' + (unsettledOwed['甲']||0).toFixed(0) + '</span></div>';
-      html += '<div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:11px;color:var(--g700)"><span>乙已付 ¥' + (unsettledPaid['乙']||0).toFixed(0) + '</span><span>应付 ¥' + (unsettledOwed['乙']||0).toFixed(0) + '</span></div>';
-      html += '<div style="font-size:10px;color:var(--g500)">💡 点击账目旁「💰待收」确认收款后计入结算</div>';
-      html += '</div>';
-    }
+      html += '<div style="margin-bottom:6px;font-size:12px">💰 ' + who + ' → ' + toWho + ' ¥' + absDiff.toFixed(0) + '</div>';
+      html += '<div style="background:rgba(255,255,255,.2);border-radius:4px;height:8px;margin-bottom:4px;overflow:hidden">';
+      html += '<div style="background:#fff;height:100%;border-radius:4px;width:' + pct + '%;transition:width .3s"></div></div>';
+      html += '<div style="display:flex;justify-content:space-between;font-size:10px;opacity:.8">';
+      html += '<span>已收 ¥' + settled.toFixed(0) + '</span><span>待收 ¥' + remaining.toFixed(0) + '</span></div>';
 
+      // Action area
+      const settleAction = document.getElementById('settleAction');
+      if (settleAction) {
+        if (remaining > 0.01) {
+          settleAction.style.display = 'block';
+          settleAction.innerHTML = '<button onclick="markSettled(' + remaining + ')" style="width:100%;padding:8px;background:rgba(255,255,255,.2);color:#fff;border:1.5px solid rgba(255,255,255,.4);border-radius:8px;font-size:12px;cursor:pointer;font-weight:600">✅ 收到 ¥' + remaining.toFixed(0) + '</button>';
+        } else {
+          settleAction.style.display = 'block';
+          settleAction.innerHTML = '<div style="text-align:center;font-size:13px;font-weight:700">✅ 已全部收回！</div>';
+        }
+      }
+    }
     settleInfo.innerHTML = html;
-
-    // Hide old settle action
-    const settleAction = document.getElementById('settleAction');
-    if (settleAction) settleAction.style.display = 'none';
   }
+}
+
+// ===== Settlement tracking =====
+function markSettled(amount) {
+  const current = parseFloat(localStorage.getItem('settledAmount') || '0');
+  localStorage.setItem('settledAmount', (current + amount).toFixed(2));
+  renderBookList();
+  toast('已确认收款 ✅');
 }
 
 // Init: load data first, then render everything
@@ -1440,13 +1272,8 @@ loadTripData().then(() => {
   setupAutoSave();
   renderTodos();
   renderBookList();
-  renderBudget(); // Ensure budget renders after data.json loads
-  switchDay('D1'); // Default show D1 after itinerary is rendered
   const bkDate = document.getElementById('bkDate');
   if (bkDate && !bkDate.value) bkDate.value = new Date().toISOString().slice(0,10);
-}).catch(err => {
-  console.warn('loadTripData failed, but todos still render:', err);
-  renderTodos(); // Ensure todos render even if data.json fails
 });
 // Set default date
 const bkDate = document.getElementById('bkDate');
@@ -1455,43 +1282,41 @@ if (bkDate && !bkDate.value) bkDate.value = new Date().toISOString().slice(0,10)
 const CAT_NAMES = {
   flight:'✈️ 机票', train:'🚄 高铁/火车', local:'🚌 市内交通',
   ticket:'🎫 门票', hotel:'🏨 住宿', food:'🍜 餐饮',
-  entertain:'🎭 娱乐', shop:'🛒 购物'
+  entertain:'🎭 娱乐', shop:'🛒 购物', other:'📦 其他(机动)'
 };
 
 function renderBudget(){
-  // Calculate actual spending from bookkeeping only (per-person amounts)
-  const actual={flight:0,train:0,local:0,ticket:0,hotel:0,food:0,entertain:0,shop:0};
+  const actual={flight:0,train:0,local:0,ticket:0,hotel:0,food:0,entertain:0,shop:0,other:0};
+  // Include both old expenses and new bookkeeping entries
   const bkExpenses = getExpenses();
   bkExpenses.forEach(e => {
-    const k = CAT_MAP[e.cat] || 'entertain';
+    const k = CAT_MAP[e.cat] || 'other';
     const perPerson = e.amount / e.participants.length;
     actual[k] += perPerson;
   });
+  expenses.forEach(e=>{const k=CAT_MAP[e.cat]||'other';actual[k]+=(e.ppl===2?e.amt/2:e.amt)});
   const actualTotal=Object.values(actual).reduce((a,b)=>a+b,0);
   const pct=BUDGET_TOTAL>0?Math.round(actualTotal/BUDGET_TOTAL*100):0;
 
-  const progPctEl=document.getElementById('progPct');
-  if(progPctEl) progPctEl.textContent=pct+'%';
+  document.getElementById('progPct').textContent=pct+'%';
   const fill=document.getElementById('progFill');
-  if(fill){fill.style.width=Math.min(pct,100)+'%';fill.className='prog-fill '+(pct<70?'green':pct<90?'yellow':'red')}
+  fill.style.width=Math.min(pct,100)+'%';
+  fill.className='prog-fill '+(pct<70?'green':pct<90?'yellow':'red');
 
-  // Update budget total display
-  const budgetTotalEl=document.getElementById('budgetTotal');
-  if(budgetTotalEl) budgetTotalEl.textContent='¥'+BUDGET_TOTAL.toLocaleString();
-  const actualEl = document.getElementById('actualTotal');
-  if(actualEl) actualEl.textContent='¥'+fmt(actualTotal);
-  const actualPctEl = document.getElementById('actualPct');
-  if(actualPctEl) actualPctEl.textContent=pct+'%';
+  // Update budget total display from data.json
+  if(tripData && tripData.budgetPerPerson){
+    document.getElementById('budgetTotal').textContent='¥'+tripData.budgetPerPerson.toLocaleString();
+  }
 
   // ===== Render visual chart =====
   const chartEl = document.getElementById('budgetChart');
   if(chartEl){
-    const keys = Object.keys(CAT_NAMES).filter(k=>BUDGET[k]>0); // Skip zero-budget categories
+    const keys = Object.keys(CAT_NAMES);
     const maxBudget = Math.max(...keys.map(k=>BUDGET[k]||0));
     const colors = {
       flight:'#4A8FD9', train:'#5BA3E6', local:'#7CB9E8',
       ticket:'#D4583A', hotel:'#F0A030', food:'#E87050',
-      entertain:'#7C5CFC', shop:'#2E8B57'
+      entertain:'#7C5CFC', shop:'#2E8B57', other:'#8C8A80'
     };
     let chartHtml = '<div style="font-size:13px;font-weight:700;margin-bottom:12px">📊 预算 vs 实际</div>';
     keys.forEach(k=>{
@@ -1504,22 +1329,22 @@ function renderBudget(){
       const ico = CAT_NAMES[k].split(' ')[0];
       const name = CAT_NAMES[k].split(' ').slice(1).join(' ');
       const barColor = colors[k]||'#8C8A80';
-      const diffStr = a>0 ? (diff>=0?`剩余¥${fmt(diff)}`:`超¥${fmt(Math.abs(diff))}`) : '待花费';
-      const diffColor = a===0?'var(--g500)':(diff>=0?'var(--g)':'var(--danger)');
+      const diffStr = diff>=0?`剩余¥${fmt(diff)}`:`超¥${fmt(Math.abs(diff))}`;
+      const diffColor = diff>=0?'var(--g)':'var(--danger)';
       chartHtml += `
       <div style="margin-bottom:10px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
           <span style="font-size:11px;font-weight:600">${ico} ${name}</span>
           <span style="font-size:10px;color:${diffColor};font-weight:600">${diffStr}</span>
         </div>
-        <div style="position:relative;height:18px;background:var(--g100);border-radius:4px;overflow:hidden">
+        <div style="position:relative;height:20px;background:var(--g100);border-radius:4px;overflow:hidden">
           <div style="position:absolute;top:0;left:0;height:100%;width:${budgetW}%;background:${barColor}22;border-radius:4px"></div>
-          ${a>0?`<div style="position:absolute;top:0;left:0;height:100%;width:${Math.min(actualW,budgetW)}%;background:${barColor};border-radius:4px;transition:width .4s ease;opacity:.85"></div>`:''}
+          <div style="position:absolute;top:0;left:0;height:100%;width:${Math.min(actualW,budgetW)}%;background:${barColor};border-radius:4px;transition:width .4s ease;opacity:.85"></div>
           ${a>b?`<div style="position:absolute;top:0;left:${budgetW-1}px;height:100%;width:${Math.min(actualW-budgetW,20)}%;background:var(--danger);border-radius:0 4px 4px 0;opacity:.7"></div>`:''}
         </div>
         <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--g500);margin-top:1px">
-          <span>${a>0?'实际 ¥'+fmt(a):'—'}</span>
-          <span>预算 ¥${fmt(b)}</span>
+          <span>实际 ¥${fmt(a)}</span>
+          <span>预算 ¥${fmt(b)} · ${pctCat}%</span>
         </div>
       </div>`;
     });
@@ -1532,12 +1357,23 @@ function renderBudget(){
     chartEl.innerHTML = chartHtml;
   }
 
+  const br=document.getElementById('budgetRows');
+  br.innerHTML=Object.keys(CAT_NAMES).map(k=>{
+    const a=actual[k],b=BUDGET[k]||0;
+    const diff=b-a;
+    const pctCat=b>0?Math.round(a/b*100):0;
+    const diffStr=diff>=0?`剩余¥${fmt(diff)}`:`超¥${fmt(Math.abs(diff))}`;
+    const diffCls=diff>=0?'pos':'neg';
+    const fillColor=diff>=0?(pctCat<70?'var(--g)':pctCat<90?'var(--a)':'var(--danger)'):'var(--danger)';
+    const ico=CAT_NAMES[k].split(' ')[0];
+    const name=CAT_NAMES[k].split(' ').slice(1).join(' ');
+    return`<div class="bu-row"><div class="bu-top"><div class="bu-ico">${ico}</div><div class="bu-name">${name}</div><div class="bu-actual">¥${fmt(a)}</div><div class="bu-diff ${diffCls}">${diffStr}</div></div><div class="bu-bar"><div class="bu-fill" style="width:${Math.min(pctCat,100)}%;background:${fillColor}"></div></div><div class="bu-labels"><span>实际 ¥${fmt(a)}</span><span>预算 ¥${fmt(b)}</span></div></div>`;
+  }).join('');
 }
 
 function renderDailySummary(){
   const days=['D1','D2','D3','D4','D5','D6'];
   const ds=document.getElementById('dailySummary');
-  if(!ds)return;
   ds.innerHTML=days.map(d=>{
     const dayExps=expenses.filter(e=>e.day===d);
     const total=dayExps.reduce((s,e)=>s+e.amt,0);
@@ -1590,13 +1426,12 @@ function fallbackCopy(text){
 }
 
 function exportData(){
-  const bkData = JSON.parse(localStorage.getItem('expenses')||'[]');
-  const data={expenses,bookkeeping:bkData,edits:localStorage.getItem('sc_edits'),exportTime:new Date().toISOString()};
+  const data={expenses,edits:localStorage.getItem('sc_edits'),exportTime:new Date().toISOString()};
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
-  a.download='四川6日_数据_'+new Date().toLocaleDateString('zh-CN').replace(/\//g,'-')+'.json';
-  a.click();toast('📤 已导出，可在手机端导入同步');
+  a.download='四川6日_记账_'+new Date().toLocaleDateString('zh-CN').replace(/\//g,'-')+'.json';
+  a.click();toast('📤 已导出');
 }
 
 function importData(event){
@@ -1604,21 +1439,13 @@ function importData(event){
   const reader=new FileReader();
   reader.onload=function(e){
     try{
-      const raw=e.target.result;
-      console.log('Import raw length:',raw.length,'first 100:',raw.substring(0,100));
-      const data=JSON.parse(raw);
-      console.log('Import parsed keys:',Object.keys(data));
+      const data=JSON.parse(e.target.result);
       if(data.expenses){expenses=data.expenses;localStorage.setItem('sc_expenses',JSON.stringify(expenses))}
-      if(data.bookkeeping){localStorage.setItem('expenses',JSON.stringify(data.bookkeeping))}
-      if(data.edits&&data.edits!=='null'){try{localStorage.setItem('sc_edits',data.edits);loadEdits()}catch(e2){console.warn('edits import skip:',e2)}}
-      renderExpenses();
-      if(typeof renderBookList==='function') renderBookList();
-      if(typeof renderBudget==='function') renderBudget();
-      toast('📥 已导入同步');
-    }catch(err){console.error('Import error:',err);toast('导入失败：'+err.message)}
+      if(data.edits){localStorage.setItem('sc_edits',data.edits);loadEdits()}
+      renderExpenses();toast('📥 已导入');
+    }catch(err){toast('导入失败：文件格式错误')}
   };
-  reader.onerror=function(){toast('文件读取失败')};
-  reader.readAsText(file,'UTF-8');
+  reader.readAsText(file);
   event.target.value='';
 }
 
@@ -1642,8 +1469,8 @@ document.addEventListener('input',function(e){
 });
 
 // ===== Enter key for quick add =====
-const _ea=document.getElementById('expAmt');if(_ea)_ea.addEventListener('keydown',e=>{if(e.key==='Enter')addExpense()});
-const _ed=document.getElementById('expDesc');if(_ed)_ed.addEventListener('keydown',e=>{if(e.key==='Enter')addExpense()});
+document.getElementById('expAmt').addEventListener('keydown',e=>{if(e.key==='Enter')addExpense()});
+document.getElementById('expDesc').addEventListener('keydown',e=>{if(e.key==='Enter')addExpense()});
 
 // ===== Todo & Status Sync =====
 // TODO_ITEMS moved to DEFAULT_TODOS
@@ -1656,7 +1483,6 @@ const _ed=document.getElementById('expDesc');if(_ed)_ed.addEventListener('keydow
 function toggleShareMode(){
   document.body.classList.toggle('share-mode');
   const btn=document.getElementById('shareBtn');
-  if(!btn)return;
   if(document.body.classList.contains('share-mode')){
     btn.innerHTML='🔒 退出分享';
     btn.style.background='var(--p)';
@@ -1686,7 +1512,6 @@ function renderSplit(){
   const shared=expenses.filter(e=>e.ppl===2);
   const overview=document.getElementById('splitOverview');
   const list=document.getElementById('splitList');
-  if(!overview||!list)return;
   
   let totalShared=0, totalOwed=0, totalReceived=0;
   shared.forEach(e=>{
@@ -1774,6 +1599,9 @@ setTimeout(()=>{
 
 
 // ===== Day filter tabs =====
+let expDayFilter='all';
+let spDayFilter='all';
+
 function setExpDayFilter(day){
   expDayFilter=day;
   renderExpenses();
@@ -1826,10 +1654,7 @@ if(new URLSearchParams(location.search).get('share')==='1'){
 }
 
 loadEdits();
-sh('it'); // Show itinerary by default
-renderTodos(); // Render todos immediately (don't depend on loadTripData)
 renderDayTabs();renderExpenses();
-renderBookList(); // Show saved bookkeeping entries immediately
 syncTodoFromItinerary();
 renderSplit();
 
@@ -1846,7 +1671,7 @@ function syncTodoFromItinerary(){
       if(!tEl)return;
       const text=tEl.textContent;
       // Find matching todo item
-      getTodos().forEach(todo=>{
+      TODO_ITEMS.forEach(todo=>{
         const keywords=todo.keyword.split('|');
         if(keywords.some(kw=>text.includes(kw))){
           todo.day=day;
