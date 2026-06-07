@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蜀道六章 · 成都行程地图</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: #FBFAF8; }
+#map { width: 100%; height: 100vh; }
+
+/* Legend */
+.legend {
+  position: absolute; bottom: 30px; right: 12px; z-index: 1000;
+  background: rgba(255,255,255,0.95); border-radius: 14px; padding: 16px 18px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.1); font-size: 12px; line-height: 2;
+  max-width: 220px;
+}
+.legend-title { font-weight: 800; font-size: 14px; color: #2C2A28; margin-bottom: 6px; }
+.legend-item { display: flex; align-items: center; gap: 8px; }
+.legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+/* Custom marker */
+.day-marker {
+  width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 11px; font-weight: 800; color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2); border: 2.5px solid #fff;
+}
+.day-marker.hotel { border-radius: 6px; font-size: 14px; }
+
+/* Popup */
+.leaflet-popup-content-wrapper { border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.12); }
+.leaflet-popup-content { margin: 12px 16px; font-size: 13px; line-height: 1.7; }
+.popup-day { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; color: #fff; display: inline-block; margin-bottom: 4px; }
+.popup-title { font-weight: 700; font-size: 14px; color: #2C2A28; }
+.popup-desc { color: #8C8A80; font-size: 11px; margin-top: 2px; }
+.popup-cost { color: #D4583A; font-weight: 600; font-size: 12px; margin-top: 2px; }
+
+/* Top bar */
+.top-bar {
+  position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 1000;
+  background: rgba(255,255,255,0.95); border-radius: 14px; padding: 10px 20px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.1); font-size: 14px; font-weight: 700;
+  color: #D4583A; letter-spacing: 2px;
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">🗓️ 蜀道六章 · 成都行程地图</div>
+<div id="map"></div>
+
+<div class="legend">
+  <div class="legend-title">📍 行程标注</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#D4583A"></div>D3 黄龙→成都</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#4A8FD9"></div>D4 三星堆+市区</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#2E8B57"></div>D5 青城山+都江堰</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7C5CFC"></div>D6 博物馆+返程</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#F0A030;border-radius:4px"></div>🏨 住宿</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#888;border-radius:2px"></div>🚄 高铁站</div>
+</div>
+
+<script>
+const map = L.map('map', { zoomControl: false }).setView([30.66, 104.06], 13);
+
+L.control.zoom({ position: 'topleft' }).addTo(map);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap',
+  maxZoom: 18
+}).addTo(map);
+
+const colors = { D3: '#D4583A', D4: '#4A8FD9', D5: '#2E8B57', D6: '#7C5CFC' };
+
+function makeMarker(lat, lng, day, label, title, desc, cost, type='spot') {
+  const color = colors[day] || '#888';
+  let cls = type === 'hotel' ? 'day-marker hotel' : type === 'train' ? 'day-marker' : 'day-marker';
+  const icon = L.divIcon({
+    className: '',
+    html: `<div class="${cls}" style="background:${type==='hotel'?'#F0A030':type==='train'?'#888':color}">${type==='hotel'?'🏨':type==='train'?'🚄':label}</div>`,
+    iconSize: [32, 32],
+    iconAnchor: [16, 16],
+    popupAnchor: [0, -18]
+  });
+  const marker = L.marker([lat, lng], { icon }).addTo(map);
+  marker.bindPopup(`
+    <div class="popup-day" style="background:${color}">${day}</div>
+    <div class="popup-title">${title}</div>
+    ${desc ? `<div class="popup-desc">${desc}</div>` : ''}
+    ${cost ? `<div class="popup-cost">${cost}</div>` : ''}
+  `);
+  return marker;
+}
+
+// ===== D3 黄龙→成都 =====
+makeMarker(30.6698, 104.0555, 'D3', '3', '🍲 百年蹄花馆', '宽窄巷子支巷，非遗蹄花汤+秘制青椒酱', '¥60/人');
+makeMarker(30.6720, 104.0520, 'D3', '🏨', '汉庭宽窄巷子中心店', '西月城街16号，6/15-6/18住3晚', '¥317/人', 'hotel');
+
+// ===== D4 三星堆+市区 =====
+makeMarker(30.6700, 104.0480, 'D4', '4', '🍜 梁记肥肠粉', '长顺上街，肥肠粉+葱油饼', '¥20/人');
+makeMarker(30.6690, 104.0450, 'D4', '4', '🚶 宽窄巷子', '清晨人少，快速逛宽巷子、窄巷子', '');
+makeMarker(30.6710, 104.0420, 'D4', '4', '🚶 魁星楼街', '文艺小店+网红墙', '');
+makeMarker(30.6625, 104.0580, 'D4', '4', '🍵 人民公园·鹤鸣茶社', '盖碗茶+采耳，瘫竹椅30分钟', '¥30/人');
+makeMarker(30.6300, 104.1370, 'D4', '🚄', '成都东站', 'D1702→广汉北(18min)', '', 'train');
+makeMarker(31.1310, 104.2530, 'D4', '4', '🏛️ 三星堆博物馆', '青铜大立人·金面具·青铜神树', '¥72/人 ⚠️6/11抢票');
+makeMarker(30.6430, 104.0520, 'D4', '4', '🍲 巴蜀大宅门火锅', '高升桥店，吃完散步去川剧', '¥80-100/人');
+makeMarker(30.6410, 104.0730, 'D4', '4', '🌉 锦江边散步', '合江亭→安顺廊桥→九眼桥', '🎁 安顺廊桥夜景');
+makeMarker(30.6580, 104.0380, 'D4', '4', '🎭 蜀风雅韵川剧变脸', '琴台路文化公园内，20:00场', '¥90/人');
+
+// ===== D5 青城山+都江堰 =====
+makeMarker(30.7580, 103.9800, 'D5', '🚄', '犀浦站', 'S5081→青城山', '', 'train');
+makeMarker(30.8960, 103.5730, 'D5', '5', '⛰️ 青城山前山', '建福宫→天师洞→老君阁', '¥80/人+索道¥35');
+makeMarker(30.8850, 103.5600, 'D5', '5', '🍽️ 青城老腊肉馆', '老腊肉+白果炖鸡', '¥60/人');
+makeMarker(30.9980, 103.6070, 'D5', '5', '🌊 都江堰景区', '鱼嘴、飞沙堰、宝瓶口', '¥15/人 🆔上海身份证');
+makeMarker(30.9930, 103.6190, 'D5', '🚄', '都江堰站', 'S5064→犀浦', '', 'train');
+makeMarker(30.7560, 103.9730, 'D5', '5', '🍢 犀浦夜市', '铁板烧、烤脑花、冰粉', '¥40-60/人');
+
+// ===== D6 博物馆+返程 =====
+makeMarker(30.6590, 104.0650, 'D6', '6', '🍜 西月城谭豆花', '豆花面+冰醉豆花', '¥18/人');
+makeMarker(30.6570, 104.0630, 'D6', '6', '🏛️ 成都博物馆', '石犀、说唱俑、皮影木偶展', '免费 需预约');
+makeMarker(30.6780, 104.0680, 'D6', '6', '🥢 洞子口张老二甜水面', '甜水面+白凉粉', '¥20/人');
+makeMarker(30.6750, 104.0750, 'D6', '6', '🙏 文殊院', '红墙拍照+香园茶馆', '免费');
+makeMarker(30.5340, 104.0740, 'D6', '✈️', '天府国际机场', 'MU5404 19:45→上海', '', 'train');
+
+// ===== D1 九寨沟区域 (separate view) =====
+// These are far from Chengdu, add as a note
+const jzGroup = L.layerGroup();
+const jzMarker = L.marker([33.2600, 103.9200], {
+  icon: L.divIcon({
+    className: '',
+    html: '<div style="background:#E87050;color:#fff;padding:8px 14px;border-radius:10px;font-size:12px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.15);white-space:nowrap">🏞️ 九寨沟/黄龙区域<br><span style="font-size:10px;font-weight:400">D1-D3 · 距成都300km+</span></div>',
+    iconSize: [140, 44],
+    iconAnchor: [70, 22]
+  })
+}).addTo(map);
+jzMarker.bindPopup('<b>🏞️ 九寨沟+黄龙</b><br>D1-D3 在此区域<br>距成都约300km，高铁1.5h到松潘');
+
+// ===== Route lines =====
+// D4: 宽窄巷子→魁星楼→人民公园→成都东→三星堆
+const d4line = L.polyline([
+  [30.6700, 104.0480], // 梁记肥肠粉
+  [30.6690, 104.0450], // 宽窄巷子
+  [30.6710, 104.0420], // 魁星楼
+  [30.6625, 104.0580], // 人民公园
+  [30.6300, 104.1370], // 成都东
+  [31.1310, 104.2530], // 三星堆
+], {color: '#4A8FD9', weight: 2.5, opacity: 0.6, dashArray: '6,4'}).addTo(map);
+
+// D4 return: 三星堆→成都东→巴蜀大宅门→锦江→蜀风雅韵
+const d4return = L.polyline([
+  [31.1310, 104.2530], // 三星堆
+  [30.6300, 104.1370], // 成都东
+  [30.6430, 104.0520], // 巴蜀大宅门
+  [30.6410, 104.0730], // 锦江
+  [30.6580, 104.0380], // 蜀风雅韵
+], {color: '#4A8FD9', weight: 2.5, opacity: 0.4, dashArray: '3,6'}).addTo(map);
+
+// D6: 酒店→成都博物馆→文殊院→洞子口→天府机场
+const d6line = L.polyline([
+  [30.6720, 104.0520], // 汉庭
+  [30.6590, 104.0650], // 谭豆花
+  [30.6570, 104.0630], // 成都博物馆
+  [30.6780, 104.0680], // 洞子口张老二
+  [30.6750, 104.0750], // 文殊院
+  [30.6720, 104.0520], // 回酒店
+  [30.5340, 104.0740], // 天府机场
+], {color: '#7C5CFC', weight: 2.5, opacity: 0.6, dashArray: '6,4'}).addTo(map);
+
+// D3: 成都东→百年蹄花→汉庭
+const d3line = L.polyline([
+  [30.6300, 104.1370], // 成都东
+  [30.6698, 104.0555], // 百年蹄花馆
+  [30.6720, 104.0520], // 汉庭
+], {color: '#D4583A', weight: 2.5, opacity: 0.6, dashArray: '6,4'}).addTo(map);
+
+// D5: 汉庭→犀浦→青城山→都江堰→犀浦→夜市→汉庭
+const d5line = L.polyline([
+  [30.6720, 104.0520], // 汉庭
+  [30.7580, 103.9800], // 犀浦
+  [30.8960, 103.5730], // 青城山
+  [30.8850, 103.5600], // 老腊肉馆
+  [30.9980, 103.6070], // 都江堰
+  [30.9930, 103.6190], // 都江堰站
+  [30.7580, 103.9800], // 犀浦
+  [30.7560, 103.9730], // 犀浦夜市
+  [30.6720, 104.0520], // 汉庭
+], {color: '#2E8B57', weight: 2.5, opacity: 0.6, dashArray: '6,4'}).addTo(map);
+
+// Fit to Chengdu city area
+map.fitBounds([[30.62, 103.93], [30.70, 104.15]], {padding: [60, 60]});
+</script>
+
+</body>
+</html>
