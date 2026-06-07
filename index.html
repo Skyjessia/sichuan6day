@@ -6,6 +6,8 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <title>四川6日深度游</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -57,6 +59,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .day-tab:hover{border-color:var(--p);color:var(--p)}
 .day-tab.on{color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(0,0,0,.12)}
 .day-tab.on.d1{background:linear-gradient(135deg,#C4553A,#E07050)}.day-tab.on.d2{background:linear-gradient(135deg,#2D8B5F,#4CAF7D)}.day-tab.on.d3{background:linear-gradient(135deg,#E8A838,#F0C060)}.day-tab.on.d4{background:linear-gradient(135deg,#4A90D9,#6AAFE8)}.day-tab.on.d5{background:linear-gradient(135deg,#9C5AB5,#B87DD0)}.day-tab.on.d6{background:linear-gradient(135deg,#5B7FA5,#7DA0C4)}
+.day-tab.on.d-map{background:linear-gradient(135deg,#7C5CFC,#9B7EFD)}
 .day-tab .dt-date{font-size:10px;opacity:.7;font-weight:400}
 
 /* PC: tab mode - show only selected day */
@@ -885,9 +888,12 @@ function renderItinerary(data) {
     const label = dayLabels[day.day] || day.day;
     html += `<div class="day-tab ${cls}" onclick="switchDay('${day.day}')">${label} <span class="dt-date">${date}</span></div>`;
   });
+  html += `<div class="day-tab d-map" onclick="switchDay('map')">🗺️ 地图</div>`;
   html += '</div>';
   // Day cards
   days.forEach(day => { html += renderDay(day); });
+  // Map container (hidden by default)
+  html += `<div id="mapCard" class="dc" style="display:none"><div class="db" style="background:linear-gradient(135deg,#5B7FA5,#7DA0C4)"><span class="n">map</span><span class="l">🗺️ 行程地图</span></div><div class="di" style="padding:0;overflow:hidden"><div id="tripMap" style="height:420px;width:100%;border-radius:0 0 var(--r) var(--r)"></div></div></div>`;
   container.innerHTML = html;
   // Update subtitle
   const sub = document.getElementById('tripSub');
@@ -900,12 +906,28 @@ function switchDay(dayId) {
   const tab = document.querySelector(`.day-tab[onclick*="'${dayId}'"]`);
   if (tab) tab.classList.add('on');
   const isPC = window.innerWidth >= 769;
+
+  if (dayId === 'map') {
+    // Show map, hide all day cards
+    document.querySelectorAll('.dc').forEach(dc => dc.style.display = 'none');
+    const mapCard = document.getElementById('mapCard');
+    if (mapCard) { mapCard.style.display = 'block'; mapCard.classList.add('open'); }
+    // Init map if not yet
+    if (!window._tripMapInit) { initTripMap(); window._tripMapInit = true; }
+    return;
+  }
+
+  // Hide map card
+  const mapCard = document.getElementById('mapCard');
+  if (mapCard) mapCard.style.display = 'none';
+
   document.querySelectorAll('.dc').forEach(dc => {
     const dayLabel = dc.querySelector('.db .n');
     const match = dayLabel && dayLabel.textContent.trim() === dayId;
     if (isPC) {
       // PC: show only selected day via day-active class
       dc.classList.toggle('day-active', match);
+      dc.style.display = '';
     } else {
       // Mobile: expand/collapse
       if (match) {
@@ -914,8 +936,89 @@ function switchDay(dayId) {
       } else {
         dc.classList.remove('open');
       }
+      dc.style.display = '';
     }
   });
+}
+
+function initTripMap() {
+  const el = document.getElementById('tripMap');
+  if (!el || typeof L === 'undefined') return;
+  const map = L.map('tripMap').setView([30.66, 104.06], 13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap', maxZoom: 18
+  }).addTo(map);
+
+  const mkIcon = (color, label) => L.divIcon({
+    className: '', html: `<div style="width:28px;height:28px;border-radius:50%;background:${color};color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;box-shadow:0 2px 6px rgba(0,0,0,.2);border:2px solid #fff">${label}</div>`,
+    iconSize: [28, 28], iconAnchor: [14, 14]
+  });
+  const hotelIcon = L.divIcon({
+    className: '', html: '<div style="width:28px;height:28px;border-radius:6px;background:#7C5CFC;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 2px 6px rgba(0,0,0,.2);border:2px solid #fff">🏨</div>',
+    iconSize: [28, 28], iconAnchor: [14, 14]
+  });
+
+  const pts = [
+    // D3
+    {pos:[30.6698,104.0555],title:'百年蹄花馆',day:'D3',color:'#E8A838'},
+    // D4
+    {pos:[30.6700,104.0550],title:'梁记肥肠粉',day:'D4',color:'#4A8FD9'},
+    {pos:[30.6700,104.0480],title:'宽窄巷子',day:'D4',color:'#4A8FD9'},
+    {pos:[30.6730,104.0430],title:'魁星楼街',day:'D4',color:'#4A8FD9'},
+    {pos:[30.6590,104.0580],title:'人民公园·鹤鸣茶社',day:'D4',color:'#4A8FD9'},
+    {pos:[30.6300,104.1370],title:'成都东站',day:'D4',color:'#4A8FD9'},
+    {pos:[30.6430,104.0520],title:'巴蜀大宅门火锅',day:'D4',color:'#4A8FD9'},
+    {pos:[30.6410,104.0730],title:'锦江边散步',day:'D4',color:'#4A8FD9'},
+    {pos:[30.6580,104.0380],title:'蜀风雅韵川剧',day:'D4',color:'#4A8FD9'},
+    // D5
+    {pos:[30.7580,103.9800],title:'犀浦站',day:'D5',color:'#9C5AB5'},
+    {pos:[30.8960,103.5730],title:'青城山',day:'D5',color:'#9C5AB5'},
+    {pos:[30.9980,103.6070],title:'都江堰',day:'D5',color:'#9C5AB5'},
+    {pos:[30.7560,103.9730],title:'犀浦夜市',day:'D5',color:'#9C5AB5'},
+    // D6
+    {pos:[30.6720,104.0470],title:'西月城谭豆花',day:'D6',color:'#5B7FA5'},
+    {pos:[30.6570,104.0630],title:'成都博物馆',day:'D6',color:'#5B7FA5'},
+    {pos:[30.6780,104.0680],title:'洞子口张老二甜水面',day:'D6',color:'#5B7FA5'},
+    {pos:[30.6750,104.0750],title:'文殊院',day:'D6',color:'#5B7FA5'},
+  ];
+
+  const hotels = [
+    {pos:[30.6720,104.0520],title:'汉庭宽窄巷子中心店',days:'D3-D6'},
+  ];
+
+  pts.forEach(p => {
+    L.marker(p.pos, {icon: mkIcon(p.color, p.day)}).addTo(map).bindPopup(`<b style="color:${p.color}">${p.day}</b> ${p.title}`);
+  });
+  hotels.forEach(h => {
+    L.marker(h.pos, {icon: hotelIcon}).addTo(map).bindPopup(`<b>🏨 ${h.title}</b><br>${h.days}`);
+  });
+
+  // D3 route
+  L.polyline([[30.6300,104.1370],[30.6698,104.0555],[30.6720,104.0520]], {color:'#E8A838',weight:2.5,opacity:0.6,dashArray:'6,4'}).addTo(map);
+  // D4 route
+  L.polyline([[30.6700,104.0550],[30.6700,104.0480],[30.6730,104.0430],[30.6590,104.0580],[30.6430,104.0520],[30.6410,104.0730],[30.6580,104.0380]], {color:'#4A8FD9',weight:2.5,opacity:0.6,dashArray:'6,4'}).addTo(map);
+  // D5 route
+  L.polyline([[30.6720,104.0520],[30.7580,103.9800],[30.8960,103.5730],[30.9980,103.6070],[30.7580,103.9800],[30.7560,103.9730],[30.6720,104.0520]], {color:'#9C5AB5',weight:2.5,opacity:0.6,dashArray:'6,4'}).addTo(map);
+  // D6 route
+  L.polyline([[30.6720,104.0520],[30.6720,104.0470],[30.6570,104.0630],[30.6780,104.0680],[30.6750,104.0750],[30.6720,104.0520]], {color:'#5B7FA5',weight:2.5,opacity:0.6,dashArray:'6,4'}).addTo(map);
+
+  // Legend
+  const legend = L.control({position:'bottomright'});
+  legend.onAdd = function() {
+    const div = L.DomUtil.create('div','');
+    div.innerHTML = `<div style="background:rgba(255,255,255,.92);border-radius:10px;padding:10px 14px;font-size:11px;line-height:2;box-shadow:0 2px 10px rgba(0,0,0,.1)">
+      <div style="font-weight:700;margin-bottom:4px">📍 路线图例</div>
+      <div><span style="color:#E8A838">●</span> D3 黄龙夜归</div>
+      <div><span style="color:#4A8FD9">●</span> D4 古蜀听戏</div>
+      <div><span style="color:#9C5AB5">●</span> D5 问道拜水</div>
+      <div><span style="color:#5B7FA5">●</span> D6 禅茶归途</div>
+      <div><span style="color:#7C5CFC">■</span> 🏨 住宿</div>
+    </div>`;
+    return div;
+  };
+  legend.addTo(map);
+
+  setTimeout(() => map.invalidateSize(), 200);
 }
 
 // ===== Load data.json =====
