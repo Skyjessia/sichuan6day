@@ -310,7 +310,7 @@ body.share-mode .al{display:none}
 <div class="bu-head">
 <div class="bl">人均预算</div>
 <div class="ba" id="budgetTotal">¥5,500</div>
-<div style="font-size:11px;opacity:.7;margin-top:3px">2人总计 ¥11,000</div>
+<div style="font-size:11px;opacity:.7;margin-top:3px" id="budgetTotal2p">2人总计 ¥10,942</div>
 </div>
 
 <div class="prog-wrap">
@@ -322,6 +322,11 @@ body.share-mode .al{display:none}
 <div id="budgetChart" style="background:#fff;border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:var(--sh)"></div>
 
 <div id="budgetRows"></div>
+
+<div style="display:flex;gap:8px;margin-top:12px">
+<button onclick="exportData()" style="flex:1;padding:10px;background:#fff;border:1.5px solid var(--g200);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;color:var(--g700)">📤 导出数据</button>
+<label style="flex:1;padding:10px;background:#fff;border:1.5px solid var(--g200);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;color:var(--g700);text-align:center;display:block">📥 导入数据<input type="file" accept=".json,application/json" onchange="importData(event)" style="display:none"></label>
+</div>
 </div>
 
 
@@ -606,8 +611,8 @@ body.share-mode .al{display:none}
 function fmt(n){return n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}
 
 // ===== Expense data =====
-const BUDGET = {flight:1960,train:300,local:350,ticket:822,hotel:684,food:600,entertain:300,shop:400,other:200}; // Will be overridden by data.json
-const BUDGET_TOTAL = Object.values(BUDGET).reduce((a,b)=>a+b,0);
+const BUDGET = {flight:1960,train:375,local:400,ticket:757,hotel:655,food:600,entertain:150,shop:500,other:449}; // Will be overridden by data.json
+let BUDGET_TOTAL = Object.values(BUDGET).reduce((a,b)=>a+b,0);
 const CAT_MAP = {'✈️':'flight','🚄':'train','🚌':'local','🎫':'ticket','🏨':'hotel','🍜':'food','🎭':'entertain','🛒':'shop','📦':'other'};
 
 let expenses = JSON.parse(localStorage.getItem('sc_expenses')||'[]');
@@ -621,7 +626,7 @@ const PREFILL = [
   {id:4,cat:'🚄',amt:26,desc:'成都东↔广汉北 往返高铁',day:'D4',time:'当天买',ppl:2},
   {id:5,cat:'🚄',amt:20,desc:'犀浦↔青城山 往返高铁',day:'D5',time:'当天买',ppl:2},
   {id:6,cat:'🏨',amt:676,desc:'青禾和院 2晚(6/13-6/15)',day:'D1',time:'已订',ppl:2},
-  {id:7,cat:'🏨',amt:691.51,desc:'汉庭宽窄巷子中心店 3晚(6/15-6/18)',day:'D3',time:'已订',ppl:2},
+  {id:7,cat:'🏨',amt:633.06,desc:'汉庭宽窄巷子中心店 3晚(6/15-6/18)',day:'D3',time:'已订',ppl:2},
   {id:8,cat:'🎫',amt:560,desc:'九寨沟门票+观光车',day:'D2',time:'已买',ppl:2},
   {id:9,cat:'🎫',amt:500,desc:'黄龙门票+索道+观光车',day:'D3',time:'待买',ppl:2},
   {id:10,cat:'🎫',amt:144,desc:'三星堆门票',day:'D4',time:'已买',ppl:2},
@@ -901,7 +906,7 @@ async function loadTripData(retryCount = 0) {
   // Always render extras from data.json (eggs, tips, ticket timeline, budget)
   if (tripData) {
     renderAllExtras(tripData);
-    if (tripData.budget) Object.assign(BUDGET, tripData.budget);
+    if (tripData.budget) { Object.assign(BUDGET, tripData.budget); BUDGET_TOTAL = Object.values(BUDGET).reduce((a,b)=>a+b,0); }
     if (tripData.prefill) { PREFILL.length = 0; tripData.prefill.forEach(p => PREFILL.push(p)); }
   }
 
@@ -1306,6 +1311,8 @@ function renderBudget(){
   // Update budget total display from data.json
   if(tripData && tripData.budgetPerPerson){
     document.getElementById('budgetTotal').textContent='¥'+tripData.budgetPerPerson.toLocaleString();
+    const total2p = document.getElementById('budgetTotal2p');
+    if(total2p) total2p.textContent='2人总计 ¥'+tripData.budgetTotal2p.toLocaleString();
   }
 
   // ===== Render visual chart =====
@@ -1426,7 +1433,7 @@ function fallbackCopy(text){
 }
 
 function exportData(){
-  const data={expenses,edits:localStorage.getItem('sc_edits'),exportTime:new Date().toISOString()};
+  const data={expenses,bookExpenses:getExpenses(),edits:localStorage.getItem('sc_edits'),exportTime:new Date().toISOString()};
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const a=document.createElement('a');
   a.href=URL.createObjectURL(blob);
@@ -1441,8 +1448,9 @@ function importData(event){
     try{
       const data=JSON.parse(e.target.result);
       if(data.expenses){expenses=data.expenses;localStorage.setItem('sc_expenses',JSON.stringify(expenses))}
+      if(data.bookExpenses){saveExpenses(data.bookExpenses)}
       if(data.edits){localStorage.setItem('sc_edits',data.edits);loadEdits()}
-      renderExpenses();toast('📥 已导入');
+      renderExpenses();renderBookList();renderBudget();toast('📥 已导入');
     }catch(err){toast('导入失败：文件格式错误')}
   };
   reader.readAsText(file);
