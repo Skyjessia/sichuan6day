@@ -252,6 +252,11 @@ body.share-mode #todoSection{display:none!important}
 @media print{.nav,.bottom-bar,.data-bar,.quick-add,.edit-hint{display:none}.s{display:block!important}.dc .tl{display:block!important}.darr{display:none}}
 </style>
 <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoi5YyX5YqoNuaXqumZkOWPuCIsInNob3J0X25hbWUiOiLljJfliqgiLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI0ZCRkFGOCIsInRoZW1lX2NvbG9yIjoiI0Q0NTgzQSJ9"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="四川6日">
+<style>/* ===== 统一回旅行地图按钮（travel-bank体系 10/7）===== */
+.home-btn{position:fixed;top:14px;right:14px;z-index:999;background:#4a4034;color:#fff;padding:8px 15px;border-radius:22px;font-size:13px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.22);font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;transition:background .2s}
+.home-btn:hover{background:#6b5b45}
+.home-btn::before{content:"🗺️ "}
+</style>
 </head>
 <body>
 <div class="c">
@@ -2144,5 +2149,6 @@ const origEndDrag=typeof endDrag==='function'?endDrag:null;
 })();
 
 </script>
+<a class="home-btn" href="https://skyjessia.github.io/travel-bank/">回到我的旅行地图</a>
 </body>
 </html>
